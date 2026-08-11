@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f0eee9;font-family:'IBM Plex Sans',system-ui,sans-serif}
+a{color:#2a78d6}a:hover{color:#1a5aa8}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 8px}
+.dv-tid{font:600 10px 'IBM Plex Mono',monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 'IBM Plex Sans',sans-serif;color:#1a1a1a}
+.dv-note{margin:0 0 24px;max-width:760px;font:13px/1.6 'IBM Plex Sans',sans-serif;color:rgba(0,0,0,.6)}
+.dv-sub{margin:28px 0 16px;font:600 11px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.4)}
+.dv-opts{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px 'IBM Plex Mono',monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 'IBM Plex Sans',sans-serif;color:rgba(0,0,0,.55)}
+.dv-card{max-width:100%;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}
+.dv-opt:target .dv-oid{background:#2a78d6;color:#fff}
+.dv-next{margin:26px 0 0;font:12px/1.5 'IBM Plex Sans',sans-serif;color:rgba(0,0,0,.5)}
+@keyframes cur{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes scan{0%{transform:translateY(-100%)}100%{transform:translateY(1200%)}}
+@keyframes barber{to{background-position:40px 0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style></helmet>
+
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Direction A (phosphor) — the remaining pages, same system</span></div>
+<p class="dv-note">Locked to the phosphor terminal direction. Already in this style and unchanged from turn 1: lookup <a class="dv-oid" href="#1a">1a</a>, item detail <a class="dv-oid" href="#1d">1d</a>, download <a class="dv-oid" href="#1f">1f</a>, collection <a class="dv-oid" href="#1h">1h</a>, about <a class="dv-oid" href="#1k">1k</a>, errors and 404 <a class="dv-oid" href="#1m">1m</a>. Below are the four that were still in the slate style, plus mobile. Shared rules across every page: same header bar and footer line, 12px mono body, single accent <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">#7ef0b0</code>, borders at 16% accent, one scanline overlay per full page, no second colour except the amber and red used for warnings and failures.</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="2a"><div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Donate a game</div>
+<div class="dv-card" style="width:820px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.035) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:13px 24px;border-bottom:1px solid rgba(126,240,176,.16);font-size:11.5px;letter-spacing:.05em">
+<span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span>
+<div style="display:flex;gap:18px;color:rgba(126,240,176,.5)"><span>ABOUT</span><span style="color:#7ef0b0;border-bottom:1px solid #7ef0b0;padding-bottom:2px">DONATE A GAME</span><span>CREDITS</span><span>PRIVACY</span></div>
+</div>
+<div style="padding:30px 34px 34px">
+<div style="font-size:11px;letter-spacing:.14em;color:rgba(126,240,176,.4);margin-bottom:14px">$ ./donate --key</div>
+<h2 style="margin:0 0 12px;font:700 27px/1.2 'IBM Plex Mono',monospace;color:#dffbec">Give a key, widen the coverage</h2>
+<p style="margin:0 0 28px;font-size:12.5px;line-height:1.8;color:rgba(223,251,236,.72);max-width:560px">Some games must be owned before their Workshop items can be resolved. A donated key makes every item for that game downloadable here. Keys are redeemed manually and never resold.</p>
+<div style="display:flex;gap:34px;align-items:flex-start">
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:20px">
+<div>
+<div style="display:flex;justify-content:space-between;font-size:11px;letter-spacing:.1em;margin-bottom:8px"><span style="color:rgba(126,240,176,.6)">GAME NAME</span><span style="color:rgba(126,240,176,.3)">OPTIONAL</span></div>
+<div style="border:1px solid rgba(126,240,176,.22);background:rgba(126,240,176,.03);padding:13px 14px;font-size:14px;color:rgba(223,251,236,.45)">Stellar Drift</div>
+<div style="font-size:11px;color:rgba(126,240,176,.35);margin-top:6px">Leave blank and we resolve it from the key.</div>
+</div>
+<div>
+<div style="display:flex;justify-content:space-between;font-size:11px;letter-spacing:.1em;margin-bottom:8px"><span style="color:#7ef0b0">STEAM KEY</span><span style="color:#7ef0b0">REQUIRED</span></div>
+<div style="border:1px solid rgba(126,240,176,.6);background:rgba(126,240,176,.06);padding:13px 14px;font-size:15px;letter-spacing:.12em;color:#dffbec;display:flex;align-items:center;box-shadow:0 0 24px -6px rgba(126,240,176,.3) inset"><span style="color:rgba(126,240,176,.5);margin-right:10px">&gt;</span>7KQ2M-<span style="display:inline-block;width:9px;height:17px;background:#7ef0b0;margin-left:1px;animation:cur 1.05s step-end infinite"></span><span style="color:rgba(126,240,176,.25);margin-left:2px">XXXXX-XXXXX</span></div>
+</div>
+<div>
+<div style="display:flex;justify-content:space-between;font-size:11px;letter-spacing:.1em;margin-bottom:8px"><span style="color:rgba(126,240,176,.6)">MESSAGE</span><span style="color:rgba(126,240,176,.3)">OPTIONAL</span></div>
+<div style="border:1px solid rgba(126,240,176,.22);background:rgba(126,240,176,.03);padding:13px 14px;font-size:12.5px;line-height:1.7;color:rgba(223,251,236,.45);height:70px">Spare copy from a bundle. Hope it helps.</div>
+</div>
+<div>
+<div style="display:flex;justify-content:space-between;font-size:11px;letter-spacing:.1em;margin-bottom:8px"><span style="color:rgba(126,240,176,.6)">CREDITS NAME</span><span style="color:rgba(126,240,176,.3)">OPTIONAL</span></div>
+<div style="border:1px solid rgba(126,240,176,.22);background:rgba(126,240,176,.03);padding:13px 14px;font-size:14px;color:rgba(223,251,236,.45)">How you want to appear on the credits page</div>
+</div>
+<div style="display:flex;gap:12px;align-items:flex-start;border:1px solid rgba(126,240,176,.18);padding:14px 15px">
+<span style="font-size:14px;color:#7ef0b0;line-height:1.2">[×]</span>
+<div><div style="font-size:12.5px;color:#dffbec">I want my name shown on the credits page</div>
+<div style="font-size:11px;color:rgba(126,240,176,.4);margin-top:4px;line-height:1.6">Unticked, the donation stays anonymous and no name is stored.</div></div>
+</div>
+<div style="display:flex;align-items:center;gap:16px;margin-top:2px">
+<span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:12.5px;letter-spacing:.08em;padding:14px 30px">SUBMIT KEY</span>
+<span style="font-size:11px;color:rgba(126,240,176,.35);line-height:1.6">Encrypted at rest.<br>Deleted after redemption.</span>
+</div>
+</div>
+<div style="width:238px;flex:none;border-left:1px solid rgba(126,240,176,.12);padding-left:26px">
+<div style="font-size:11px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:12px">MOST REQUESTED</div>
+<div style="display:flex;flex-direction:column;gap:10px;font-size:12px">
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(223,251,236,.8)">Stellar Drift</span><span style="color:rgba(126,240,176,.4)">412</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(223,251,236,.8)">Harrowmere</span><span style="color:rgba(126,240,176,.4)">288</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(223,251,236,.8)">Tin Can Diver</span><span style="color:rgba(126,240,176,.4)">173</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(223,251,236,.8)">Grease Monkey 2</span><span style="color:rgba(126,240,176,.4)">96</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(223,251,236,.8)">Loft &amp; Ladder</span><span style="color:rgba(126,240,176,.4)">61</span></div>
+</div>
+<div style="margin-top:22px;padding-top:16px;border-top:1px solid rgba(126,240,176,.12);font-size:11px;color:rgba(126,240,176,.4);line-height:1.75">A key is redeemed on a dedicated account used only to resolve Workshop items. It is never used to play, review or trade.</div>
+<div style="margin-top:18px;border:1px solid rgba(255,207,107,.28);background:rgba(255,207,107,.05);padding:12px 13px;font-size:11px;line-height:1.7;color:#ffcf6b">Do not send keys for games you did not lawfully obtain.</div>
+</div>
+</div>
+</div>
+<div style="border-top:1px solid rgba(126,240,176,.12);padding:14px 24px;font-size:11px;color:rgba(126,240,176,.3)">This website is a community project and is not affiliated with Valve Corporation or Steam.</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="2b"><div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a>Credits — hue hashed from the name, on phosphor</div>
+<div class="dv-card" style="width:820px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.035) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:13px 24px;border-bottom:1px solid rgba(126,240,176,.16);font-size:11.5px;letter-spacing:.05em">
+<span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span>
+<div style="display:flex;gap:18px;color:rgba(126,240,176,.5)"><span>ABOUT</span><span>DONATE A GAME</span><span style="color:#7ef0b0;border-bottom:1px solid #7ef0b0;padding-bottom:2px">CREDITS</span><span>PRIVACY</span></div>
+</div>
+<div style="padding:30px 34px 34px">
+<div style="font-size:11px;letter-spacing:.14em;color:rgba(126,240,176,.4);margin-bottom:14px">$ cat credits.txt | sort</div>
+<h2 style="margin:0 0 12px;font:700 27px/1.2 'IBM Plex Mono',monospace">People who donated a game</h2>
+<p style="margin:0 0 26px;font-size:12.5px;line-height:1.8;color:rgba(223,251,236,.7);max-width:560px">Everyone here gave a key and asked to be named. Colour is derived from the name itself, so the same name always renders the same hue.</p>
+<div style="display:flex;flex-wrap:wrap;gap:9px">
+<sc-for list="{{ donors }}" as="d" hint-placeholder-count="18">
+<div style="display:flex;align-items:center;gap:9px;border:1px solid rgba(126,240,176,.18);background:rgba(126,240,176,.03);padding:8px 13px">
+<span style="width:8px;height:8px;display:block;background:{{ d.color }}"></span>
+<span style="font-size:13px;font-weight:500;color:{{ d.color }}">{{ d.name }}</span>
+<span style="font-size:10px;color:rgba(126,240,176,.3)">{{ d.hue }}°</span>
+</div>
+</sc-for>
+</div>
+<div style="margin-top:28px;padding-top:18px;border-top:1px solid rgba(126,240,176,.12);display:flex;gap:34px;font-size:11.5px;color:rgba(126,240,176,.45);line-height:1.8">
+<div style="flex:1">Plus 41 anonymous donations.<br>Names are removed on request, at which point the colour goes with them.</div>
+<div style="flex:1;color:rgba(126,240,176,.35)">hue = fnv1a(name) mod 360<br>lightness 0.80 · chroma 0.14 fixed<br>so no name lands on an unreadable colour</div>
+</div>
+</div>
+<div style="border-top:1px solid rgba(126,240,176,.12);padding:14px 24px;font-size:11px;color:rgba(126,240,176,.3)">This website is a community project and is not affiliated with Valve Corporation or Steam.</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="2c"><div class="dv-olabel"><a class="dv-oid" href="#2c">2c</a>Privacy policy</div>
+<div class="dv-card" style="width:820px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.035) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:13px 24px;border-bottom:1px solid rgba(126,240,176,.16);font-size:11.5px;letter-spacing:.05em">
+<span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span>
+<div style="display:flex;gap:18px;color:rgba(126,240,176,.5)"><span>ABOUT</span><span>DONATE A GAME</span><span>CREDITS</span><span style="color:#7ef0b0;border-bottom:1px solid #7ef0b0;padding-bottom:2px">PRIVACY</span></div>
+</div>
+<div style="padding:30px 34px 34px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;font-size:11px;letter-spacing:.14em;color:rgba(126,240,176,.4);margin-bottom:14px"><span>$ cat privacy.txt</span><span>LAST MODIFIED 2026-08-11</span></div>
+<h2 style="margin:0 0 24px;font:700 27px/1.2 'IBM Plex Mono',monospace">What we hold, and for how long</h2>
+<div style="font-size:12.5px">
+<div style="display:flex;gap:22px;padding:15px 0;border-top:1px solid rgba(126,240,176,.12)"><div style="width:150px;flex:none;color:#7ef0b0;letter-spacing:.06em">LOOKUPS</div><div style="line-height:1.8;color:rgba(223,251,236,.75)">The item IDs you resolve are cached for 24 hours to reduce API load. They are not tied to you.</div></div>
+<div style="display:flex;gap:22px;padding:15px 0;border-top:1px solid rgba(126,240,176,.12)"><div style="width:150px;flex:none;color:#7ef0b0;letter-spacing:.06em">DOWNLOADS</div><div style="line-height:1.8;color:rgba(223,251,236,.75)">Files pass through and are deleted once the transfer ends. Nothing is archived or mirrored.</div></div>
+<div style="display:flex;gap:22px;padding:15px 0;border-top:1px solid rgba(126,240,176,.12)"><div style="width:150px;flex:none;color:#7ef0b0;letter-spacing:.06em">LOGS</div><div style="line-height:1.8;color:rgba(223,251,236,.75)">IP addresses appear in rate-limiting logs, truncated to a /24 and dropped after 7 days.</div></div>
+<div style="display:flex;gap:22px;padding:15px 0;border-top:1px solid rgba(126,240,176,.12)"><div style="width:150px;flex:none;color:#7ef0b0;letter-spacing:.06em">DONATIONS</div><div style="line-height:1.8;color:rgba(223,251,236,.75)">Steam keys are encrypted at rest and deleted after redemption. A credits name is stored only if you tick the box, and removed on request. Messages are read once and not published.</div></div>
+<div style="display:flex;gap:22px;padding:15px 0;border-top:1px solid rgba(126,240,176,.12)"><div style="width:150px;flex:none;color:#7ef0b0;letter-spacing:.06em">COOKIES</div><div style="line-height:1.8;color:rgba(223,251,236,.75)">None. Recent lookups live in your browser's local storage and never leave the device.</div></div>
+<div style="display:flex;gap:22px;padding:15px 0;border-top:1px solid rgba(126,240,176,.12);border-bottom:1px solid rgba(126,240,176,.12)"><div style="width:150px;flex:none;color:#7ef0b0;letter-spacing:.06em">THIRD PARTIES</div><div style="line-height:1.8;color:rgba(223,251,236,.75)">Requests are made to Steam's API on your behalf. No analytics, no ad networks, no embedded scripts.</div></div>
+</div>
+<div style="margin-top:22px;font-size:11px;color:rgba(126,240,176,.4);line-height:1.8">Questions or a removal request: <span style="color:#7ef0b0">privacy@workshop.dl</span></div>
+</div>
+<div style="border-top:1px solid rgba(126,240,176,.12);padding:14px 24px;font-size:11px;color:rgba(126,240,176,.3)">This website is a community project and is not affiliated with Valve Corporation or Steam.</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="2d"><div class="dv-olabel"><a class="dv-oid" href="#2d">2d</a>Mobile — lookup, item detail, donate</div>
+<div style="display:flex;gap:16px">
+<div class="dv-card" style="width:336px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;min-height:640px">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.035) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid rgba(126,240,176,.16);font-size:11px;letter-spacing:.06em"><span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span><span style="color:rgba(126,240,176,.5)">MENU ▾</span></div>
+<div style="padding:34px 16px 20px">
+<pre style="margin:0 0 14px;font-size:6.2px;line-height:1.15;color:rgba(126,240,176,.85);text-shadow:0 0 10px rgba(126,240,176,.35)">██     ██  ██████  ██████  ██   ██ ███████ ██   ██  ██████  ██████ 
+██     ██ ██    ██ ██   ██ ██  ██  ██      ██   ██ ██    ██ ██   ██
+██  █  ██ ██    ██ ██████  █████   ███████ ███████ ██    ██ ██████ 
+██ ███ ██ ██    ██ ██   ██ ██  ██       ██ ██   ██ ██    ██ ██     
+ ███ ███   ██████  ██   ██ ██   ██ ███████ ██   ██  ██████  ██     </pre>
+<div style="font-size:10.5px;color:rgba(126,240,176,.45);letter-spacing:.1em;line-height:1.7;margin-bottom:30px">DIRECT FILE RETRIEVAL FOR<br>PUBLISHED WORKSHOP ITEMS</div>
+<div style="font-size:10.5px;color:rgba(126,240,176,.4);margin-bottom:8px">// workshop URL or item id</div>
+<div style="border:1px solid rgba(126,240,176,.35);background:rgba(126,240,176,.04);padding:14px 12px;display:flex;align-items:center;gap:8px"><span style="color:#7ef0b0;font-weight:700">&gt;</span><span style="font-size:13px;color:rgba(223,251,236,.35)">paste here</span><span style="display:inline-block;width:8px;height:16px;background:#7ef0b0;animation:cur 1.05s step-end infinite"></span></div>
+<div style="margin-top:10px;background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:12.5px;letter-spacing:.08em;text-align:center;padding:15px">RESOLVE ⏎</div>
+<div style="margin-top:32px;font-size:10.5px;letter-spacing:.12em;color:rgba(126,240,176,.35);margin-bottom:12px">RECENT ON THIS DEVICE</div>
+<div style="display:flex;flex-direction:column;gap:10px;font-size:12px">
+<div style="border-bottom:1px solid rgba(126,240,176,.09);padding-bottom:9px"><div style="color:rgba(223,251,236,.85)">Overhauled Rail Network</div><div style="color:rgba(126,240,176,.4);font-size:10.5px;margin-top:3px">2874113045 · 184.2 MB</div></div>
+<div style="border-bottom:1px solid rgba(126,240,176,.09);padding-bottom:9px"><div style="color:rgba(223,251,236,.85)">Nightfall Weather Pack</div><div style="color:rgba(126,240,176,.4);font-size:10.5px;margin-top:3px">1902334761 · 42.8 MB</div></div>
+<div style="border-bottom:1px solid rgba(126,240,176,.09);padding-bottom:9px"><div style="color:rgba(223,251,236,.85)">Essential QoL — Collection</div><div style="color:rgba(126,240,176,.4);font-size:10.5px;margin-top:3px">3011884502 · 17 items</div></div>
+</div>
+</div>
+<div style="border-top:1px solid rgba(126,240,176,.12);padding:12px 16px;font-size:10px;color:rgba(126,240,176,.3);line-height:1.6">Community project. Not affiliated with Valve Corporation or Steam.</div>
+</div>
+</div>
+
+<div class="dv-card" style="width:336px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;min-height:640px;display:flex;flex-direction:column">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.035) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid rgba(126,240,176,.16);font-size:11px"><span style="color:#7ef0b0">←</span><span style="color:rgba(126,240,176,.6)">2874113045</span><span style="margin-left:auto;color:rgba(126,240,176,.35);font-size:10px">341ms</span></div>
+<div style="padding:16px 16px 0">
+<div style="height:120px;border:1px solid rgba(126,240,176,.22);background:repeating-linear-gradient(135deg,rgba(126,240,176,.07) 0 6px,transparent 6px 12px);display:flex;align-items:center;justify-content:center;font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.5)">m_hPreviewFile — 636×358</div>
+<div style="font-size:9.5px;letter-spacing:.14em;color:rgba(126,240,176,.4);margin:16px 0 5px">m_rgchTitle</div>
+<div style="font:700 19px/1.25 'IBM Plex Mono',monospace">Overhauled Rail Network</div>
+<div style="font-size:11px;color:rgba(126,240,176,.55);margin-top:6px">vaultkeeper_77 · STELLAR DRIFT</div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:12px">
+<span style="font-size:10px;border:1px solid rgba(126,240,176,.28);color:rgba(126,240,176,.75);padding:3px 8px">Transport</span>
+<span style="font-size:10px;border:1px solid rgba(126,240,176,.28);color:rgba(126,240,176,.75);padding:3px 8px">Overhaul</span>
+<span style="font-size:10px;border:1px solid rgba(126,240,176,.28);color:rgba(126,240,176,.75);padding:3px 8px">v2.9</span>
+</div>
+<div style="display:flex;justify-content:space-between;border-top:1px solid rgba(126,240,176,.12);border-bottom:1px solid rgba(126,240,176,.12);margin-top:16px;padding:12px 0;font-size:10px;color:rgba(126,240,176,.4)">
+<div><div style="font-size:14px;color:#dffbec;font-weight:600">241.9K</div>SUBS</div>
+<div><div style="font-size:14px;color:#dffbec;font-weight:600">33.1K</div>FAVS</div>
+<div><div style="font-size:14px;color:#7ef0b0;font-weight:600">96.8%</div>RATING</div>
+<div><div style="font-size:14px;color:#dffbec;font-weight:600">2026-06-18</div>UPDATED</div>
+</div>
+<div style="display:flex;gap:16px;font-size:10.5px;margin:14px 0 10px"><span style="color:#dffbec;border-bottom:1px solid #7ef0b0;padding-bottom:4px">DESCRIPTION</span><span style="color:rgba(126,240,176,.45)">CHANGELOG</span><span style="color:rgba(126,240,176,.45)">DEPS (3)</span></div>
+<div style="font-size:11.5px;line-height:1.75;color:rgba(223,251,236,.75)">Replaces the base game rail system with a signal-aware network. Junctions resolve priority per-train instead of per-track…</div>
+<div style="margin-top:12px;font-size:10.5px;color:rgba(255,207,107,.85);line-height:1.6">⚠ Requires DLC: Signals</div>
+</div>
+<div style="margin-top:auto;position:sticky;bottom:0;border-top:1px solid rgba(126,240,176,.16);background:rgba(10,12,11,.96);padding:12px 16px;display:flex;align-items:center;gap:12px;z-index:4">
+<div style="flex:1"><div style="font-size:15px;font-weight:700">184.2 MB</div><div style="font-size:9.5px;color:rgba(126,240,176,.4);margin-top:2px">SINGLE FILE · SHA1 VERIFIED</div></div>
+<span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:12px;letter-spacing:.06em;padding:13px 20px">DOWNLOAD</span>
+</div>
+</div>
+</div>
+
+<div class="dv-card" style="width:336px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;min-height:640px">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.035) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid rgba(126,240,176,.16);font-size:11px;letter-spacing:.06em"><span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span><span style="color:rgba(126,240,176,.5)">MENU ▾</span></div>
+<div style="padding:24px 16px 20px">
+<div style="font-size:10px;letter-spacing:.14em;color:rgba(126,240,176,.4);margin-bottom:10px">$ ./donate --key</div>
+<div style="font:700 21px/1.25 'IBM Plex Mono',monospace;margin-bottom:10px">Give a key, widen the coverage</div>
+<div style="font-size:11.5px;line-height:1.75;color:rgba(223,251,236,.7);margin-bottom:22px">A donated key makes every Workshop item for that game downloadable here.</div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div><div style="display:flex;justify-content:space-between;font-size:10px;letter-spacing:.1em;margin-bottom:7px"><span style="color:rgba(126,240,176,.6)">GAME NAME</span><span style="color:rgba(126,240,176,.3)">OPTIONAL</span></div><div style="border:1px solid rgba(126,240,176,.22);background:rgba(126,240,176,.03);padding:13px 12px;font-size:13px;color:rgba(223,251,236,.35)">Stellar Drift</div></div>
+<div><div style="display:flex;justify-content:space-between;font-size:10px;letter-spacing:.1em;margin-bottom:7px"><span style="color:#7ef0b0">STEAM KEY</span><span style="color:#7ef0b0">REQUIRED</span></div><div style="border:1px solid rgba(126,240,176,.6);background:rgba(126,240,176,.06);padding:13px 12px;font-size:13.5px;letter-spacing:.1em;display:flex;align-items:center"><span style="color:rgba(126,240,176,.5);margin-right:8px">&gt;</span>7KQ2M-<span style="display:inline-block;width:8px;height:15px;background:#7ef0b0;animation:cur 1.05s step-end infinite"></span></div></div>
+<div><div style="display:flex;justify-content:space-between;font-size:10px;letter-spacing:.1em;margin-bottom:7px"><span style="color:rgba(126,240,176,.6)">MESSAGE</span><span style="color:rgba(126,240,176,.3)">OPTIONAL</span></div><div style="border:1px solid rgba(126,240,176,.22);background:rgba(126,240,176,.03);padding:13px 12px;font-size:12px;color:rgba(223,251,236,.35);height:58px">Spare copy from a bundle.</div></div>
+<div><div style="display:flex;justify-content:space-between;font-size:10px;letter-spacing:.1em;margin-bottom:7px"><span style="color:rgba(126,240,176,.6)">CREDITS NAME</span><span style="color:rgba(126,240,176,.3)">OPTIONAL</span></div><div style="border:1px solid rgba(126,240,176,.22);background:rgba(126,240,176,.03);padding:13px 12px;font-size:13px;color:rgba(223,251,236,.35)">Shown on the credits page</div></div>
+<div style="display:flex;gap:10px;align-items:flex-start;border:1px solid rgba(126,240,176,.18);padding:12px"><span style="font-size:13px;color:#7ef0b0">[×]</span><div style="font-size:11.5px;line-height:1.6">I want my name shown on the credits page</div></div>
+<div style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:12.5px;letter-spacing:.08em;text-align:center;padding:15px">SUBMIT KEY</div>
+<div style="font-size:10px;color:rgba(126,240,176,.35);line-height:1.7;text-align:center">Encrypted at rest. Deleted after redemption.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "make the collection page match the mobile width too" · "add a resolved-collection state to <a class="dv-oid" href="#2d">2d</a>" · "swap the phosphor green for amber across everything"</p>
+</section>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">First pass — style directions, lookup, item detail, download, and the supporting pages</span></div>
+<p class="dv-note">Working assumptions: single-page lookup is the product's entire front door, so it carries the visual identity. Item detail renders the <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">SteamUGCDetails_t</code> fields verbatim (title, owner, description, tags, file size, votes, timestamps, consumer app, children count, ban/visibility) — dry and technical, no marketing gloss. Collections read as a tree because a collection is literally a parent node with children. Every screen carries the not-affiliated-with-Valve line in the footer. Phosphor terminal direction throughout.</p>
+
+<div class="dv-sub">A · Home / lookup</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a"><div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Phosphor — full-height terminal, green CRT, command-line framing</div>
+<div class="dv-card" style="width:1120px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;overflow:hidden;font-family:'IBM Plex Mono',monospace;color:#7ef0b0;background:radial-gradient(120% 90% at 50% 0%,#0f1512 0%,#080a09 70%)">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.045) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="position:absolute;left:0;right:0;height:80px;top:0;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(126,240,176,.055),transparent);animation:scan 7s linear infinite;z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid rgba(126,240,176,.16);font-size:12px;letter-spacing:.06em">
+<div style="display:flex;gap:22px;align-items:center"><span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span><span style="color:rgba(126,240,176,.45)">v0.4.2</span></div>
+<div style="display:flex;gap:20px;color:rgba(126,240,176,.55)"><span>ABOUT</span><span>DONATE A GAME</span><span>CREDITS</span><span>PRIVACY</span></div>
+</div>
+<div style="padding:72px 24px 96px;display:flex;flex-direction:column;align-items:center;gap:0">
+<pre style="margin:0 0 8px;font-size:13px;line-height:1.15;color:rgba(126,240,176,.9);text-shadow:0 0 14px rgba(126,240,176,.35)">██     ██  ██████  ██████  ██   ██ ███████ ██   ██  ██████  ██████ 
+██     ██ ██    ██ ██   ██ ██  ██  ██      ██   ██ ██    ██ ██   ██
+██  █  ██ ██    ██ ██████  █████   ███████ ███████ ██    ██ ██████ 
+██ ███ ██ ██    ██ ██   ██ ██  ██       ██ ██   ██ ██    ██ ██     
+ ███ ███   ██████  ██   ██ ██   ██ ███████ ██   ██  ██████  ██     </pre>
+<div style="font-size:12.5px;color:rgba(126,240,176,.5);letter-spacing:.14em;margin-bottom:44px">DIRECT FILE RETRIEVAL FOR PUBLISHED WORKSHOP ITEMS</div>
+<div style="width:100%;max-width:760px">
+<div style="font-size:12px;color:rgba(126,240,176,.45);margin-bottom:10px">// paste a workshop URL or a bare published file id</div>
+<div style="display:flex;align-items:center;gap:12px;border:1px solid rgba(126,240,176,.35);background:rgba(126,240,176,.04);padding:18px 20px;box-shadow:0 0 0 1px rgba(126,240,176,.06),0 0 32px rgba(126,240,176,.07) inset">
+<span style="font-size:17px;color:#7ef0b0;font-weight:700">&gt;</span>
+<span style="font-size:17px;color:#dffbec">steamcommunity.com/sharedfiles/filedetails/?id=2874113045</span>
+<span style="display:inline-block;width:9px;height:19px;background:#7ef0b0;animation:cur 1.05s step-end infinite"></span>
+<span style="margin-left:auto;font-size:11px;color:#0a0c0b;background:#7ef0b0;padding:7px 14px;font-weight:700;letter-spacing:.08em">RESOLVE ⏎</span>
+</div>
+<div style="display:flex;gap:26px;margin-top:14px;font-size:11.5px;color:rgba(126,240,176,.35)"><span>[TAB] paste from clipboard</span><span>[⌘K] history</span><span>[?] accepted formats</span></div>
+</div>
+<div style="width:100%;max-width:760px;margin-top:56px;border-top:1px solid rgba(126,240,176,.12);padding-top:18px">
+<div style="font-size:11px;letter-spacing:.14em;color:rgba(126,240,176,.35);margin-bottom:12px">RECENT ON THIS DEVICE</div>
+<div style="display:flex;flex-direction:column;gap:7px;font-size:12.5px">
+<div style="display:flex;gap:16px;color:rgba(223,251,236,.75)"><span style="color:rgba(126,240,176,.4);width:110px">2874113045</span><span style="flex:1">Overhauled Rail Network</span><span style="color:rgba(126,240,176,.4)">184.2 MB</span></div>
+<div style="display:flex;gap:16px;color:rgba(223,251,236,.75)"><span style="color:rgba(126,240,176,.4);width:110px">1902334761</span><span style="flex:1">Nightfall Weather Pack</span><span style="color:rgba(126,240,176,.4)">42.8 MB</span></div>
+<div style="display:flex;gap:16px;color:rgba(223,251,236,.75)"><span style="color:rgba(126,240,176,.4);width:110px">3011884502</span><span style="flex:1">Essential QoL — Collection</span><span style="color:rgba(126,240,176,.4)">17 items</span></div>
+</div>
+</div>
+</div>
+<div style="border-top:1px solid rgba(126,240,176,.12);padding:14px 24px;font-size:11px;color:rgba(126,240,176,.3)">This website is a community project and is not affiliated with Valve Corporation or Steam.</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="dv-sub">B · Item detail</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1d"><div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>Record view — every API field on screen, description in a scrollable pane</div>
+<div class="dv-card" style="width:1120px;background:#0a0c0b;border-color:#1c2420">
+<div style="font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b;position:relative">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.03) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:13px 24px;border-bottom:1px solid rgba(126,240,176,.16);font-size:12px">
+<span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span>
+<div style="display:flex;align-items:center;gap:10px;border:1px solid rgba(126,240,176,.25);padding:6px 12px;min-width:420px;background:rgba(126,240,176,.03)">
+<span style="color:rgba(126,240,176,.5)">&gt;</span><span style="color:rgba(223,251,236,.8)">2874113045</span>
+<span style="margin-left:auto;font-size:10px;color:#7ef0b0">RESOLVED 341ms</span></div>
+<div style="display:flex;gap:18px;color:rgba(126,240,176,.5);font-size:11px"><span>ABOUT</span><span>DONATE</span><span>CREDITS</span></div>
+</div>
+<div style="display:flex;gap:0;align-items:stretch">
+<div style="width:380px;border-right:1px solid rgba(126,240,176,.12);padding:22px 22px 26px;flex:none">
+<div style="height:200px;border:1px solid rgba(126,240,176,.22);background:repeating-linear-gradient(135deg,rgba(126,240,176,.07) 0 6px,transparent 6px 12px);display:flex;align-items:center;justify-content:center;font-size:10.5px;letter-spacing:.1em;color:rgba(126,240,176,.5)">m_hPreviewFile — 636×358</div>
+<div style="margin-top:20px;display:flex;flex-direction:column;gap:9px;font-size:11.5px">
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_nPublishedFileId</span><span>2874113045</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_eFileType</span><span>COMMUNITY</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_nConsumerAppID</span><span>2074010</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_nFileSize</span><span>184.2 MB</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_rtimeCreated</span><span>2022-11-04</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_rtimeUpdated</span><span>2026-06-18</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_unVotesUp</span><span>18,402</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_unVotesDown</span><span>612</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_unNumChildren</span><span>0</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_eVisibility</span><span style="color:#7ef0b0">PUBLIC</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_bBanned</span><span style="color:#7ef0b0">false</span></div>
+</div>
+<div style="margin-top:22px;padding-top:16px;border-top:1px solid rgba(126,240,176,.12);font-size:11px;color:rgba(126,240,176,.45);line-height:1.7">
+subscriptions 241,880<br>favorites 33,104<br>lifetime views 1,204,551</div>
+</div>
+<div style="flex:1;padding:22px 26px 26px;min-width:0">
+<div style="font-size:10.5px;letter-spacing:.14em;color:rgba(126,240,176,.4)">m_rgchTitle</div>
+<h2 style="margin:6px 0 4px;font:700 27px/1.2 'IBM Plex Mono',monospace;color:#dffbec;letter-spacing:-.01em">Overhauled Rail Network</h2>
+<div style="font-size:12.5px;color:rgba(126,240,176,.6);margin-bottom:18px">by <span style="color:#7ef0b0">m_ulSteamIDOwner</span> · vaultkeeper_77 · for STELLAR DRIFT</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px">
+<span style="font-size:10.5px;border:1px solid rgba(126,240,176,.28);color:rgba(126,240,176,.75);padding:4px 9px">Transport</span>
+<span style="font-size:10.5px;border:1px solid rgba(126,240,176,.28);color:rgba(126,240,176,.75);padding:4px 9px">Buildings</span>
+<span style="font-size:10.5px;border:1px solid rgba(126,240,176,.28);color:rgba(126,240,176,.75);padding:4px 9px">Overhaul</span>
+<span style="font-size:10.5px;border:1px solid rgba(126,240,176,.28);color:rgba(126,240,176,.75);padding:4px 9px">v2.9-compatible</span>
+</div>
+<div style="display:flex;gap:10px;margin-bottom:22px">
+<span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:12.5px;letter-spacing:.06em;padding:13px 26px">DOWNLOAD · 184.2 MB</span>
+<span style="border:1px solid rgba(126,240,176,.3);color:rgba(126,240,176,.8);font-size:12.5px;padding:12px 18px">COPY DIRECT LINK</span>
+<span style="border:1px solid rgba(126,240,176,.3);color:rgba(126,240,176,.8);font-size:12.5px;padding:12px 18px">RAW JSON</span>
+</div>
+<div style="border:1px solid rgba(126,240,176,.14);background:rgba(126,240,176,.02)">
+<div style="display:flex;border-bottom:1px solid rgba(126,240,176,.14);font-size:11px">
+<span style="padding:9px 16px;background:rgba(126,240,176,.12);color:#dffbec">DESCRIPTION</span>
+<span style="padding:9px 16px;color:rgba(126,240,176,.5)">CHANGELOG (14)</span>
+<span style="padding:9px 16px;color:rgba(126,240,176,.5)">DEPENDENCIES (3)</span>
+</div>
+<div style="padding:18px 20px;font-size:12.5px;line-height:1.75;color:rgba(223,251,236,.82);max-height:206px;overflow:hidden;position:relative">
+<div style="color:#7ef0b0;font-weight:700;margin-bottom:8px">[h1] Overhauled Rail Network [/h1]</div>
+Replaces the base game rail system with a signal-aware network. Junctions now resolve priority per-train instead of per-track, and stations expose their throughput to the UI.<br><br>
+<span style="color:#7ef0b0">[list]</span><br>
+&nbsp;&nbsp;• 41 new track pieces, all snap-compatible with vanilla<br>
+&nbsp;&nbsp;• Signal blocks with visual debug overlay<br>
+&nbsp;&nbsp;• Rewritten pathfinder, roughly 4× faster on 200+ train saves<br>
+&nbsp;&nbsp;• Optional freight contracts module<br>
+<span style="color:#7ef0b0">[/list]</span><br><br>
+<span style="color:rgba(126,240,176,.5)">Requires the Signals DLC. Load after any other transport overhaul.</span>
+<div style="position:absolute;left:0;right:0;bottom:0;height:60px;background:linear-gradient(180deg,transparent,#0b0e0c)"></div>
+</div>
+</div>
+<div style="margin-top:16px;display:flex;gap:8px;font-size:11px;color:rgba(126,240,176,.4);align-items:center">
+<span style="color:#ffcf6b">⚠</span> Requires DLC: Signals · Depends on 2 other workshop items, listed under DEPENDENCIES.</div>
+</div>
+</div>
+<div style="border-top:1px solid rgba(126,240,176,.12);padding:14px 24px;font-size:11px;color:rgba(126,240,176,.3)">This website is a community project and is not affiliated with Valve Corporation or Steam.</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="dv-sub">C · Download in progress</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1f"><div class="dv-olabel"><a class="dv-oid" href="#1f">1f</a>Log stream — the transfer narrates itself, line by line</div>
+<div class="dv-card" style="width:546px;background:#0a0c0b;border-color:#1c2420">
+<div style="font-family:'IBM Plex Mono',monospace;color:#dffbec;padding:22px 24px 24px">
+<div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(126,240,176,.45);margin-bottom:16px"><span>TRANSFER 2874113045</span><span>ELAPSED 00:14</span></div>
+<div style="font-size:12px;line-height:1.9;color:rgba(223,251,236,.75)">
+<div><span style="color:rgba(126,240,176,.4)">[00.00]</span> resolving published file id…</div>
+<div><span style="color:rgba(126,240,176,.4)">[00.34]</span> ok — Overhauled Rail Network</div>
+<div><span style="color:rgba(126,240,176,.4)">[00.41]</span> requesting UGC handle 8419223…</div>
+<div><span style="color:rgba(126,240,176,.4)">[00.88]</span> stream open, 184.2 MB expected</div>
+<div><span style="color:#7ef0b0">[14.02]</span> receiving <span style="display:inline-block;width:9px;height:14px;background:#7ef0b0;vertical-align:-2px;animation:cur 1.05s step-end infinite"></span></div>
+</div>
+<div style="margin-top:20px;height:26px;border:1px solid rgba(126,240,176,.3);padding:3px;position:relative">
+<div style="height:100%;width:63%;background-image:repeating-linear-gradient(115deg,#7ef0b0 0 12px,#4fbf87 12px 24px);background-size:40px 100%;animation:barber .7s linear infinite"></div>
+<span style="position:absolute;right:10px;top:5px;font-size:11px;color:#dffbec;mix-blend-mode:difference">63%</span>
+</div>
+<div style="display:flex;justify-content:space-between;margin-top:10px;font-size:11px;color:rgba(126,240,176,.45)"><span>116.4 / 184.2 MB</span><span>8.1 MB/s · eta 00:08</span></div>
+<div style="margin-top:18px;display:flex;gap:8px"><span style="border:1px solid rgba(126,240,176,.3);color:rgba(126,240,176,.8);font-size:11.5px;padding:9px 16px">ABORT</span><span style="border:1px solid rgba(126,240,176,.18);color:rgba(126,240,176,.45);font-size:11.5px;padding:9px 16px">KEEP TAB OPEN</span></div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="dv-sub">D · Collection — parent node with its children as a tree</div>
+<div class="dv-opts">
+<div class="dv-opt" id="1h"><div class="dv-olabel"><a class="dv-oid" href="#1h">1h</a>Tree listing, per-item selection, one archive out</div>
+<div class="dv-card" style="width:1120px;background:#0a0c0b;border-color:#1c2420">
+<div style="font-family:'IBM Plex Mono',monospace;color:#dffbec;padding:24px 26px 26px">
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding-bottom:18px;border-bottom:1px solid rgba(126,240,176,.14)">
+<div>
+<div style="font-size:10.5px;letter-spacing:.14em;color:rgba(126,240,176,.4);margin-bottom:6px">COLLECTION · 3011884502 · m_unNumChildren 17</div>
+<div style="font:700 24px 'IBM Plex Mono',monospace;color:#dffbec">Essential QoL — Collection</div>
+<div style="font-size:12px;color:rgba(126,240,176,.55);margin-top:5px">by loop_gardener · STELLAR DRIFT · updated 2026-07-29</div>
+</div>
+<div style="text-align:right;flex:none">
+<div style="font-size:12px;color:rgba(126,240,176,.5);margin-bottom:8px">15 of 17 selected · 612.4 MB</div>
+<span style="display:inline-block;background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:12.5px;letter-spacing:.05em;padding:13px 24px">DOWNLOAD SELECTED (.zip)</span>
+</div>
+</div>
+<div style="display:flex;gap:16px;padding:12px 0;font-size:11px;color:rgba(126,240,176,.4);border-bottom:1px solid rgba(126,240,176,.08)"><span>[A] select all</span><span>[N] select none</span><span>[X] invert</span><span style="margin-left:auto">sort: workshop order ▾</span></div>
+<div style="font-size:12.5px;line-height:1.75;margin-top:10px">
+<div style="color:rgba(126,240,176,.6)">└─ 3011884502 · Essential QoL</div>
+<div style="display:flex;align-items:center;gap:12px;padding:9px 0 9px 22px;border-bottom:1px solid rgba(126,240,176,.06)"><span style="color:rgba(126,240,176,.35)">├─</span><span style="color:#7ef0b0">[×]</span><span style="color:rgba(126,240,176,.4);width:104px">2874113045</span><span style="flex:1">Overhauled Rail Network</span><span style="color:rgba(126,240,176,.5);font-size:11.5px">184.2 MB</span></div>
+<div style="display:flex;align-items:center;gap:12px;padding:9px 0 9px 22px;border-bottom:1px solid rgba(126,240,176,.06)"><span style="color:rgba(126,240,176,.35)">├─</span><span style="color:#7ef0b0">[×]</span><span style="color:rgba(126,240,176,.4);width:104px">1902334761</span><span style="flex:1">Nightfall Weather Pack</span><span style="color:rgba(126,240,176,.5);font-size:11.5px">42.8 MB</span></div>
+<div style="display:flex;align-items:center;gap:12px;padding:9px 0 9px 22px;border-bottom:1px solid rgba(126,240,176,.06);background:rgba(126,240,176,.05)"><span style="color:rgba(126,240,176,.35)">├─</span><span style="color:#7ef0b0">[×]</span><span style="color:rgba(126,240,176,.4);width:104px">2233901847</span><span style="flex:1">Faster Build Menu <span style="color:rgba(126,240,176,.4);font-size:11px">— depends on 1902334761</span></span><span style="color:rgba(126,240,176,.5);font-size:11.5px">3.1 MB</span></div>
+<div style="display:flex;align-items:center;gap:12px;padding:9px 0 9px 22px;border-bottom:1px solid rgba(126,240,176,.06)"><span style="color:rgba(126,240,176,.35)">├─</span><span style="color:rgba(126,240,176,.35)">[ ]</span><span style="color:rgba(126,240,176,.25);width:104px">2988112034</span><span style="flex:1;color:rgba(223,251,236,.35);text-decoration:line-through">Ancient Ruins Expansion</span><span style="color:#ff9b9b;font-size:11px">REMOVED · m_eResult 9</span></div>
+<div style="display:flex;align-items:center;gap:12px;padding:9px 0 9px 22px;border-bottom:1px solid rgba(126,240,176,.06)"><span style="color:rgba(126,240,176,.35)">├─</span><span style="color:rgba(126,240,176,.35)">[ ]</span><span style="color:rgba(126,240,176,.25);width:104px">2761009918</span><span style="flex:1;color:rgba(223,251,236,.4)">Legacy Camera Tweaks</span><span style="color:#ffcf6b;font-size:11px">PRIVATE · m_eVisibility 2</span></div>
+<div style="display:flex;align-items:center;gap:12px;padding:9px 0 9px 22px;border-bottom:1px solid rgba(126,240,176,.06)"><span style="color:rgba(126,240,176,.35)">├─</span><span style="color:#7ef0b0">[×]</span><span style="color:rgba(126,240,176,.4);width:104px">3104778210</span><span style="flex:1">Cargo Contracts UI</span><span style="color:rgba(126,240,176,.5);font-size:11.5px">11.9 MB</span></div>
+<div style="display:flex;align-items:center;gap:12px;padding:9px 0 9px 22px;border-bottom:1px solid rgba(126,240,176,.06)"><span style="color:rgba(126,240,176,.35)">├─</span><span style="color:#7ef0b0">[×]</span><span style="color:rgba(126,240,176,.4);width:104px">2455610093</span><span style="flex:1">Terrain Blend Fixes</span><span style="color:rgba(126,240,176,.5);font-size:11.5px">88.0 MB</span></div>
+<div style="padding:11px 0 0 22px;color:rgba(126,240,176,.4);font-size:12px">└─ 10 more items · <span style="color:#7ef0b0">expand</span></div>
+</div>
+<div style="margin-top:20px;border-top:1px solid rgba(126,240,176,.12);padding-top:14px;font-size:11px;color:rgba(126,240,176,.35);line-height:1.7">Two children could not be resolved and are excluded from the archive. Removed and private items stay listed so the count still matches the collection on Steam.</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="dv-sub">E · Supporting pages</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1k"><div class="dv-olabel"><a class="dv-oid" href="#1k">1k</a>About</div>
+<div class="dv-card" style="width:700px;background:#0a0c0b;border-color:#1c2420">
+<div style="font-family:'IBM Plex Mono',monospace;color:#dffbec;padding:30px 32px 32px">
+<div style="font-size:11px;letter-spacing:.14em;color:rgba(126,240,176,.4);margin-bottom:16px">$ cat about.txt</div>
+<h2 style="margin:0 0 18px;font:700 26px 'IBM Plex Mono',monospace;color:#dffbec">About</h2>
+<div style="font-size:13px;line-height:1.85;color:rgba(223,251,236,.78);max-width:560px">
+<p style="margin:0 0 16px">Workshop Downloader resolves published Workshop items through the Steam UGC API and returns their files directly. It exists because keeping a mod after the game is uninstalled, or reading a mod's contents before running it, should not require a client.</p>
+<p style="margin:0 0 16px">Requests are made server-side. The site holds no Steam account of yours, sets no tracking cookies, and keeps no copy of the files after a transfer finishes.</p>
+<p style="margin:0 0 16px">Some games gate Workshop access behind ownership. Coverage for those depends on donated keys, which is what the <span style="color:#7ef0b0">donation page</span> is for.</p>
+</div>
+<div style="margin-top:26px;padding-top:20px;border-top:1px solid rgba(126,240,176,.14);display:grid;grid-template-columns:repeat(2,1fr);gap:14px 28px;font-size:12px">
+<div style="display:flex;justify-content:space-between;color:rgba(126,240,176,.5)"><span>items resolved</span><span style="color:#dffbec">1,204,551</span></div>
+<div style="display:flex;justify-content:space-between;color:rgba(126,240,176,.5)"><span>games covered</span><span style="color:#dffbec">318</span></div>
+<div style="display:flex;justify-content:space-between;color:rgba(126,240,176,.5)"><span>median resolve</span><span style="color:#dffbec">341 ms</span></div>
+<div style="display:flex;justify-content:space-between;color:rgba(126,240,176,.5)"><span>keys donated</span><span style="color:#dffbec">65</span></div>
+</div>
+<div style="margin-top:24px;font-size:11px;color:rgba(126,240,176,.3);line-height:1.7">This website is a community project and is not affiliated with Valve Corporation or Steam. Steam and the Steam logo are trademarks of Valve Corporation.</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1m"><div class="dv-olabel"><a class="dv-oid" href="#1m">1m</a>Error states — bad input, removed item, rate limited</div>
+<div class="dv-card" style="width:700px;background:#0a0c0b;border-color:#1c2420">
+<div style="font-family:'IBM Plex Mono',monospace;color:#dffbec;padding:26px 28px 28px;display:flex;flex-direction:column;gap:14px">
+<div style="border:1px solid rgba(255,155,155,.35);background:rgba(255,155,155,.06);padding:16px 18px">
+<div style="font-size:11px;letter-spacing:.12em;color:#ff9b9b;margin-bottom:7px">ERR · UNPARSEABLE INPUT</div>
+<div style="font-size:12.5px;line-height:1.7;color:rgba(223,251,236,.8)">That is not a Workshop URL or an item ID. Accepted: a <span style="color:#7ef0b0">filedetails</span> link, a <span style="color:#7ef0b0">sharedfiles</span> link, or a bare numeric ID.</div>
+</div>
+<div style="border:1px solid rgba(255,207,107,.32);background:rgba(255,207,107,.05);padding:16px 18px">
+<div style="font-size:11px;letter-spacing:.12em;color:#ffcf6b;margin-bottom:7px">m_eResult 9 · FILE NOT FOUND</div>
+<div style="font-size:12.5px;line-height:1.7;color:rgba(223,251,236,.8)">Item 2988112034 was removed by its author or by Steam. Nothing is retrievable — we keep no mirror.</div>
+</div>
+<div style="border:1px solid rgba(126,240,176,.25);background:rgba(126,240,176,.04);padding:16px 18px">
+<div style="font-size:11px;letter-spacing:.12em;color:#7ef0b0;margin-bottom:7px">429 · RATE LIMITED</div>
+<div style="font-size:12.5px;line-height:1.7;color:rgba(223,251,236,.8)">Too many lookups from this address. Retry in <span style="color:#7ef0b0">00:47</span>. The limit exists to stay inside Steam's API budget.</div>
+</div>
+<div style="border:1px dashed rgba(126,240,176,.2);padding:26px 18px;text-align:center">
+<pre style="margin:0 0 10px;font-size:12px;line-height:1.2;color:rgba(126,240,176,.55)">  ██  ██  ████  ██  ██
+  ██████ ██  ██ ██████
+      ██ ██  ██     ██
+      ██  ████      ██</pre>
+<div style="font-size:12px;color:rgba(126,240,176,.5)">No page at this address. <span style="color:#7ef0b0">Return to lookup</span></div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<p class="dv-next">Try next: "add a resolved-collection state to mobile" · "tighten the item detail sidebar" · "show an empty / first-run state"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">class Component extends DCLogic {
+  hue(name) {
+    let h = 2166136261;
+    for (let i = 0; i < name.length; i++) { h ^= name.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return Math.abs(h) % 360;
+  }
+  renderVals() {
+    const names = ["vaultkeeper_77","loop_gardener","Mara Vance","tinfoil_dan","Ø-nine","Priya R.","hexadecimator","softlock","Ana Bezerra","nullpointer","Grit","yuki_sh","Dominik W.","carbon.rod","Wren","obsidian_owl","mlem","T. Okonkwo","paperclip maximiser","zzz_sleeper","Kestrel","brine","Ivo","fourteen_frames"];
+    return {
+      donors: names.map((name) => {
+        const h = this.hue(name);
+        return { name, color: `oklch(0.80 0.14 ${h})`, dim: `oklch(0.80 0.14 ${h} / 0.14)`, hue: String(h).padStart(3, "0") };
+      })
+    };
+  }
+}</script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+import { useEffect, useMemo, useState } from 'preact/hooks'
+import { Link } from '../router'
+import type { WorkshopItem } from '../data/items'
+import { items as itemsById } from '../data/items'
+import { formatBytes, formatCount } from '../lib/format'
+import { useRecentLookups } from '../hooks/useRecentLookups'
+import { DownloadModal } from './DownloadModal'
+import '../styles/item-detail.css'
+
+type Tab = 'description' | 'changelog' | 'dependencies'
+
+export function ItemDetailView({ item }: { item: WorkshopItem }) {
+  const { push } = useRecentLookups()
+  const [tab, setTab] = useState<Tab>('description')
+  const [downloadOpen, setDownloadOpen] = useState(false)
+  const [copied, setCopied] = useState(false)
+  const [jsonOpen, setJsonOpen] = useState(false)
+
+  useEffect(() => {
+    push({ id: item.id, title: item.title, sub: formatBytes(item.sizeBytes) })
+    setTab('description')
+    setJsonOpen(false)
+  }, [item.id, push])
+
+  const rating = ((item.votesUp / Math.max(1, item.votesUp + item.votesDown)) * 100).toFixed(1)
+
+  function copyLink() {
+    const url = `${window.location.origin}/items/${item.id}`
+    navigator.clipboard
+      ?.writeText(url)
+      .then(() => {
+        setCopied(true)
+        window.setTimeout(() => setCopied(false), 1600)
+      })
+      .catch(() => {})
+  }
+
+  return (
+    <div class="item-detail">
+      <div class="page item-topbar">
+        <Link href="/" class="back-link" aria-label="Back to lookup">
+          ←
+        </Link>
+        <span class="item-topbar-id">{item.id}</span>
+        <span class="item-topbar-resolved">RESOLVED {item.resolveMs}ms</span>
+      </div>
+
+      <div class="page item-body">
+        <aside class="item-side">
+          <div class="item-preview">m_hPreviewFile — 636×358</div>
+          <dl class="item-fields">
+            <Field label="m_nPublishedFileId" value={item.id} />
+            <Field label="m_eFileType" value={item.fileType} />
+            <Field label="m_nConsumerAppID" value={item.appId} />
+            <Field label="m_nFileSize" value={formatBytes(item.sizeBytes)} />
+            <Field label="m_rtimeCreated" value={item.createdAt} />
+            <Field label="m_rtimeUpdated" value={item.updatedAt} />
+            <Field label="m_unVotesUp" value={formatCount(item.votesUp)} />
+            <Field label="m_unVotesDown" value={formatCount(item.votesDown)} />
+            <Field label="m_unNumChildren" value={String(item.numChildren)} />
+            <Field label="m_eVisibility" value={item.visibility} accent />
+            <Field label="m_bBanned" value={String(item.banned)} accent={!item.banned} />
+          </dl>
+          <div class="item-side-footer">
+            subscriptions {formatCount(item.subscriptions)}
+            <br />
+            favorites {formatCount(item.favorites)}
+            <br />
+            lifetime views {formatCount(item.views)} · rating {rating}%
+          </div>
+        </aside>
+
+        <div class="item-main">
+          <div class="item-kicker">m_rgchTitle</div>
+          <h1 class="item-title">{item.title}</h1>
+          <div class="item-byline">
+            by <span class="accent-inline">m_ulSteamIDOwner</span> · {item.owner} · for {item.game.toUpperCase()}
+          </div>
+
+          <div class="item-tags">
+            {item.tags.map((t) => (
+              <span class="tag" key={t}>
+                {t}
+              </span>
+            ))}
+          </div>
+
+          <div class="item-actions">
+            <button type="button" class="btn btn-primary" onClick={() => setDownloadOpen(true)}>
+              DOWNLOAD · {formatBytes(item.sizeBytes)}
+            </button>
+            <button type="button" class="btn btn-outline" onClick={copyLink}>
+              {copied ? 'COPIED ✓' : 'COPY DIRECT LINK'}
+            </button>
+            <button type="button" class="btn btn-outline" onClick={() => setJsonOpen((v) => !v)}>
+              RAW JSON
+            </button>
+          </div>
+
+          {jsonOpen && <pre class="item-json">{JSON.stringify(item, null, 2)}</pre>}
+
+          <div class="item-tabs-panel">
+            <div class="item-tabs" role="tablist">
+              <button type="button" class={tab === 'description' ? 'is-active' : ''} onClick={() => setTab('description')}>
+                DESCRIPTION
+              </button>
+              <button type="button" class={tab === 'changelog' ? 'is-active' : ''} onClick={() => setTab('changelog')}>
+                CHANGELOG ({item.changelogCount})
+              </button>
+              {item.dependencies && (
+                <button type="button" class={tab === 'dependencies' ? 'is-active' : ''} onClick={() => setTab('dependencies')}>
+                  DEPENDENCIES ({item.dependencies.length})
+                </button>
+              )}
+            </div>
+            <div class="item-tab-body">
+              {tab === 'description' && <DescriptionTab item={item} />}
+              {tab === 'changelog' && <ChangelogTab item={item} />}
+              {tab === 'dependencies' && item.dependencies && <DependenciesTab ids={item.dependencies} />}
+            </div>
+          </div>
+
+          {(item.requiresDlc || item.dependencies) && (
+            <div class="item-warning">
+              <span class="warn-icon">⚠</span>
+              <span>
+                {item.requiresDlc && <>Requires DLC: {item.requiresDlc}</>}
+                {item.requiresDlc && item.dependencies && <> · </>}
+                {item.dependencies && (
+                  <>
+                    Depends on {item.dependencies.length} other workshop item{item.dependencies.length > 1 ? 's' : ''},
+                    listed under DEPENDENCIES.
+                  </>
+                )}
+              </span>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {downloadOpen && (
+        <DownloadModal id={item.id} title={item.title} sizeBytes={item.sizeBytes} onClose={() => setDownloadOpen(false)} />
+      )}
+    </div>
+  )
+}
+
+function Field({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
+  return (
+    <div class="field-row">
+      <span class="field-key">{label}</span>
+      <span class={accent ? 'field-val is-accent' : 'field-val'}>{value}</span>
+    </div>
+  )
+}
+
+function DescriptionTab({ item }: { item: WorkshopItem }) {
+  const [expanded, setExpanded] = useState(false)
+  return (
+    <>
+      <div class={expanded ? 'desc-clip is-expanded' : 'desc-clip'}>
+        <div class="desc-heading">[h1] {item.descriptionHeading} [/h1]</div>
+        <p>{item.descriptionIntro}</p>
+        <div class="accent-inline" style={{ marginTop: '14px', display: 'block' }}>
+          [list]
+        </div>
+        <ul class="desc-list">
+          {item.descriptionBullets.map((b) => (
+            <li key={b}>{b}</li>
+          ))}
+        </ul>
+        <div class="accent-inline" style={{ display: 'block' }}>
+          [/list]
+        </div>
+        <span class="desc-outro">{item.descriptionOutro}</span>
+        <div class="desc-fade" aria-hidden="true" />
+      </div>
+      <button type="button" class="desc-expand-btn" onClick={() => setExpanded((v) => !v)}>
+        {expanded ? 'show less' : 'show full description'}
+      </button>
+    </>
+  )
+}
+
+function ChangelogTab({ item }: { item: WorkshopItem }) {
+  const entries = useMemo(() => buildChangelog(item), [item])
+  return (
+    <div class="changelog-list">
+      {entries.map((e) => (
+        <div class="changelog-entry" key={e.version}>
+          <span class="changelog-version">{e.version}</span>
+          <span class="changelog-date">{e.date}</span>
+          <div class="changelog-note">{e.note}</div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function DependenciesTab({ ids }: { ids: string[] }) {
+  return (
+    <div class="deps-list">
+      {ids.map((id) => {
+        const dep = itemsById[id]
+        if (!dep) return null
+        return (
+          <Link href={`/items/${id}`} class="dep-row" key={id}>
+            <span class="dep-title">{dep.title}</span>
+            <span class="dep-size">
+              {id} · {formatBytes(dep.sizeBytes)}
+            </span>
+          </Link>
+        )
+      })}
+    </div>
+  )
+}
+
+const CHANGE_NOTES = [
+  'Fixed a crash when the save contained more than 512 instances.',
+  'Rebalanced throughput on the affected system.',
+  'Updated localisation strings.',
+  'Compatibility pass for the latest game patch.',
+  'Minor performance improvements.',
+  'Fixed an edge case reported by the community.',
+  'Adjusted default settings based on feedback.',
+  'Cleaned up unused assets to reduce download size.',
+]
+
+function buildChangelog(item: WorkshopItem) {
+  const base = new Date(item.updatedAt).getTime()
+  const count = Math.min(item.changelogCount, CHANGE_NOTES.length + 6)
+  return Array.from({ length: count }, (_, i) => {
+    const d = new Date(base - i * 12 * 24 * 60 * 60 * 1000)
+    const minor = count - i
+    return {
+      version: `v${Math.max(1, Math.floor(minor / 4) + 1)}.${minor % 4}`,
+      date: d.toISOString().slice(0, 10),
+      note: CHANGE_NOTES[i % CHANGE_NOTES.length],
+    }
+  })
+}

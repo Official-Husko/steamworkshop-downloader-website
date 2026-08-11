@@ -1,0 +1,223 @@
+.collection {
+  animation: fade-up 0.3s ease both;
+}
+
+.collection-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 0 18px;
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.14);
+}
+
+.collection-kicker {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: rgba(var(--accent-rgb), 0.4);
+  margin-bottom: 6px;
+}
+
+.collection-title {
+  font-size: 24px;
+  color: var(--fg-strong);
+}
+
+.collection-byline {
+  font-size: 12px;
+  color: rgba(var(--accent-rgb), 0.55);
+  margin-top: 5px;
+}
+
+.collection-cta {
+  flex: none;
+  text-align: right;
+}
+
+.collection-count {
+  font-size: 12px;
+  color: rgba(var(--accent-rgb), 0.5);
+  margin-bottom: 8px;
+}
+
+.collection-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  font-size: 11px;
+  color: rgba(var(--accent-rgb), 0.4);
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.08);
+  flex-wrap: wrap;
+}
+
+.toolbar-btn {
+  color: inherit;
+  transition: color 0.15s ease;
+}
+.toolbar-btn:hover {
+  color: rgba(var(--fg-rgb), 0.85);
+}
+
+.toolbar-sort {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.toolbar-sort select {
+  background: rgba(var(--accent-rgb), 0.05);
+  border: 1px solid rgba(var(--accent-rgb), 0.22);
+  color: var(--fg-strong);
+  padding: 4px 8px;
+  font-size: 11px;
+  cursor: pointer;
+}
+.toolbar-sort select:focus {
+  border-color: rgba(var(--accent-rgb), 0.6);
+}
+
+.collection-tree {
+  font-size: 12.5px;
+  line-height: 1.75;
+  margin-top: 4px;
+}
+
+.tree-root {
+  color: rgba(var(--accent-rgb), 0.6);
+  padding: 10px 0;
+}
+
+.tree-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 0 9px 22px;
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.06);
+  transition: background 0.15s ease;
+  animation: fade-up 0.3s ease both;
+}
+.tree-row:hover {
+  background: rgba(var(--accent-rgb), 0.03);
+}
+.tree-row.is-checked {
+  background: rgba(var(--accent-rgb), 0.05);
+}
+
+.tree-branch {
+  color: rgba(var(--accent-rgb), 0.35);
+  flex: none;
+}
+
+.tree-check {
+  color: var(--accent);
+  flex: none;
+  width: 22px;
+  text-align: center;
+  font-size: 13px;
+  transition: transform 0.1s ease;
+}
+.tree-check:active:not(:disabled) {
+  transform: scale(0.85);
+}
+.tree-check:disabled {
+  color: rgba(var(--accent-rgb), 0.3);
+  cursor: not-allowed;
+}
+
+.tree-id {
+  color: rgba(var(--accent-rgb), 0.4);
+  width: 104px;
+  flex: none;
+  transition: color 0.15s ease;
+}
+.tree-id:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.tree-title {
+  flex: 1;
+  min-width: 0;
+  color: var(--fg-strong);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tree-row.is-disabled .tree-title {
+  color: rgba(var(--fg-rgb), 0.35);
+}
+
+.tree-dep {
+  color: rgba(var(--accent-rgb), 0.4);
+  font-size: 11px;
+}
+
+.tree-size {
+  color: rgba(var(--accent-rgb), 0.5);
+  font-size: 11.5px;
+  flex: none;
+}
+
+.tree-badge {
+  font-size: 11px;
+  flex: none;
+}
+.tree-badge.is-err {
+  color: var(--err);
+}
+.tree-badge.is-warn {
+  color: var(--warn);
+}
+
+.tree-expand {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 11px 0 4px 22px;
+  color: rgba(var(--accent-rgb), 0.4);
+  font-size: 12px;
+  transition: color 0.15s ease;
+}
+.tree-expand:hover {
+  color: rgba(var(--fg-rgb), 0.75);
+}
+
+.collection-note {
+  margin-top: 20px;
+  border-top: 1px solid rgba(var(--accent-rgb), 0.12);
+  padding: 14px 0 40px;
+  font-size: 11px;
+  color: rgba(var(--accent-rgb), 0.35);
+  line-height: 1.7;
+}
+
+@media (max-width: 760px) {
+  .collection-head {
+    flex-direction: column;
+  }
+  .collection-cta {
+    text-align: left;
+    width: 100%;
+  }
+  .collection-title {
+    font-size: 20px;
+  }
+  .tree-row {
+    gap: 8px;
+    padding-left: 12px;
+    flex-wrap: wrap;
+  }
+  .tree-id {
+    width: auto;
+  }
+  .tree-title {
+    order: 4;
+    width: 100%;
+    white-space: normal;
+    margin-top: 2px;
+  }
+  .tree-branch {
+    display: none;
+  }
+}

@@ -1,0 +1,81 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # Version = the 7-character short commit hash, not a semver tag.
+      - name: Compute version
+        id: version
+        run: echo "version=$(git rev-parse --short=7 HEAD)" >> "$GITHUB_OUTPUT"
+
+      - uses: docker/setup-buildx-action@v4.2.0
+
+      - name: Build nginx image
+        uses: docker/build-push-action@v7.3.0
+        with:
+          context: .
+          push: false
+          load: true
+          tags: steamworkshop-downloader-nginx:${{ steps.version.outputs.version }}
+
+      - name: Build backend image
+        uses: docker/build-push-action@v7.3.0
+        with:
+          context: ./backend
+          push: false
+          load: true
+          build-args: |
+            VERSION=${{ steps.version.outputs.version }}
+          tags: steamworkshop-downloader-backend:${{ steps.version.outputs.version }}
+
+      - name: Save images to tarballs
+        run: |
+          mkdir -p dist-images
+          docker save "steamworkshop-downloader-nginx:${{ steps.version.outputs.version }}" \
+            | gzip > "dist-images/nginx-${{ steps.version.outputs.version }}.tar.gz"
+          docker save "steamworkshop-downloader-backend:${{ steps.version.outputs.version }}" \
+            | gzip > "dist-images/backend-${{ steps.version.outputs.version }}.tar.gz"
+
+      - name: Bundle compose files
+        run: |
+          tar czf "dist-images/compose-${{ steps.version.outputs.version }}.tar.gz" \
+            docker-compose.yml .env.example
+
+      - name: Checksums
+        working-directory: dist-images
+        run: sha256sum *.tar.gz > "checksums-${{ steps.version.outputs.version }}.txt"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3.0.2
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          name: ${{ steps.version.outputs.version }}
+          generate_release_notes: true
+          body: |
+            Deploy:
+
+            ```sh
+            VERSION=${{ steps.version.outputs.version }}
+            tar xzf compose-$VERSION.tar.gz
+            gunzip -c nginx-$VERSION.tar.gz | docker load
+            gunzip -c backend-$VERSION.tar.gz | docker load
+            VERSION=$VERSION docker compose up -d
+            ```
+          files: |
+            dist-images/*.tar.gz
+            dist-images/checksums-${{ steps.version.outputs.version }}.txt

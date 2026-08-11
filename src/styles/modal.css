@@ -1,0 +1,117 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(4, 6, 5, 0.72);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fade-in 0.2s ease both;
+}
+
+.modal-panel {
+  width: 100%;
+  max-width: 546px;
+  background: var(--bg);
+  border: 1px solid var(--card-border);
+  padding: 22px 24px 24px;
+  font-family: var(--mono);
+  color: var(--fg-strong);
+  animation: pop-in 0.22s ease both;
+  outline: none;
+}
+
+.modal-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: rgba(var(--accent-rgb), 0.45);
+  margin-bottom: 16px;
+  letter-spacing: 0.04em;
+}
+
+.modal-log {
+  font-size: 12px;
+  line-height: 1.9;
+  color: rgba(var(--fg-rgb), 0.75);
+  min-height: 96px;
+}
+
+.log-ts {
+  color: rgba(var(--accent-rgb), 0.4);
+}
+.log-ts.is-accent {
+  color: var(--accent);
+}
+.is-accent {
+  color: var(--accent);
+}
+
+.log-cursor {
+  margin-left: 2px;
+  vertical-align: -2px;
+  height: 0.9em;
+}
+
+.modal-progress {
+  margin-top: 20px;
+  height: 26px;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  padding: 3px;
+  position: relative;
+}
+
+.modal-progress-fill {
+  height: 100%;
+  background-image: repeating-linear-gradient(115deg, var(--accent) 0 12px, #4fbf87 12px 24px);
+  background-size: 40px 100%;
+  animation: barber 0.7s linear infinite;
+  transition: width 0.1s linear;
+}
+
+.modal-progress-fill.is-done {
+  animation: none;
+  background-image: none;
+  background-color: var(--accent);
+}
+
+.modal-progress-label {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  font-size: 11px;
+  color: var(--fg-strong);
+  mix-blend-mode: difference;
+}
+
+.modal-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 11px;
+  color: rgba(var(--accent-rgb), 0.45);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.modal-actions .btn {
+  padding: 9px 16px;
+  font-size: 11.5px;
+}
+
+.modal-actions .btn-ghost.is-active {
+  color: rgba(var(--accent-rgb), 0.75);
+  border-color: rgba(var(--accent-rgb), 0.35);
+}
+
+@media (max-width: 600px) {
+  .modal-panel {
+    padding: 18px 18px 20px;
+  }
+}
