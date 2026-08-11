@@ -9,7 +9,7 @@ interface ItemErrorViewProps {
 }
 
 export function ItemErrorView({ id, kind, title }: ItemErrorViewProps) {
-  const heading = kind === 'private' ? 'm_eVisibility 2 · PRIVATE' : 'm_eResult 9 · FILE NOT FOUND'
+  const heading = kind === 'private' ? 'PRIVATE ITEM' : 'ITEM NOT FOUND'
   const body =
     kind === 'private'
       ? `Item ${id}${title ? ` (${title})` : ''} is set to private by its author. It cannot be resolved from here.`

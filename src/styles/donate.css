@@ -110,11 +110,20 @@
   border-left: 1px solid rgba(var(--accent-rgb), 0.12);
   padding-left: 26px;
 }
+.donate-sidebar-heading-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
 .donate-sidebar-heading {
   font-size: 11px;
   letter-spacing: 0.12em;
   color: rgba(var(--accent-rgb), 0.4);
-  margin-bottom: 12px;
+}
+.donate-sidebar-see-all {
+  font-size: 10.5px;
 }
 .donate-sidebar-list {
   display: flex;

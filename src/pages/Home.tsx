@@ -86,7 +86,6 @@ export function Home() {
 
   return (
     <div class="home">
-      <div class="home-sweep" aria-hidden="true" />
       <div class="page home-hero">
         <AsciiLogo />
         <p class="home-tagline">DIRECT FILE RETRIEVAL FOR PUBLISHED WORKSHOP ITEMS</p>

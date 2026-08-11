@@ -65,17 +65,6 @@
   align-items: center;
   gap: 6px;
 }
-.toolbar-sort select {
-  background: rgba(var(--accent-rgb), 0.05);
-  border: 1px solid rgba(var(--accent-rgb), 0.22);
-  color: var(--fg-strong);
-  padding: 4px 8px;
-  font-size: 11px;
-  cursor: pointer;
-}
-.toolbar-sort select:focus {
-  border-color: rgba(var(--accent-rgb), 0.6);
-}
 
 .collection-tree {
   font-size: 12.5px;
@@ -181,6 +170,10 @@
 }
 .tree-expand:hover {
   color: rgba(var(--fg-rgb), 0.75);
+}
+
+.collection-quota-block {
+  margin: 16px 0 0;
 }
 
 .collection-note {

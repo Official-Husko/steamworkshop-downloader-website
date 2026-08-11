@@ -1,9 +1,13 @@
+import { Link } from '../router'
 import { useSEO } from '../hooks/useSEO'
 import '../styles/docs.css'
 
 const ROWS: [string, string][] = [
   ['LOOKUPS', 'The item IDs you resolve are cached for 24 hours to reduce API load. They are not tied to you.'],
-  ['DOWNLOADS', 'Files pass through and are deleted once the transfer ends. Nothing is archived or mirrored.'],
+  [
+    'DOWNLOADS',
+    'We save no files on our own hard drives. MODRELAY automates the mod download and prepares it to be game ready; the file passes straight through and is deleted the moment the transfer ends. Nothing is archived or mirrored.',
+  ],
   ['LOGS', 'IP addresses appear in rate-limiting logs, truncated to a /24 and dropped after 7 days.'],
   [
     'DONATIONS',
@@ -37,6 +41,12 @@ export function Privacy() {
       </div>
       <div class="doc-contact">
         Questions or a removal request: <span class="accent-inline">privacy@lonewolves.dev</span>
+        <br />
+        See also the{' '}
+        <Link href="/terms" class="accent-link">
+          Terms of Service
+        </Link>
+        .
       </div>
     </div>
   )

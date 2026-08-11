@@ -15,6 +15,19 @@
   background: repeating-linear-gradient(180deg, rgba(var(--accent-rgb), 0.045) 0 1px, transparent 1px 3px);
 }
 
+/* The CRT "terminal refresh" sweep — one moving highlight band, sitewide. */
+.page-sweep {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 80px;
+  pointer-events: none;
+  z-index: 59;
+  background: linear-gradient(180deg, transparent, rgba(var(--accent-rgb), 0.055), transparent);
+  animation: scan 7s linear infinite;
+}
+
 /* ---------- header ---------- */
 
 .site-header {
@@ -55,8 +68,11 @@
 
 .site-nav {
   display: flex;
-  gap: 20px;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   color: rgba(var(--accent-rgb), 0.55);
+  font-size: 11px;
 }
 
 .nav-link {
@@ -96,7 +112,7 @@
   display: none;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 840px) {
   .site-nav {
     display: none;
   }
@@ -143,6 +159,24 @@
   padding: 14px 24px;
   font-size: 11px;
   color: rgba(var(--accent-rgb), 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.site-footer-links {
+  display: flex;
+  gap: 16px;
+  flex: none;
+}
+.site-footer-links a {
+  color: rgba(var(--accent-rgb), 0.4);
+  transition: color 0.15s ease;
+}
+.site-footer-links a:hover {
+  color: rgba(var(--fg-rgb), 0.8);
 }
 
 /* ---------- shared page shells ---------- */

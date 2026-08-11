@@ -19,6 +19,7 @@ This website is a community project and is not affiliated with Valve Corporation
 |---|---|
 | ![Lookup](docs/screenshots/home.png) | ![Item detail](docs/screenshots/item-detail.png) |
 | ![Collection](docs/screenshots/collection.png) | ![Donate](docs/screenshots/donate.png) |
+| ![System status](docs/screenshots/status.png) | ![Request a game](docs/screenshots/request.png) |
 
 <img src="docs/screenshots/mobile.png" width="280" alt="Mobile lookup view" />
 
@@ -29,6 +30,10 @@ This website is a community project and is not affiliated with Valve Corporation
 - **Collections** — rendered as a tree (a collection is literally a parent node with children); per-item selection, select all/none/invert, sort, and a live selected-size total for the archive download
 - **Download** — an animated transfer modal with a live log stream and progress bar
 - **Donate a game** — accept a Steam key to widen coverage for games that gate Workshop access behind ownership
+- **Request a game** — vote for games not yet covered; the count is what donors use to pick which key to send
+- **Public API + apply flow** — documented endpoints for third-party use, gated behind a hand-reviewed key application
+- **System status** — live daily-quota usage, throughput totals, and per-game Workshop coverage
+- **Sitewide quota banner** — a three-state (approaching/exhausted/recovering) strip that gates the download buttons on item/collection pages when the (mocked) daily Steam request budget runs out, with a client-side "queue for later"
 - **Credits** — donor names colored by a deterministic FNV-1a hash of the name, so a given name always renders the same hue
 - Full error states (bad input, removed item, private item, rate limited, 404), and a responsive layout down to phone widths
 
@@ -101,7 +106,7 @@ The site is a client-rendered SPA with no server-side rendering, which caps how 
 
 - [`src/hooks/useSEO.ts`](src/hooks/useSEO.ts) sets `document.title`, the meta description, canonical link, and OpenGraph/Twitter tags on every route change, for crawlers that do run JS (Googlebot does)
 - `index.html` carries static OpenGraph/Twitter/JSON-LD tags as the fallback every non-JS link unfurler (Discord, iMessage, Slack, …) sees, regardless of which page was actually shared
-- [`public/robots.txt`](public/robots.txt) and [`public/sitemap.xml`](public/sitemap.xml) cover the static routes (`/`, `/about`, `/donate`, `/credits`, `/privacy`); item/collection pages are excluded since they're mock data for now — once the backend is real, those should come from a generated sitemap instead of a hand-written one
+- [`public/robots.txt`](public/robots.txt) and [`public/sitemap.xml`](public/sitemap.xml) cover the static routes (`/`, `/about`, `/donate`, `/credits`, `/privacy`, `/request`, `/api`, `/api/apply`, `/status`); item/collection pages are excluded since they're mock data for now — once the backend is real, those should come from a generated sitemap instead of a hand-written one
 - `public/og-image.png` is a real screenshot of the lookup page at 1200×630
 
 `https://workshop.lonewolves.dev` is the single source of truth for the domain, set in [`src/lib/seo.ts`](src/lib/seo.ts) and mirrored statically in `index.html`, `robots.txt`, and `sitemap.xml`.

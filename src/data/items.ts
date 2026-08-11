@@ -292,14 +292,6 @@ export const donorNames = [
   'fourteen_frames',
 ]
 
-export const mostRequestedGames = [
-  { name: 'Stellar Drift', count: 412 },
-  { name: 'Harrowmere', count: 288 },
-  { name: 'Tin Can Diver', count: 173 },
-  { name: 'Grease Monkey 2', count: 96 },
-  { name: 'Loft & Ladder', count: 61 },
-]
-
 export const siteStats = {
   itemsResolved: 1204551,
   gamesCovered: 318,

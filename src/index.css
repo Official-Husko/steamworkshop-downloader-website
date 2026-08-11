@@ -125,8 +125,11 @@ button {
 }
 
 @keyframes barber {
+  from {
+    transform: translateX(0);
+  }
   to {
-    background-position: 40px 0;
+    transform: translateX(30.894px);
   }
 }
 

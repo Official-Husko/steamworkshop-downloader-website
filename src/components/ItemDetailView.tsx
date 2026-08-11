@@ -2,9 +2,11 @@ import { useEffect, useMemo, useState } from 'preact/hooks'
 import { Link } from '../router'
 import type { WorkshopItem } from '../data/items'
 import { items as itemsById } from '../data/items'
-import { formatBytes, formatCount } from '../lib/format'
+import { formatBytes, formatCount, formatDateHuman } from '../lib/format'
 import { useRecentLookups } from '../hooks/useRecentLookups'
 import { useSEO } from '../hooks/useSEO'
+import { useQuotaGate } from '../hooks/useQuotaGate'
+import { useDownloadQueue } from '../hooks/useDownloadQueue'
 import { DownloadModal } from './DownloadModal'
 import '../styles/item-detail.css'
 
@@ -21,10 +23,14 @@ export function ItemDetailView({ item }: { item: WorkshopItem }) {
   })
 
   const { push } = useRecentLookups()
+  const { isExhausted, resetLabel } = useQuotaGate()
+  const { enqueue, isQueued } = useDownloadQueue()
   const [tab, setTab] = useState<Tab>('description')
   const [downloadOpen, setDownloadOpen] = useState(false)
   const [copied, setCopied] = useState(false)
   const [jsonOpen, setJsonOpen] = useState(false)
+  const [showApiNames, setShowApiNames] = useState(false)
+  const queued = isQueued(item.id)
 
   useEffect(() => {
     push({ id: item.id, title: item.title, sub: formatBytes(item.sizeBytes) })
@@ -57,34 +63,88 @@ export function ItemDetailView({ item }: { item: WorkshopItem }) {
 
       <div class="page item-body">
         <aside class="item-side">
-          <div class="item-preview">m_hPreviewFile · 636×358</div>
+          <div class="item-preview">{showApiNames ? 'm_hPreviewFile' : 'preview image'} · 636×358</div>
+
+          <div class="item-fields-head">
+            <span>DETAILS</span>
+            <button
+              type="button"
+              class="item-api-toggle"
+              aria-pressed={showApiNames}
+              onClick={() => setShowApiNames((v) => !v)}
+            >
+              {showApiNames ? '[×]' : '[ ]'} show API names
+            </button>
+          </div>
+
           <dl class="item-fields">
-            <Field label="m_nPublishedFileId" value={item.id} />
-            <Field label="m_eFileType" value={item.fileType} />
-            <Field label="m_nConsumerAppID" value={item.appId} />
-            <Field label="m_nFileSize" value={formatBytes(item.sizeBytes)} />
-            <Field label="m_rtimeCreated" value={item.createdAt} />
-            <Field label="m_rtimeUpdated" value={item.updatedAt} />
-            <Field label="m_unVotesUp" value={formatCount(item.votesUp)} />
-            <Field label="m_unVotesDown" value={formatCount(item.votesDown)} />
-            <Field label="m_unNumChildren" value={String(item.numChildren)} />
-            <Field label="m_eVisibility" value={item.visibility} accent />
-            <Field label="m_bBanned" value={String(item.banned)} accent={!item.banned} />
+            {showApiNames ? (
+              <>
+                <Field label="m_nPublishedFileId" value={item.id} />
+                <Field label="m_eFileType" value={item.fileType} />
+                <Field label="m_nConsumerAppID" value={item.appId} />
+                <Field label="m_nFileSize" value={formatBytes(item.sizeBytes)} />
+                <Field label="m_rtimeCreated" value={item.createdAt} />
+                <Field label="m_rtimeUpdated" value={item.updatedAt} />
+                <Field label="m_unVotesUp" value={formatCount(item.votesUp)} />
+                <Field label="m_unVotesDown" value={formatCount(item.votesDown)} />
+                <Field label="m_unNumChildren" value={String(item.numChildren)} />
+                <Field label="m_eVisibility" value={item.visibility} accent />
+                <Field label="m_bBanned" value={String(item.banned)} accent={!item.banned} />
+              </>
+            ) : (
+              <>
+                <Field label="Item ID" value={item.id} />
+                <Field label="Type" value={item.numChildren > 0 ? 'Collection' : 'Single item'} />
+                <Field label="Game" value={item.game} />
+                <Field label="Download size" value={formatBytes(item.sizeBytes)} />
+                <Field label="First published" value={formatDateHuman(item.createdAt)} />
+                <Field label="Last updated" value={formatDateHuman(item.updatedAt)} />
+                <Field label="Ratings" value={`${formatCount(item.votesUp)} up · ${formatCount(item.votesDown)} down`} />
+                <Field
+                  label="Items inside"
+                  value={item.numChildren > 0 ? `${item.numChildren} items` : 'None (not a collection)'}
+                />
+                <Field label="Availability" value={item.visibility === 'PUBLIC' ? 'Public' : 'Private'} accent={item.visibility === 'PUBLIC'} />
+                <Field label="Moderation" value={item.banned ? 'Removed' : 'Not removed'} accent={!item.banned} />
+              </>
+            )}
           </dl>
+
           <div class="item-side-footer">
-            subscriptions {formatCount(item.subscriptions)}
-            <br />
-            favorites {formatCount(item.favorites)}
-            <br />
-            lifetime views {formatCount(item.views)} · rating {rating}%
+            {showApiNames ? (
+              <>
+                subscriptions {formatCount(item.subscriptions)}
+                <br />
+                favorites {formatCount(item.favorites)}
+                <br />
+                lifetime views {formatCount(item.views)} · rating {rating}%
+              </>
+            ) : (
+              <>
+                Subscribers {formatCount(item.subscriptions)}
+                <br />
+                Favourites {formatCount(item.favorites)}
+                <br />
+                Lifetime views {formatCount(item.views)}
+              </>
+            )}
           </div>
         </aside>
 
         <div class="item-main">
-          <div class="item-kicker">m_rgchTitle</div>
+          <div class="item-kicker">{showApiNames ? 'm_rgchTitle' : 'MOD'}</div>
           <h1 class="item-title">{item.title}</h1>
           <div class="item-byline">
-            by <span class="accent-inline">m_ulSteamIDOwner</span> · {item.owner} · for {item.game.toUpperCase()}
+            {showApiNames ? (
+              <>
+                by <span class="accent-inline">m_ulSteamIDOwner</span> · {item.owner} · for {item.game.toUpperCase()}
+              </>
+            ) : (
+              <>
+                by <span class="accent-inline">{item.owner}</span> · for {item.game}
+              </>
+            )}
           </div>
 
           <div class="item-tags">
@@ -95,16 +155,38 @@ export function ItemDetailView({ item }: { item: WorkshopItem }) {
             ))}
           </div>
 
+          {isExhausted ? (
+            <div class="item-quota-block">
+              <div class="item-quota-actions">
+                <span class="btn btn-primary is-disabled">DOWNLOAD UNAVAILABLE</span>
+                <button
+                  type="button"
+                  class="btn btn-outline is-queue"
+                  disabled={queued}
+                  onClick={() => enqueue(item.id)}
+                >
+                  {queued ? 'QUEUED ✓' : `QUEUE FOR ${resetLabel}`}
+                </button>
+              </div>
+              <div class="item-quota-note">
+                Queued items are held in your browser, not on the server. Closing the tab clears the queue.
+              </div>
+            </div>
+          ) : null}
+
           <div class="item-actions">
-            <button type="button" class="btn btn-primary" onClick={() => setDownloadOpen(true)}>
-              DOWNLOAD · {formatBytes(item.sizeBytes)}
-            </button>
+            {!isExhausted && (
+              <button type="button" class="btn btn-primary" onClick={() => setDownloadOpen(true)}>
+                DOWNLOAD · {formatBytes(item.sizeBytes)}
+              </button>
+            )}
             <button type="button" class="btn btn-outline" onClick={copyLink}>
               {copied ? 'COPIED ✓' : 'COPY DIRECT LINK'}
             </button>
             <button type="button" class="btn btn-outline" onClick={() => setJsonOpen((v) => !v)}>
               RAW JSON
             </button>
+            {isExhausted && <span class="item-quota-free-note">Metadata is served from cache and costs no quota.</span>}
           </div>
 
           {jsonOpen && <pre class="item-json">{JSON.stringify(item, null, 2)}</pre>}

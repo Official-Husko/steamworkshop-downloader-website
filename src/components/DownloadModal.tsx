@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { formatBytes, formatElapsed } from '../lib/format'
+import { BarberBar } from './BarberBar'
 import '../styles/modal.css'
 
 interface LogLine {
@@ -119,10 +120,7 @@ export function DownloadModal({ id, title, sizeBytes, archive, onClose }: Downlo
         </div>
 
         <div class="modal-progress">
-          <div
-            class={phase === 'done' ? 'modal-progress-fill is-done' : 'modal-progress-fill'}
-            style={{ width: `${percent}%` }}
-          />
+          <BarberBar percent={percent} durationS={0.9} done={phase === 'done'} />
           <span class="modal-progress-label">{Math.floor(percent)}%</span>
         </div>
 

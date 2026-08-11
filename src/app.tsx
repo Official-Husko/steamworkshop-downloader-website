@@ -6,6 +6,11 @@ import { About } from './pages/About'
 import { Donate } from './pages/Donate'
 import { Credits } from './pages/Credits'
 import { Privacy } from './pages/Privacy'
+import { Terms } from './pages/Terms'
+import { RequestGame } from './pages/RequestGame'
+import { PublicApi } from './pages/PublicApi'
+import { ApiApply } from './pages/ApiApply'
+import { Status } from './pages/Status'
 import { NotFound } from './pages/NotFound'
 
 const routes: RouteDef[] = [
@@ -15,6 +20,11 @@ const routes: RouteDef[] = [
   { path: '/donate', render: () => <Donate /> },
   { path: '/credits', render: () => <Credits /> },
   { path: '/privacy', render: () => <Privacy /> },
+  { path: '/terms', render: () => <Terms /> },
+  { path: '/request', render: () => <RequestGame /> },
+  { path: '/api', render: () => <PublicApi /> },
+  { path: '/api/apply', render: () => <ApiApply /> },
+  { path: '/status', render: () => <Status /> },
 ]
 
 function Routes() {

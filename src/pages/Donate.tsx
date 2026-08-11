@@ -1,5 +1,6 @@
 import { useState } from 'preact/hooks'
-import { mostRequestedGames } from '../data/items'
+import { Link } from '../router'
+import { mostRequestedNeedingKey } from '../data/requests'
 import { useSEO } from '../hooks/useSEO'
 import '../styles/docs.css'
 import '../styles/donate.css'
@@ -151,10 +152,15 @@ export function Donate() {
         </form>
 
         <aside class="donate-sidebar">
-          <div class="donate-sidebar-heading">MOST REQUESTED</div>
+          <div class="donate-sidebar-heading-row">
+            <div class="donate-sidebar-heading">MOST REQUESTED</div>
+            <Link href="/request" class="accent-link donate-sidebar-see-all">
+              see all
+            </Link>
+          </div>
           <div class="donate-sidebar-list">
-            {mostRequestedGames.map((g) => (
-              <div class="donate-sidebar-row" key={g.name}>
+            {mostRequestedNeedingKey(5).map((g) => (
+              <div class="donate-sidebar-row" key={g.appId}>
                 <span>{g.name}</span>
                 <span class="mono-dim">{g.count}</span>
               </div>

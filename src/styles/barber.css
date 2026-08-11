@@ -1,0 +1,17 @@
+.barber-fill {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  transition: width 0.2s ease;
+}
+
+.barber-stripes {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -44px;
+  right: -44px;
+  animation-name: barber;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}

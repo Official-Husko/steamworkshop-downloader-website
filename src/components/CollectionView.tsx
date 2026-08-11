@@ -4,7 +4,11 @@ import type { CollectionChild, WorkshopCollection } from '../data/items'
 import { formatBytes } from '../lib/format'
 import { useRecentLookups } from '../hooks/useRecentLookups'
 import { useSEO } from '../hooks/useSEO'
+import { useQuotaGate } from '../hooks/useQuotaGate'
+import { useDownloadQueue } from '../hooks/useDownloadQueue'
 import { DownloadModal } from './DownloadModal'
+import { Dropdown } from './Dropdown'
+import '../styles/item-detail.css'
 import '../styles/collection.css'
 
 type SortKey = 'workshop' | 'name' | 'size'
@@ -17,6 +21,9 @@ export function CollectionView({ collection }: { collection: WorkshopCollection 
   })
 
   const { push } = useRecentLookups()
+  const { isExhausted, resetLabel } = useQuotaGate()
+  const { enqueue, isQueued } = useDownloadQueue()
+  const queued = isQueued(collection.id)
   const resolvableIds = useMemo(() => collection.children.filter((c) => c.status === 'ok').map((c) => c.id), [collection])
   const [selected, setSelected] = useState<Set<string>>(() => new Set(resolvableIds))
   const [expanded, setExpanded] = useState(false)
@@ -66,7 +73,7 @@ export function CollectionView({ collection }: { collection: WorkshopCollection 
       <div class="page collection-head">
         <div>
           <div class="collection-kicker">
-            COLLECTION · {collection.id} · m_unNumChildren {collection.numChildren}
+            COLLECTION · {collection.id} · {collection.numChildren} ITEMS
           </div>
           <h1 class="collection-title">{collection.title}</h1>
           <div class="collection-byline">
@@ -77,11 +84,38 @@ export function CollectionView({ collection }: { collection: WorkshopCollection 
           <div class="collection-count">
             {selected.size} of {resolvableIds.length} selected · {formatBytes(totalBytes)}
           </div>
-          <button type="button" class="btn btn-primary" disabled={selected.size === 0} onClick={() => setDownloadOpen(true)}>
-            DOWNLOAD SELECTED (.zip)
-          </button>
+          {isExhausted ? (
+            <button
+              type="button"
+              class="btn btn-outline is-queue"
+              disabled={queued || selected.size === 0}
+              onClick={() => enqueue(collection.id)}
+            >
+              {queued ? 'QUEUED ✓' : `QUEUE FOR ${resetLabel}`}
+            </button>
+          ) : (
+            <button
+              type="button"
+              class="btn btn-primary"
+              disabled={selected.size === 0}
+              onClick={() => setDownloadOpen(true)}
+            >
+              DOWNLOAD SELECTED (.zip)
+            </button>
+          )}
         </div>
       </div>
+
+      {isExhausted && (
+        <div class="page">
+          <div class="item-quota-block collection-quota-block">
+            <div class="item-quota-note">
+              Daily file request limit reached. Downloads are paused; queued items start automatically when the
+              window rolls. Closing the tab clears the queue.
+            </div>
+          </div>
+        </div>
+      )}
 
       <div class="page collection-toolbar">
         <button type="button" class="toolbar-btn" onClick={selectAll}>
@@ -95,11 +129,16 @@ export function CollectionView({ collection }: { collection: WorkshopCollection 
         </button>
         <div class="toolbar-sort">
           sort:
-          <select value={sort} onChange={(e) => setSort((e.target as HTMLSelectElement).value as SortKey)}>
-            <option value="workshop">workshop order</option>
-            <option value="name">name</option>
-            <option value="size">size</option>
-          </select>
+          <Dropdown
+            value={sort}
+            onChange={(v) => setSort(v as SortKey)}
+            ariaLabel="Sort collection items"
+            options={[
+              { value: 'workshop', label: 'workshop order' },
+              { value: 'name', label: 'name' },
+              { value: 'size', label: 'size' },
+            ]}
+          />
         </div>
       </div>
 
@@ -170,8 +209,8 @@ function CollectionRow({
         {child.dependsOn && <span class="tree-dep"> · depends on {child.dependsOn}</span>}
       </span>
       {child.status === 'ok' && <span class="tree-size">{formatBytes(child.sizeBytes ?? 0)}</span>}
-      {child.status === 'removed' && <span class="tree-badge is-err">REMOVED · m_eResult 9</span>}
-      {child.status === 'private' && <span class="tree-badge is-warn">PRIVATE · m_eVisibility 2</span>}
+      {child.status === 'removed' && <span class="tree-badge is-err">REMOVED FROM STEAM</span>}
+      {child.status === 'private' && <span class="tree-badge is-warn">PRIVATE</span>}
     </div>
   )
 }

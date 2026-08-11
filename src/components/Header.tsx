@@ -4,10 +4,17 @@ import { DISPLAY_VERSION } from '../lib/version'
 
 const NAV = [
   { href: '/about', label: 'ABOUT' },
+  { href: '/api', label: 'API' },
+  { href: '/request', label: 'REQUEST A GAME' },
   { href: '/donate', label: 'DONATE A GAME' },
+  { href: '/status', label: 'STATUS' },
   { href: '/credits', label: 'CREDITS' },
   { href: '/privacy', label: 'PRIVACY' },
 ]
+
+function isNavActive(path: string, href: string): boolean {
+  return path === href || path.startsWith(`${href}/`)
+}
 
 export function Header() {
   const { path, navigate } = useRouter()
@@ -27,7 +34,7 @@ export function Header() {
 
         <nav class="site-nav" aria-label="Primary">
           {NAV.map((n) => (
-            <Link key={n.href} href={n.href} class={path === n.href ? 'nav-link is-active' : 'nav-link'}>
+            <Link key={n.href} href={n.href} class={isNavActive(path, n.href) ? 'nav-link is-active' : 'nav-link'}>
               {n.label}
             </Link>
           ))}
@@ -48,7 +55,7 @@ export function Header() {
           <a
             key={n.href}
             href={n.href}
-            class={path === n.href ? 'mobile-nav-link is-active' : 'mobile-nav-link'}
+            class={isNavActive(path, n.href) ? 'mobile-nav-link is-active' : 'mobile-nav-link'}
             onClick={(e) => {
               e.preventDefault()
               navigate(n.href)

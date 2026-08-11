@@ -63,20 +63,6 @@
   position: relative;
 }
 
-.modal-progress-fill {
-  height: 100%;
-  background-image: repeating-linear-gradient(115deg, var(--accent) 0 12px, #4fbf87 12px 24px);
-  background-size: 40px 100%;
-  animation: barber 0.7s linear infinite;
-  transition: width 0.1s linear;
-}
-
-.modal-progress-fill.is-done {
-  animation: none;
-  background-image: none;
-  background-color: var(--accent);
-}
-
 .modal-progress-label {
   position: absolute;
   right: 10px;

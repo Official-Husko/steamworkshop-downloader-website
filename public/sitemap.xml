@@ -32,4 +32,29 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+  <url>
+    <loc>https://workshop.lonewolves.dev/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://workshop.lonewolves.dev/request</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://workshop.lonewolves.dev/api</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://workshop.lonewolves.dev/api/apply</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://workshop.lonewolves.dev/status</loc>
+    <changefreq>hourly</changefreq>
+    <priority>0.4</priority>
+  </url>
 </urlset>
