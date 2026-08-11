@@ -1,9 +1,16 @@
 import { donorNames } from '../data/items'
 import { nameHue } from '../lib/hue'
+import { useSEO } from '../hooks/useSEO'
 import '../styles/docs.css'
 import '../styles/credits.css'
 
 export function Credits() {
+  useSEO({
+    title: 'Credits',
+    description: "Everyone who's donated a game key to MODRELAY to widen Workshop coverage.",
+    path: '/credits',
+  })
+
   return (
     <div class="page-narrow credits-page">
       <div class="doc-kicker">$ cat credits.txt | sort</div>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'preact/hooks'
 import { Link, useRouter } from '../router'
+import { DISPLAY_VERSION } from '../lib/version'
 
 const NAV = [
   { href: '/about', label: 'ABOUT' },
@@ -20,8 +21,8 @@ export function Header() {
     <header class="site-header">
       <div class="site-header-bar">
         <Link href="/" class="brand">
-          <span class="brand-mark">WORKSHOP.DL</span>
-          <span class="brand-version">v0.4.2</span>
+          <span class="brand-mark">MODRELAY</span>
+          <span class="brand-version">{DISPLAY_VERSION}</span>
         </Link>
 
         <nav class="site-nav" aria-label="Primary">

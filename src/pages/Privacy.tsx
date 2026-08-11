@@ -1,3 +1,4 @@
+import { useSEO } from '../hooks/useSEO'
 import '../styles/docs.css'
 
 const ROWS: [string, string][] = [
@@ -13,6 +14,12 @@ const ROWS: [string, string][] = [
 ]
 
 export function Privacy() {
+  useSEO({
+    title: 'Privacy Policy',
+    description: 'What MODRELAY holds, for how long, and why: lookups, downloads, logs, donations, and cookies.',
+    path: '/privacy',
+  })
+
   return (
     <div class="page-narrow doc-page">
       <div class="doc-meta-row">
@@ -29,7 +36,7 @@ export function Privacy() {
         ))}
       </div>
       <div class="doc-contact">
-        Questions or a removal request: <span class="accent-inline">privacy@workshop.dl</span>
+        Questions or a removal request: <span class="accent-inline">privacy@lonewolves.dev</span>
       </div>
     </div>
   )

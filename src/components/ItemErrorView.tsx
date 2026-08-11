@@ -1,4 +1,5 @@
 import { Link } from '../router'
+import { useSEO } from '../hooks/useSEO'
 import '../styles/item-detail.css'
 
 interface ItemErrorViewProps {
@@ -12,7 +13,14 @@ export function ItemErrorView({ id, kind, title }: ItemErrorViewProps) {
   const body =
     kind === 'private'
       ? `Item ${id}${title ? ` (${title})` : ''} is set to private by its author. It cannot be resolved from here.`
-      : `Item ${id}${title ? ` (${title})` : ''} was removed by its author or by Steam. Nothing is retrievable — we keep no mirror.`
+      : `Item ${id}${title ? ` (${title})` : ''} was removed by its author or by Steam. Nothing is retrievable; we keep no mirror.`
+
+  useSEO({
+    title: kind === 'private' ? 'Private Item' : 'Item Not Found',
+    description: body,
+    path: `/items/${id}`,
+    noindex: true,
+  })
 
   return (
     <div class="item-detail">

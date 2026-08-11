@@ -1,5 +1,6 @@
 import { useState } from 'preact/hooks'
 import { mostRequestedGames } from '../data/items'
+import { useSEO } from '../hooks/useSEO'
 import '../styles/docs.css'
 import '../styles/donate.css'
 
@@ -12,6 +13,12 @@ function formatKeyInput(raw: string): string {
 }
 
 export function Donate() {
+  useSEO({
+    title: 'Donate a Game',
+    description: 'Donate a Steam key to widen Workshop coverage for games that require ownership to resolve.',
+    path: '/donate',
+  })
+
   const [game, setGame] = useState('')
   const [key, setKey] = useState('')
   const [message, setMessage] = useState('')
@@ -45,7 +52,7 @@ export function Donate() {
             <div class="ok-box">
               <div class="box-title">KEY RECEIVED</div>
               <div class="box-body">
-                Thanks — it'll be redeemed manually within a few days.
+                Thanks, it'll be redeemed manually within a few days.
                 {showCredit && creditsName ? ` You'll show up on the credits page as "${creditsName}".` : ''}
               </div>
             </div>

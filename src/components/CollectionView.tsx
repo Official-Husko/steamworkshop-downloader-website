@@ -3,12 +3,19 @@ import { Link } from '../router'
 import type { CollectionChild, WorkshopCollection } from '../data/items'
 import { formatBytes } from '../lib/format'
 import { useRecentLookups } from '../hooks/useRecentLookups'
+import { useSEO } from '../hooks/useSEO'
 import { DownloadModal } from './DownloadModal'
 import '../styles/collection.css'
 
 type SortKey = 'workshop' | 'name' | 'size'
 
 export function CollectionView({ collection }: { collection: WorkshopCollection }) {
+  useSEO({
+    title: collection.title,
+    description: `Browse and download "${collection.title}", a Steam Workshop collection with ${collection.numChildren} items, via MODRELAY.`,
+    path: `/items/${collection.id}`,
+  })
+
   const { push } = useRecentLookups()
   const resolvableIds = useMemo(() => collection.children.filter((c) => c.status === 'ok').map((c) => c.id), [collection])
   const [selected, setSelected] = useState<Set<string>>(() => new Set(resolvableIds))
@@ -52,7 +59,7 @@ export function CollectionView({ collection }: { collection: WorkshopCollection 
   }
 
   const totalBytes = collection.children.reduce((sum, c) => (selected.has(c.id) ? sum + (c.sizeBytes ?? 0) : sum), 0)
-  const shortLabel = collection.title.split(' — ')[0]
+  const shortLabel = collection.title.replace(/ Collection$/, '')
 
   return (
     <div class="collection">
@@ -160,7 +167,7 @@ function CollectionRow({
       </Link>
       <span class="tree-title">
         {disabled ? <s>{child.title}</s> : child.title}
-        {child.dependsOn && <span class="tree-dep"> — depends on {child.dependsOn}</span>}
+        {child.dependsOn && <span class="tree-dep"> · depends on {child.dependsOn}</span>}
       </span>
       {child.status === 'ok' && <span class="tree-size">{formatBytes(child.sizeBytes ?? 0)}</span>}
       {child.status === 'removed' && <span class="tree-badge is-err">REMOVED · m_eResult 9</span>}

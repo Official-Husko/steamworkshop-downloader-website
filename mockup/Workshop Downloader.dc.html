@@ -13,13 +13,13 @@
 <style>
 body{margin:0;background:#f0eee9;font-family:'IBM Plex Sans',system-ui,sans-serif}
 a{color:#2a78d6}a:hover{color:#1a5aa8}
-.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-turn{padding:32px 36px 26px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px;width:max-content;min-width:100%;box-sizing:border-box}
 .dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 8px}
 .dv-tid{font:600 10px 'IBM Plex Mono',monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}
 .dv-tname{font:600 13px/1.2 'IBM Plex Sans',sans-serif;color:#1a1a1a}
-.dv-note{margin:0 0 24px;max-width:760px;font:13px/1.6 'IBM Plex Sans',sans-serif;color:rgba(0,0,0,.6)}
-.dv-sub{margin:28px 0 16px;font:600 11px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.4)}
-.dv-opts{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+.dv-note{margin:0 0 20px;max-width:760px;font:13px/1.6 'IBM Plex Sans',sans-serif;color:rgba(0,0,0,.6)}
+.dv-sub{margin:24px 0 14px;font:600 11px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.4)}
+.dv-opts{display:flex;flex-wrap:nowrap;gap:24px;align-items:flex-start;width:max-content}
 .dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
 .dv-oid{font:600 10.5px 'IBM Plex Mono',monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}
 .dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 'IBM Plex Sans',sans-serif;color:rgba(0,0,0,.55)}
@@ -28,9 +28,469 @@ a{color:#2a78d6}a:hover{color:#1a5aa8}
 .dv-next{margin:26px 0 0;font:12px/1.5 'IBM Plex Sans',sans-serif;color:rgba(0,0,0,.5)}
 @keyframes cur{0%,49%{opacity:1}50%,100%{opacity:0}}
 @keyframes scan{0%{transform:translateY(-100%)}100%{transform:translateY(1200%)}}
-@keyframes barber{to{background-position:40px 0}}
+@keyframes barber{from{transform:translateX(0)}to{transform:translateX(30.894px)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 </style></helmet>
+
+<section class="dv-turn" id="t5">
+<div class="dv-thd"><a class="dv-tid" href="#t5">5</a><span class="dv-tname">Quota banner — sitewide</span></div>
+<p class="dv-note">One strip, mounted directly under the header on every page, driven by the same counters as <a class="dv-oid" href="#4c">4c</a>. It has three states so it is not shouting at full volume all day: a quiet warning past 90%, the hard exhausted state, and a recovering state once the window rolls. Lookups keep working while downloads are blocked, so the strip says which half is affected rather than just "degraded".</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="5a"><div class="dv-olabel"><a class="dv-oid" href="#5a">5a</a>The three states</div>
+<div class="dv-card" style="width:900px;background:#0a0c0b;border-color:#1c2420">
+<div style="font-family:'IBM Plex Mono',monospace;color:#dffbec;padding:22px 24px 24px;display:flex;flex-direction:column;gap:18px">
+<div>
+<div style="font-size:10px;letter-spacing:.14em;color:rgba(126,240,176,.35);margin-bottom:8px">01 · APPROACHING — ABOVE 90%, DOWNLOADS STILL RUNNING</div>
+<div style="border:1px solid rgba(255,207,107,.4);background:rgba(255,207,107,.07);display:flex;align-items:center;gap:14px;padding:11px 16px">
+<span style="color:#ffcf6b;font-size:13px;flex:none">▲</span>
+<div style="flex:1;font-size:11.5px;line-height:1.6;color:rgba(223,251,236,.85)">Steam's daily file request limit is <span style="color:#ffcf6b;font-weight:700">92% used</span>. Downloads may start queueing within the hour.</div>
+<span style="font-size:10.5px;color:rgba(255,207,107,.8);flex:none">RESETS 06:12:44</span>
+<span style="font-size:10.5px;color:#ffcf6b;border:1px solid rgba(255,207,107,.4);padding:5px 11px;flex:none">STATUS</span>
+</div>
+</div>
+<div>
+<div style="font-size:10px;letter-spacing:.14em;color:rgba(126,240,176,.35);margin-bottom:8px">02 · EXHAUSTED — DOWNLOADS BLOCKED, LOOKUPS UNAFFECTED</div>
+<div style="border:1px solid rgba(255,155,155,.45);background:rgba(255,155,155,.08);position:relative;overflow:hidden">
+<div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#ff9b9b"></div>
+<div style="display:flex;align-items:center;gap:14px;padding:12px 16px 12px 19px">
+<span style="color:#ff9b9b;font-size:13px;flex:none">■</span>
+<div style="flex:1;font-size:11.5px;line-height:1.7;color:rgba(223,251,236,.9)"><span style="color:#ff9b9b;font-weight:700">Daily file request limit reached — downloads are paused.</span><br><span style="color:rgba(223,251,236,.7)">Steam allows 100,000 file requests per 24 hours and all of them are spent. Lookups, item details and collections still work, so you can queue what you need now and it will start automatically when the window rolls.</span></div>
+<div style="flex:none;text-align:right">
+<div style="font-size:16px;font-weight:700;color:#ff9b9b">06:12:44</div>
+<div style="font-size:9.5px;letter-spacing:.1em;color:rgba(255,155,155,.7);margin-top:2px">UNTIL RESET</div>
+</div>
+<span style="font-size:10.5px;color:#dffbec;border:1px solid rgba(255,155,155,.5);padding:7px 12px;flex:none">QUEUE FOR LATER</span>
+</div>
+</div>
+</div>
+<div>
+<div style="font-size:10px;letter-spacing:.14em;color:rgba(126,240,176,.35);margin-bottom:8px">03 · RECOVERING — WINDOW ROLLED, QUEUE DRAINING</div>
+<div style="border:1px solid rgba(126,240,176,.35);background:rgba(126,240,176,.05);display:flex;align-items:center;gap:14px;padding:11px 16px">
+<span style="color:#7ef0b0;font-size:13px;flex:none">▸</span>
+<div style="flex:1;font-size:11.5px;line-height:1.6;color:rgba(223,251,236,.85)">Limit reset. <span style="color:#7ef0b0;font-weight:700">Downloads are running again</span> — 412 queued transfers are draining, oldest first.</div>
+<div style="width:130px;height:8px;border:1px solid rgba(126,240,176,.3);padding:2px;flex:none"><div style="height:100%;width:34%;position:relative;overflow:hidden;background:#63cd95"><div style="position:absolute;top:0;bottom:0;left:-44px;right:-44px;background:repeating-linear-gradient(115deg,#7ef0b0 0 14px,#63cd95 14px 28px);animation:barber 1.4s linear infinite"></div></div></div>
+<span style="font-size:10.5px;color:rgba(126,240,176,.6);flex:none">DISMISS ✕</span>
+</div>
+</div>
+<div style="margin-top:4px;padding-top:16px;border-top:1px solid rgba(126,240,176,.12);font-size:11px;color:rgba(126,240,176,.4);line-height:1.8">Placement: full width, directly under the header, above the page title, on every page including About and Privacy. States 01 and 03 are dismissible for the session; 02 is not, since it changes what the download button does. The strip never covers content or floats.</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="5b"><div class="dv-olabel"><a class="dv-oid" href="#5b">5b</a>In place — item detail with downloads paused</div>
+<div class="dv-card" style="width:900px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.035) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:13px 24px;border-bottom:1px solid rgba(126,240,176,.16);font-size:11.5px;letter-spacing:.05em">
+<span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span>
+<div style="display:flex;gap:16px;color:rgba(126,240,176,.5)"><span>ABOUT</span><span>API</span><span>REQUEST A GAME</span><span>DONATE A GAME</span><span>STATUS</span><span>CREDITS</span><span>PRIVACY</span></div>
+</div>
+<div style="border-bottom:1px solid rgba(255,155,155,.4);background:rgba(255,155,155,.08);position:relative">
+<div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#ff9b9b"></div>
+<div style="display:flex;align-items:center;gap:14px;padding:11px 20px 11px 23px">
+<span style="color:#ff9b9b;font-size:12px;flex:none">■</span>
+<div style="flex:1;font-size:11.5px;line-height:1.6;color:rgba(223,251,236,.88)"><span style="color:#ff9b9b;font-weight:700">Daily file request limit reached — downloads are paused.</span> Lookups still work. Queue an item now and it starts when the window rolls.</div>
+<span style="font-size:13px;font-weight:700;color:#ff9b9b;flex:none">06:12:44</span>
+<span style="font-size:10.5px;color:rgba(255,155,155,.75);flex:none">STATUS</span>
+</div>
+</div>
+<div style="display:flex;align-items:stretch">
+<div style="width:300px;border-right:1px solid rgba(126,240,176,.12);padding:20px;flex:none">
+<div style="height:160px;border:1px solid rgba(126,240,176,.22);background:repeating-linear-gradient(135deg,rgba(126,240,176,.07) 0 6px,transparent 6px 12px);display:flex;align-items:center;justify-content:center;font-size:10.5px;letter-spacing:.1em;color:rgba(126,240,176,.5)">preview image — 636×358</div>
+<div style="margin-top:18px;display:flex;flex-direction:column;gap:9px;font-size:11.5px">
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">Item ID</span><span>2874113045</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">Game</span><span>Stellar Drift</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">Download size</span><span>184.2 MB</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">Last updated</span><span>18 Jun 2026</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">Availability</span><span style="color:#7ef0b0">Public</span></div>
+</div>
+</div>
+<div style="flex:1;padding:20px 24px 24px;min-width:0">
+<div style="font-size:10.5px;letter-spacing:.14em;color:rgba(126,240,176,.4)">MOD</div>
+<h2 style="margin:6px 0 4px;font:700 24px/1.2 'IBM Plex Mono',monospace">Overhauled Rail Network</h2>
+<div style="font-size:12px;color:rgba(126,240,176,.6);margin-bottom:18px">by <span style="color:#7ef0b0">vaultkeeper_77</span> · for Stellar Drift</div>
+<div style="border:1px solid rgba(255,155,155,.3);background:rgba(255,155,155,.05);padding:14px 16px;margin-bottom:14px">
+<div style="display:flex;align-items:center;gap:12px">
+<span style="background:rgba(126,240,176,.16);color:rgba(223,251,236,.35);font-weight:700;font-size:12.5px;letter-spacing:.06em;padding:13px 24px">DOWNLOAD UNAVAILABLE</span>
+<span style="border:1px solid #ff9b9b;color:#ff9b9b;font-size:12.5px;padding:12px 20px">QUEUE FOR 06:12:44</span>
+</div>
+<div style="font-size:11px;color:rgba(255,155,155,.8);line-height:1.7;margin-top:11px">Queued items are held in your browser, not on the server. Closing the tab clears the queue.</div>
+</div>
+<div style="display:flex;gap:10px;margin-bottom:20px">
+<span style="border:1px solid rgba(126,240,176,.3);color:rgba(126,240,176,.8);font-size:12px;padding:11px 16px">COPY DIRECT LINK</span>
+<span style="border:1px solid rgba(126,240,176,.3);color:rgba(126,240,176,.8);font-size:12px;padding:11px 16px">RAW JSON</span>
+<span style="font-size:11px;color:rgba(126,240,176,.4);align-self:center;line-height:1.6">Metadata is served from cache and costs no quota.</span>
+</div>
+<div style="border:1px solid rgba(126,240,176,.14);background:rgba(126,240,176,.02);padding:16px 18px;font-size:12.5px;line-height:1.75;color:rgba(223,251,236,.8)">
+Replaces the base game rail system with a signal-aware network. Junctions resolve priority per-train instead of per-track, and stations expose their throughput to the UI.
+</div>
+</div>
+</div>
+<div style="border-top:1px solid rgba(126,240,176,.12);padding:14px 24px;font-size:11px;color:rgba(126,240,176,.3)">This website is a community project and is not affiliated with Valve Corporation or Steam.</div>
+</div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "show the queue drawer" · "add the same banner to mobile" · "make state 02 dismissible after a minute"</p>
+</section>
+
+<section class="dv-turn" id="t4">
+<div class="dv-thd"><a class="dv-tid" href="#t4">4</a><span class="dv-tname">Key application and system status</span></div>
+<p class="dv-note">Status joins the flat top bar. Item detail <a class="dv-oid" href="#1d">1d</a> now reads in plain language, with an opt-in toggle for the raw API field names rather than showing them by default.</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="4b"><div class="dv-olabel"><a class="dv-oid" href="#4b">4b</a>Apply for an API key</div>
+<div class="dv-card" style="width:900px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.035) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:13px 24px;border-bottom:1px solid rgba(126,240,176,.16);font-size:11.5px;letter-spacing:.05em">
+<span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span>
+<div style="display:flex;gap:16px;color:rgba(126,240,176,.5)"><span>ABOUT</span><span style="color:#7ef0b0;border-bottom:1px solid #7ef0b0;padding-bottom:2px">API</span><span>REQUEST A GAME</span><span>DONATE A GAME</span><span>STATUS</span><span>CREDITS</span><span>PRIVACY</span></div>
+</div>
+<div style="padding:30px 34px 34px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;font-size:11px;letter-spacing:.14em;color:rgba(126,240,176,.4);margin-bottom:14px"><span>$ ./apply --api-key</span><span>14 OF 40 SLOTS OPEN</span></div>
+<h2 style="margin:0 0 12px;font:700 27px/1.2 'IBM Plex Mono',monospace">Apply for an API key</h2>
+<p style="margin:0 0 24px;font-size:12.5px;line-height:1.8;color:rgba(223,251,236,.72);max-width:600px">The service runs on a single machine against a fixed daily budget — 100,000 requests per 24 hours, set by Steam. Keys are therefore handed out one at a time, and the rules below are enforced rather than suggested. Read them before applying — most rejections are for missing one of the first three.</p>
+<div style="display:flex;gap:26px;align-items:flex-start">
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:18px">
+<div><div style="display:flex;justify-content:space-between;font-size:11px;letter-spacing:.1em;margin-bottom:8px"><span style="color:#7ef0b0">PROJECT NAME</span><span style="color:#7ef0b0">REQUIRED</span></div><div style="border:1px solid rgba(126,240,176,.35);background:rgba(126,240,176,.04);padding:13px 14px;font-size:13.5px;color:rgba(223,251,236,.4)">Modpack Archiver</div></div>
+<div><div style="display:flex;justify-content:space-between;font-size:11px;letter-spacing:.1em;margin-bottom:8px"><span style="color:#7ef0b0">WHAT IT DOES</span><span style="color:#7ef0b0">REQUIRED</span></div><div style="border:1px solid rgba(126,240,176,.22);background:rgba(126,240,176,.03);padding:13px 14px;font-size:12px;line-height:1.7;color:rgba(223,251,236,.4);height:74px">Two or three sentences. Say who uses it and how often.</div></div>
+<div style="display:flex;gap:14px">
+<div style="flex:1"><div style="display:flex;justify-content:space-between;font-size:11px;letter-spacing:.1em;margin-bottom:8px"><span style="color:#7ef0b0">CONTACT EMAIL</span><span style="color:#7ef0b0">REQUIRED</span></div><div style="border:1px solid rgba(126,240,176,.22);background:rgba(126,240,176,.03);padding:13px 14px;font-size:13px;color:rgba(223,251,236,.4)">you@example.com</div></div>
+<div style="width:190px;flex:none"><div style="display:flex;justify-content:space-between;font-size:11px;letter-spacing:.1em;margin-bottom:8px"><span style="color:#7ef0b0">REQ / DAY</span><span style="color:#7ef0b0">REQ</span></div><div style="border:1px solid rgba(126,240,176,.22);background:rgba(126,240,176,.03);padding:13px 14px;font-size:13px;color:rgba(223,251,236,.4)">e.g. 400</div></div>
+</div>
+<div><div style="display:flex;justify-content:space-between;font-size:11px;letter-spacing:.1em;margin-bottom:8px"><span style="color:rgba(126,240,176,.6)">SOURCE OR HOMEPAGE</span><span style="color:rgba(126,240,176,.3)">OPTIONAL</span></div><div style="border:1px solid rgba(126,240,176,.22);background:rgba(126,240,176,.03);padding:13px 14px;font-size:13px;color:rgba(223,251,236,.4)">A repo helps. Closed source is accepted with a description.</div></div>
+<div style="border:1px solid rgba(126,240,176,.2);padding:15px 16px;display:flex;flex-direction:column;gap:11px">
+<div style="font-size:10.5px;letter-spacing:.12em;color:rgba(126,240,176,.4)">YOU MUST AGREE TO ALL FOUR</div>
+<div style="display:flex;gap:11px;align-items:flex-start"><span style="color:#7ef0b0;font-size:13px">[×]</span><div style="font-size:11.5px;line-height:1.7;color:rgba(223,251,236,.8)">I will not redistribute, mirror or resell downloaded files.</div></div>
+<div style="display:flex;gap:11px;align-items:flex-start"><span style="color:#7ef0b0;font-size:13px">[×]</span><div style="font-size:11.5px;line-height:1.7;color:rgba(223,251,236,.8)">I will cache responses and respect <span style="color:#7ef0b0">Retry-After</span> rather than retrying in a loop.</div></div>
+<div style="display:flex;gap:11px;align-items:flex-start"><span style="color:rgba(126,240,176,.35);font-size:13px">[ ]</span><div style="font-size:11.5px;line-height:1.7;color:rgba(223,251,236,.8)">I will keep the key server-side and rotate it if it leaks.</div></div>
+<div style="display:flex;gap:11px;align-items:flex-start"><span style="color:rgba(126,240,176,.35);font-size:13px">[ ]</span><div style="font-size:11.5px;line-height:1.7;color:rgba(223,251,236,.8)">I will credit this site where the data is shown.</div></div>
+</div>
+<div style="display:flex;align-items:center;gap:16px">
+<span style="background:rgba(126,240,176,.25);color:rgba(10,12,11,.65);font-weight:700;font-size:12.5px;letter-spacing:.08em;padding:14px 30px">SUBMIT APPLICATION</span>
+<span style="font-size:11px;color:rgba(126,240,176,.4);line-height:1.7">Two boxes left to tick.<br>Reviewed weekly, answered either way.</span>
+</div>
+</div>
+<div style="width:250px;flex:none;border-left:1px solid rgba(126,240,176,.12);padding-left:24px">
+<div style="font-size:10.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:12px">HARD RULES</div>
+<div style="font-size:11.5px;line-height:1.85;color:rgba(223,251,236,.75);display:flex;flex-direction:column;gap:11px">
+<div><span style="color:#7ef0b0">01</span> One key per project, one project per person.</div>
+<div><span style="color:#7ef0b0">02</span> Server-side only. A key found in client code is revoked on sight.</div>
+<div><span style="color:#7ef0b0">03</span> No scraping the whole catalogue. Resolve what a user asked for.</div>
+<div><span style="color:#7ef0b0">04</span> Cache for 24 hours minimum.</div>
+<div><span style="color:#7ef0b0">05</span> Identify yourself in the User-Agent.</div>
+<div><span style="color:#7ef0b0">06</span> No commercial resale of the responses.</div>
+</div>
+<div style="margin-top:18px;border:1px solid rgba(255,155,155,.28);background:rgba(255,155,155,.05);padding:12px 13px;font-size:11px;line-height:1.75;color:#ff9b9b">Breaking 02 or 03 is an immediate, permanent revocation. Everything else gets one warning.</div>
+<div style="margin-top:16px;font-size:11px;line-height:1.75;color:rgba(126,240,176,.4)">Rejected? Reapply after 30 days, or send a key from the <span style="color:#7ef0b0">donation page</span> — donors skip the queue.</div>
+</div>
+</div>
+</div>
+<div style="border-top:1px solid rgba(126,240,176,.12);padding:14px 24px;font-size:11px;color:rgba(126,240,176,.3)">This website is a community project and is not affiliated with Valve Corporation or Steam.</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="4c"><div class="dv-olabel"><a class="dv-oid" href="#4c">4c</a>System status</div>
+<div class="dv-card" style="width:900px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.035) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:13px 24px;border-bottom:1px solid rgba(126,240,176,.16);font-size:11.5px;letter-spacing:.05em">
+<span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span>
+<div style="display:flex;gap:16px;color:rgba(126,240,176,.5)"><span>ABOUT</span><span>API</span><span>REQUEST A GAME</span><span>DONATE A GAME</span><span style="color:#7ef0b0;border-bottom:1px solid #7ef0b0;padding-bottom:2px">STATUS</span><span>CREDITS</span><span>PRIVACY</span></div>
+</div>
+<div style="padding:28px 34px 34px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px">
+<div><div style="font-size:11px;letter-spacing:.14em;color:rgba(126,240,176,.4);margin-bottom:10px">$ ./status --all</div>
+<h2 style="margin:0;font:700 27px/1.2 'IBM Plex Mono',monospace">System status</h2></div>
+<div style="display:flex;align-items:center;gap:10px;border:1px solid rgba(126,240,176,.35);background:rgba(126,240,176,.06);padding:9px 15px">
+<span style="width:8px;height:8px;border-radius:50%;background:#7ef0b0;display:block;box-shadow:0 0 10px #7ef0b0"></span>
+<span style="font-size:12px;letter-spacing:.06em">ALL SYSTEMS OPERATIONAL</span></div>
+</div>
+<div style="border:1px solid rgba(126,240,176,.28);background:rgba(126,240,176,.03);padding:18px 20px;margin-bottom:22px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px">
+<span style="font-size:12.5px;font-weight:700;letter-spacing:.06em">DAILY BUDGET · ROLLING 24 H</span>
+<span style="font-size:11.5px;color:rgba(126,240,176,.5)">RESETS IN 06:12:44</span></div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;font-size:11.5px;margin-bottom:7px">
+<span style="color:rgba(223,251,236,.85)">File requests</span>
+<span style="color:rgba(126,240,176,.5)"><span style="color:#dffbec;font-weight:700">63,412</span> of <span style="color:#dffbec;font-weight:700">100,000</span> allowed by Steam in 24 h</span></div>
+<div style="height:20px;border:1px solid rgba(126,240,176,.3);padding:3px;position:relative;margin-bottom:8px">
+<div style="height:100%;width:63.4%;position:relative;overflow:hidden;background:#63cd95"><div style="position:absolute;top:0;bottom:0;left:-44px;right:-44px;background:repeating-linear-gradient(115deg,#7ef0b0 0 14px,#63cd95 14px 28px);animation:barber 1.4s linear infinite"></div></div>
+</div>
+<div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(126,240,176,.45);margin-bottom:18px"><span>36,588 remaining</span><span>peak hour 08:00–09:00 UTC · 7,104</span></div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;font-size:11.5px;margin-bottom:7px">
+<span style="color:rgba(223,251,236,.85)">Public file detail requests</span>
+<span style="color:rgba(126,240,176,.5)"><span style="color:#dffbec;font-weight:700">88,140</span> of <span style="color:#dffbec;font-weight:700">100,000</span> in 24 h</span></div>
+<div style="height:20px;border:1px solid rgba(255,207,107,.4);padding:3px;position:relative;margin-bottom:8px">
+<div style="height:100%;width:88.1%;position:relative;overflow:hidden;background:#dbaf58"><div style="position:absolute;top:0;bottom:0;left:-44px;right:-44px;background:repeating-linear-gradient(115deg,#ffcf6b 0 14px,#dbaf58 14px 28px);animation:barber 1.4s linear infinite"></div></div>
+</div>
+<div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(126,240,176,.45)"><span style="color:#ffcf6b">11,860 remaining — metadata lookups are throttled above 90%</span><span>1 lookup serves 24 h of cache</span></div>
+<div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(126,240,176,.14);font-size:11px;color:rgba(126,240,176,.4);line-height:1.75">Both ceilings are set by Steam per 24 hours, not by us. When one is exhausted, reads keep serving from cache and anything new queues until the window rolls.</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(126,240,176,.14);border:1px solid rgba(126,240,176,.14);margin-bottom:22px">
+<div style="background:#0a0c0b;padding:16px 17px"><div style="font-size:21px;font-weight:700">4.81M</div><div style="font-size:10px;letter-spacing:.1em;color:rgba(126,240,176,.4);margin-top:5px">FILE REQUESTS SENT</div></div>
+<div style="background:#0a0c0b;padding:16px 17px"><div style="font-size:21px;font-weight:700">3.92M</div><div style="font-size:10px;letter-spacing:.1em;color:rgba(126,240,176,.4);margin-top:5px">FILES DELIVERED</div></div>
+<div style="background:#0a0c0b;padding:16px 17px"><div style="font-size:21px;font-weight:700">1.14 <span style="font-size:13px;color:rgba(126,240,176,.5)">PB</span></div><div style="font-size:10px;letter-spacing:.1em;color:rgba(126,240,176,.4);margin-top:5px">TOTAL TRANSFERRED</div></div>
+<div style="background:#0a0c0b;padding:16px 17px"><div style="font-size:21px;font-weight:700">341 <span style="font-size:13px;color:rgba(126,240,176,.5)">ms</span></div><div style="font-size:10px;letter-spacing:.1em;color:rgba(126,240,176,.4);margin-top:5px">MEDIAN RESOLVE</div></div>
+</div>
+<div style="display:flex;gap:14px;margin-bottom:24px">
+<div style="flex:1;border:1px solid rgba(126,240,176,.16);padding:16px 18px">
+<div style="font-size:10px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:9px">MOST DOWNLOADED GAME</div>
+<div style="font-size:16px;font-weight:700;margin-bottom:5px">Stellar Drift</div>
+<div style="font-size:11.5px;color:rgba(126,240,176,.5)">881,204 items · 412 TB · 23% of all traffic</div>
+</div>
+<div style="flex:1;border:1px solid rgba(126,240,176,.16);padding:16px 18px">
+<div style="font-size:10px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:9px">MOST DOWNLOADED MOD</div>
+<div style="font-size:16px;font-weight:700;margin-bottom:5px">Overhauled Rail Network</div>
+<div style="font-size:11.5px;color:rgba(126,240,176,.5)">2874113045 · 64,118 pulls · 11.5 TB</div>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+<span style="font-size:12.5px;font-weight:700;letter-spacing:.06em">GAME COVERAGE — 318 GAMES</span>
+<div style="display:flex;gap:14px;font-size:10.5px;color:rgba(126,240,176,.45)"><span><span style="color:#7ef0b0">■</span> WORKING 291</span><span><span style="color:#ffcf6b">■</span> PARTIAL 23</span><span><span style="color:#ff9b9b">■</span> BROKEN 4</span></div>
+</div>
+<div style="border:1px solid rgba(126,240,176,.14);font-size:11.5px">
+<div style="display:flex;gap:14px;padding:9px 14px;border-bottom:1px solid rgba(126,240,176,.14);font-size:10px;letter-spacing:.1em;color:rgba(126,240,176,.4)"><span style="flex:1">GAME</span><span style="width:78px">APP ID</span><span style="width:88px;text-align:right">ITEMS</span><span style="width:78px;text-align:right">TRANSFER</span><span style="width:210px">WORKSHOP STATUS</span></div>
+<div style="display:flex;gap:14px;padding:10px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center"><span style="flex:1">Stellar Drift</span><span style="width:78px;color:rgba(126,240,176,.45)">2074010</span><span style="width:88px;text-align:right">881,204</span><span style="width:78px;text-align:right;color:rgba(126,240,176,.6)">412 TB</span><span style="width:210px;color:#7ef0b0">■ Working</span></div>
+<div style="display:flex;gap:14px;padding:10px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center"><span style="flex:1">Harrowmere</span><span style="width:78px;color:rgba(126,240,176,.45)">1449230</span><span style="width:88px;text-align:right">402,551</span><span style="width:78px;text-align:right;color:rgba(126,240,176,.6)">188 TB</span><span style="width:210px;color:#7ef0b0">■ Working</span></div>
+<div style="display:flex;gap:14px;padding:10px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center"><span style="flex:1">Tin Can Diver</span><span style="width:78px;color:rgba(126,240,176,.45)">0900117</span><span style="width:88px;text-align:right">96,330</span><span style="width:78px;text-align:right;color:rgba(126,240,176,.6)">27 TB</span><span style="width:210px;color:#ffcf6b">■ Partial — no extractor for .tcd</span></div>
+<div style="display:flex;gap:14px;padding:10px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center"><span style="flex:1">Grease Monkey 2</span><span style="width:78px;color:rgba(126,240,176,.45)">1188770</span><span style="width:88px;text-align:right">61,908</span><span style="width:78px;text-align:right;color:rgba(126,240,176,.6)">19 TB</span><span style="width:210px;color:#7ef0b0">■ Working</span></div>
+<div style="display:flex;gap:14px;padding:10px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center"><span style="flex:1">Ninefold Abbey</span><span style="width:78px;color:rgba(126,240,176,.45)">1770020</span><span style="width:88px;text-align:right">40,117</span><span style="width:78px;text-align:right;color:rgba(126,240,176,.6)">8.2 TB</span><span style="width:210px;color:#ffcf6b">■ Partial — packed archives only</span></div>
+<div style="display:flex;gap:14px;padding:10px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center"><span style="flex:1;color:rgba(223,251,236,.5)">Cobalt Wharf</span><span style="width:78px;color:rgba(126,240,176,.3)">1602880</span><span style="width:88px;text-align:right;color:rgba(223,251,236,.5)">12,440</span><span style="width:78px;text-align:right;color:rgba(126,240,176,.35)">—</span><span style="width:210px;color:#ff9b9b">■ Broken — upstream changed format</span></div>
+<div style="display:flex;gap:14px;padding:10px 14px;align-items:center"><span style="flex:1;color:rgba(126,240,176,.4)">312 more games</span><span style="flex:none;color:#7ef0b0">view full list</span></div>
+</div>
+<div style="margin-top:14px;font-size:11px;color:rgba(126,240,176,.4);line-height:1.8">Partial means the item downloads but we cannot unpack the game-specific container, so you receive it as-is. Broken means resolution currently fails; those entries are worked on in order of request count.</div>
+</div>
+<div style="border-top:1px solid rgba(126,240,176,.12);padding:14px 24px;font-size:11px;color:rgba(126,240,176,.3)">This website is a community project and is not affiliated with Valve Corporation or Steam.</div>
+</div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "add the incident history to <a class="dv-oid" href="#4c">4c</a>" · "show the key-issued confirmation state" · "put the new nav on every page"</p>
+</section>
+
+<section class="dv-turn" id="t3">
+<div class="dv-thd"><a class="dv-tid" href="#t3">3</a><span class="dv-tname">Request a game, public API, and the desktop tool on About</span></div>
+<p class="dv-note">Request games sits next to donate in the nav — one page asks for a key, the other asks for demand, and the two link to each other since a heavily requested game is what a donor should send. The API page documents what the site itself calls, so the field names match what item detail already shows. The desktop tool is written as a section on About rather than its own page, since there is nothing to download yet.</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="3a"><div class="dv-olabel"><a class="dv-oid" href="#3a">3a</a>Request a game</div>
+<div class="dv-card" style="width:900px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.035) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:13px 24px;border-bottom:1px solid rgba(126,240,176,.16);font-size:11.5px;letter-spacing:.05em">
+<span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span>
+<div style="display:flex;gap:16px;color:rgba(126,240,176,.5)"><span>ABOUT</span><span>API</span><span style="color:#7ef0b0;border-bottom:1px solid #7ef0b0;padding-bottom:2px">REQUEST A GAME</span><span>DONATE A GAME</span><span>STATUS</span><span>CREDITS</span><span>PRIVACY</span></div>
+</div>
+<div style="padding:30px 34px 34px">
+<div style="font-size:11px;letter-spacing:.14em;color:rgba(126,240,176,.4);margin-bottom:14px">$ ./request --app</div>
+<h2 style="margin:0 0 12px;font:700 27px/1.2 'IBM Plex Mono',monospace">Ask for a game we do not cover</h2>
+<p style="margin:0 0 26px;font-size:12.5px;line-height:1.8;color:rgba(223,251,236,.72);max-width:620px">Coverage is limited to games the service owns. Requesting one adds it to the queue below; the count is what donors use to decide which key to send. Nothing here obligates anyone to buy anything.</p>
+<div style="display:flex;gap:12px;align-items:stretch;margin-bottom:30px">
+<div style="flex:1;border:1px solid rgba(126,240,176,.35);background:rgba(126,240,176,.04);padding:14px 16px;display:flex;align-items:center;gap:10px">
+<span style="color:rgba(126,240,176,.5)">&gt;</span><span style="font-size:14px;color:rgba(223,251,236,.4)">game name, Steam store URL, or app id</span><span style="display:inline-block;width:9px;height:17px;background:#7ef0b0;animation:cur 1.05s step-end infinite"></span>
+</div>
+<span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:12.5px;letter-spacing:.08em;padding:15px 26px;display:flex;align-items:center">ADD REQUEST</span>
+</div>
+<div style="display:flex;gap:16px;font-size:11px;color:rgba(126,240,176,.4);margin-bottom:12px;align-items:center;border-bottom:1px solid rgba(126,240,176,.12);padding-bottom:12px">
+<span style="color:#7ef0b0;border:1px solid rgba(126,240,176,.4);padding:5px 11px">ALL 214</span>
+<span style="border:1px solid rgba(126,240,176,.14);padding:5px 11px">NEEDS A KEY 189</span>
+<span style="border:1px solid rgba(126,240,176,.14);padding:5px 11px">COVERED 21</span>
+<span style="border:1px solid rgba(126,240,176,.14);padding:5px 11px">NOT POSSIBLE 4</span>
+<span style="margin-left:auto">sort: requests ▾</span>
+</div>
+<div style="font-size:12.5px">
+<div style="display:flex;align-items:center;gap:14px;padding:11px 0;border-bottom:1px solid rgba(126,240,176,.07)"><span style="width:56px;flex:none;color:#7ef0b0;font-weight:700;text-align:right">412</span><span style="color:rgba(126,240,176,.35);width:88px;flex:none">2074010</span><span style="flex:1">Stellar Drift</span><span style="font-size:10.5px;color:#ffcf6b;border:1px solid rgba(255,207,107,.3);padding:3px 9px">NEEDS A KEY</span><span style="font-size:11px;color:rgba(126,240,176,.5);border:1px solid rgba(126,240,176,.25);padding:4px 12px">+1</span></div>
+<div style="display:flex;align-items:center;gap:14px;padding:11px 0;border-bottom:1px solid rgba(126,240,176,.07)"><span style="width:56px;flex:none;color:#7ef0b0;font-weight:700;text-align:right">288</span><span style="color:rgba(126,240,176,.35);width:88px;flex:none">1449230</span><span style="flex:1">Harrowmere</span><span style="font-size:10.5px;color:#ffcf6b;border:1px solid rgba(255,207,107,.3);padding:3px 9px">NEEDS A KEY</span><span style="font-size:11px;color:rgba(126,240,176,.5);border:1px solid rgba(126,240,176,.25);padding:4px 12px">+1</span></div>
+<div style="display:flex;align-items:center;gap:14px;padding:11px 0;border-bottom:1px solid rgba(126,240,176,.07);background:rgba(126,240,176,.04)"><span style="width:56px;flex:none;color:#7ef0b0;font-weight:700;text-align:right">241</span><span style="color:rgba(126,240,176,.35);width:88px;flex:none">0900117</span><span style="flex:1">Tin Can Diver</span><span style="font-size:10.5px;color:#7ef0b0;border:1px solid rgba(126,240,176,.35);padding:3px 9px">COVERED 2026-08-02</span><span style="font-size:11px;color:rgba(126,240,176,.25);border:1px solid rgba(126,240,176,.12);padding:4px 12px">done</span></div>
+<div style="display:flex;align-items:center;gap:14px;padding:11px 0;border-bottom:1px solid rgba(126,240,176,.07)"><span style="width:56px;flex:none;color:#7ef0b0;font-weight:700;text-align:right">173</span><span style="color:rgba(126,240,176,.35);width:88px;flex:none">1188770</span><span style="flex:1">Grease Monkey 2</span><span style="font-size:10.5px;color:#ffcf6b;border:1px solid rgba(255,207,107,.3);padding:3px 9px">NEEDS A KEY</span><span style="font-size:11px;color:rgba(126,240,176,.5);border:1px solid rgba(126,240,176,.25);padding:4px 12px">+1</span></div>
+<div style="display:flex;align-items:center;gap:14px;padding:11px 0;border-bottom:1px solid rgba(126,240,176,.07)"><span style="width:56px;flex:none;color:#7ef0b0;font-weight:700;text-align:right">96</span><span style="color:rgba(126,240,176,.35);width:88px;flex:none">2310044</span><span style="flex:1;color:rgba(223,251,236,.45)">Loft &amp; Ladder</span><span style="font-size:10.5px;color:#ff9b9b;border:1px solid rgba(255,155,155,.3);padding:3px 9px">NO WORKSHOP</span><span style="font-size:11px;color:rgba(126,240,176,.25);border:1px solid rgba(126,240,176,.12);padding:4px 12px">closed</span></div>
+<div style="display:flex;align-items:center;gap:14px;padding:11px 0;border-bottom:1px solid rgba(126,240,176,.07)"><span style="width:56px;flex:none;color:#7ef0b0;font-weight:700;text-align:right">61</span><span style="color:rgba(126,240,176,.35);width:88px;flex:none">1770020</span><span style="flex:1">Ninefold Abbey</span><span style="font-size:10.5px;color:#ffcf6b;border:1px solid rgba(255,207,107,.3);padding:3px 9px">NEEDS A KEY</span><span style="font-size:11px;color:rgba(126,240,176,.5);border:1px solid rgba(126,240,176,.25);padding:4px 12px">+1</span></div>
+<div style="padding:12px 0 0;color:rgba(126,240,176,.4);font-size:12px">208 more · <span style="color:#7ef0b0">load next 50</span></div>
+</div>
+<div style="margin-top:26px;border:1px solid rgba(126,240,176,.2);background:rgba(126,240,176,.03);padding:16px 18px;display:flex;align-items:center;gap:18px">
+<div style="flex:1;font-size:12px;line-height:1.75;color:rgba(223,251,236,.75)">Own a spare copy of something near the top? A single key clears the whole queue entry for everyone who asked.</div>
+<span style="flex:none;border:1px solid #7ef0b0;color:#7ef0b0;font-size:12px;letter-spacing:.06em;padding:11px 20px">DONATE A GAME →</span>
+</div>
+<div style="margin-top:18px;font-size:11px;color:rgba(126,240,176,.35);line-height:1.75">One request per game per device. Requests for games without a Workshop, or where the Workshop is server-side only, are closed with a reason.</div>
+</div>
+<div style="border-top:1px solid rgba(126,240,176,.12);padding:14px 24px;font-size:11px;color:rgba(126,240,176,.3)">This website is a community project and is not affiliated with Valve Corporation or Steam.</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="3b"><div class="dv-olabel"><a class="dv-oid" href="#3b">3b</a>Public API</div>
+<div class="dv-card" style="width:900px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.035) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:13px 24px;border-bottom:1px solid rgba(126,240,176,.16);font-size:11.5px;letter-spacing:.05em">
+<span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span>
+<div style="display:flex;gap:16px;color:rgba(126,240,176,.5)"><span>ABOUT</span><span style="color:#7ef0b0;border-bottom:1px solid #7ef0b0;padding-bottom:2px">API</span><span>REQUEST A GAME</span><span>DONATE A GAME</span><span>STATUS</span><span>CREDITS</span><span>PRIVACY</span></div>
+</div>
+<div style="display:flex;align-items:stretch">
+<div style="width:186px;flex:none;border-right:1px solid rgba(126,240,176,.12);padding:26px 20px;font-size:11.5px;line-height:2.2">
+<div style="letter-spacing:.12em;color:rgba(126,240,176,.4);font-size:10.5px;margin-bottom:8px">CONTENTS</div>
+<div style="color:#7ef0b0">Overview</div>
+<div style="color:rgba(223,251,236,.6)">Authentication</div>
+<div style="color:rgba(223,251,236,.6)">GET /v1/item</div>
+<div style="color:rgba(223,251,236,.6)">GET /v1/collection</div>
+<div style="color:rgba(223,251,236,.6)">GET /v1/download</div>
+<div style="color:rgba(223,251,236,.6)">Errors</div>
+<div style="color:rgba(223,251,236,.6)">Rate limits</div>
+<div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(126,240,176,.12);color:rgba(126,240,176,.35);font-size:10.5px;line-height:1.7">Base URL<br><span style="color:rgba(223,251,236,.7)">api.workshop.dl</span></div>
+</div>
+<div style="flex:1;min-width:0;padding:26px 30px 30px">
+<div style="font-size:11px;letter-spacing:.14em;color:rgba(126,240,176,.4);margin-bottom:12px">$ curl -s api.workshop.dl/v1/item/2874113045</div>
+<h2 style="margin:0 0 12px;font:700 26px/1.2 'IBM Plex Mono',monospace">API</h2>
+<p style="margin:0 0 24px;font-size:12.5px;line-height:1.8;color:rgba(223,251,236,.72);max-width:560px">The same endpoints the site uses. JSON in, JSON out. Field names mirror Steam's UGC details struct so responses can be dropped straight into existing tooling. Every endpoint requires a key.</p>
+<div style="border:1px solid rgba(126,240,176,.24);background:rgba(126,240,176,.03);padding:18px 20px;margin-bottom:26px">
+<div style="display:flex;align-items:center;gap:11px;margin-bottom:12px"><span style="font-size:12.5px;font-weight:700;letter-spacing:.06em;color:#dffbec">AUTHENTICATION</span><span style="font-size:10px;letter-spacing:.1em;color:#ffcf6b;border:1px solid rgba(255,207,107,.3);padding:3px 8px">INVITE ONLY</span></div>
+<div style="font-size:11.5px;line-height:1.8;color:rgba(223,251,236,.75);margin-bottom:14px">Send the key as a bearer token. Keys are issued by hand — capacity is bounded by the hardware the service runs on, so they are not self-serve.</div>
+<pre style="margin:0 0 14px;padding:12px 14px;border:1px solid rgba(126,240,176,.14);background:rgba(10,12,11,.7);font-size:11.5px;line-height:1.7;color:rgba(223,251,236,.85);overflow:hidden">curl <span style="color:rgba(126,240,176,.45)">-H</span> <span style="color:#7ef0b0">"Authorization: Bearer wdl_live_8f2c…"</span> \
+     api.workshop.dl<span style="color:#7ef0b0">/v1/item/2874113045</span></pre>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 26px;font-size:11.5px;line-height:1.9;color:rgba(223,251,236,.7)">
+<div style="grid-column:1 / -1;font-size:10.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:2px">CRITERIA FOR A KEY</div>
+<div><span style="color:#7ef0b0">·</span> A named, non-commercial project</div>
+<div><span style="color:#7ef0b0">·</span> A stated, realistic request volume</div>
+<div><span style="color:#7ef0b0">·</span> Contactable maintainer</div>
+<div><span style="color:#7ef0b0">·</span> No redistribution of downloaded files</div>
+<div><span style="color:#7ef0b0">·</span> Attribution back to this site</div>
+<div><span style="color:#7ef0b0">·</span> 30 days of ordinary site use, or a donated key</div>
+</div>
+<div style="display:flex;align-items:center;gap:14px;margin-top:16px;padding-top:14px;border-top:1px solid rgba(126,240,176,.14)">
+<span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:11.5px;letter-spacing:.08em;padding:11px 20px">APPLY FOR A KEY</span>
+<span style="font-size:11px;color:rgba(126,240,176,.4);line-height:1.7">Reviewed weekly. 14 of 40 slots open.<br>Keys are revoked if a project stops responding.</span>
+</div>
+</div>
+<div style="display:flex;gap:10px;align-items:center;margin-bottom:8px"><span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:10.5px;letter-spacing:.08em;padding:4px 9px">GET</span><span style="font-size:13px;color:#dffbec">/v1/item/:published_file_id</span></div>
+<div style="font-size:11.5px;color:rgba(126,240,176,.45);margin-bottom:12px;line-height:1.7">Resolves a single published file. Accepts a bare id or a full Workshop URL as <span style="color:rgba(223,251,236,.7)">?url=</span>.</div>
+<div style="border:1px solid rgba(126,240,176,.16);background:rgba(126,240,176,.02);margin-bottom:22px">
+<div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(126,240,176,.12);padding:8px 14px;font-size:10.5px;letter-spacing:.1em;color:rgba(126,240,176,.45)"><span>200 OK · application/json</span><span style="color:#7ef0b0">COPY</span></div>
+<pre style="margin:0;padding:16px;font-size:11.5px;line-height:1.75;color:rgba(126,240,176,.4);overflow:hidden">{
+  <span style="color:#9fd6ff">"published_file_id"</span>: <span style="color:#7ef0b0">"2874113045"</span>,
+  <span style="color:#9fd6ff">"result"</span>: <span style="color:#ffcf6b">1</span>,
+  <span style="color:#9fd6ff">"file_type"</span>: <span style="color:#7ef0b0">"community"</span>,
+  <span style="color:#9fd6ff">"title"</span>: <span style="color:#7ef0b0">"Overhauled Rail Network"</span>,
+  <span style="color:#9fd6ff">"creator"</span>: <span style="color:#7ef0b0">"76561198000000000"</span>,
+  <span style="color:#9fd6ff">"consumer_app_id"</span>: <span style="color:#ffcf6b">2074010</span>,
+  <span style="color:#9fd6ff">"file_size"</span>: <span style="color:#ffcf6b">193138278</span>,
+  <span style="color:#9fd6ff">"preview_url"</span>: <span style="color:#7ef0b0">"https://…/preview.jpg"</span>,
+  <span style="color:#9fd6ff">"tags"</span>: [<span style="color:#7ef0b0">"Transport"</span>, <span style="color:#7ef0b0">"Buildings"</span>, <span style="color:#7ef0b0">"Overhaul"</span>],
+  <span style="color:#9fd6ff">"time_created"</span>: <span style="color:#ffcf6b">1667520000</span>,
+  <span style="color:#9fd6ff">"time_updated"</span>: <span style="color:#ffcf6b">1781740800</span>,
+  <span style="color:#9fd6ff">"visibility"</span>: <span style="color:#7ef0b0">"public"</span>,
+  <span style="color:#9fd6ff">"banned"</span>: <span style="color:#ff9b9b">false</span>,
+  <span style="color:#9fd6ff">"votes_up"</span>: <span style="color:#ffcf6b">18402</span>,
+  <span style="color:#9fd6ff">"votes_down"</span>: <span style="color:#ffcf6b">612</span>,
+  <span style="color:#9fd6ff">"num_children"</span>: <span style="color:#ffcf6b">0</span>,
+  <span style="color:#9fd6ff">"children"</span>: [],
+  <span style="color:#9fd6ff">"download"</span>: <span style="color:#7ef0b0">"https://api.workshop.dl/v1/download/2874113045"</span>
+}</pre>
+</div>
+<div style="display:flex;gap:10px;align-items:center;margin-bottom:8px"><span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:10.5px;letter-spacing:.08em;padding:4px 9px">GET</span><span style="font-size:13px;color:#dffbec">/v1/collection/:id</span></div>
+<div style="font-size:11.5px;color:rgba(126,240,176,.45);margin-bottom:12px;line-height:1.7">Same shape, with <span style="color:rgba(223,251,236,.7)">children[]</span> fully expanded. Unresolvable children keep their id and carry a <span style="color:rgba(223,251,236,.7)">result</span> code instead of metadata.</div>
+<div style="display:flex;gap:10px;align-items:center;margin-bottom:8px"><span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:10.5px;letter-spacing:.08em;padding:4px 9px">GET</span><span style="font-size:13px;color:#dffbec">/v1/download/:id</span></div>
+<div style="font-size:11.5px;color:rgba(126,240,176,.45);margin-bottom:22px;line-height:1.7">302 to a short-lived signed URL. Add <span style="color:rgba(223,251,236,.7)">?format=zip</span> on a collection to receive one archive.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 26px;border-top:1px solid rgba(126,240,176,.12);padding-top:18px">
+<div>
+<div style="font-size:10.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:10px">ERRORS</div>
+<div style="font-size:11.5px;line-height:2;color:rgba(223,251,236,.7)">
+<div style="display:flex;gap:12px"><span style="color:#7ef0b0;width:34px">400</span>unparseable id or url</div>
+<div style="display:flex;gap:12px"><span style="color:#7ef0b0;width:34px">401</span>missing or revoked api key</div>
+<div style="display:flex;gap:12px"><span style="color:#7ef0b0;width:34px">403</span>game not covered — request it</div>
+<div style="display:flex;gap:12px"><span style="color:#7ef0b0;width:34px">404</span>result 9, item removed</div>
+<div style="display:flex;gap:12px"><span style="color:#7ef0b0;width:34px">429</span>rate limited, see Retry-After</div>
+<div style="display:flex;gap:12px"><span style="color:#7ef0b0;width:34px">503</span>steam upstream unavailable</div>
+</div>
+</div>
+<div>
+<div style="font-size:10.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:10px">RATE LIMITS</div>
+<div style="font-size:11.5px;line-height:2;color:rgba(223,251,236,.7)">
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.5)">reads</span><span>60 / minute / ip</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.5)">downloads</span><span>10 / minute / ip</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.5)">collection expand</span><span>counts as 1 read</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.5)">cache</span><span>24 h per item</span></div>
+</div>
+<div style="font-size:11px;color:rgba(126,240,176,.35);margin-top:10px;line-height:1.7">Need more? Mail <span style="color:#7ef0b0">api@workshop.dl</span> with what you are building.</div>
+</div>
+</div>
+</div>
+</div>
+<div style="border-top:1px solid rgba(126,240,176,.12);padding:14px 24px;font-size:11px;color:rgba(126,240,176,.3)">This website is a community project and is not affiliated with Valve Corporation or Steam.</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="3c"><div class="dv-olabel"><a class="dv-oid" href="#3c">3c</a>About, with the desktop tool section — replaces <a class="dv-oid" href="#1k">1k</a></div>
+<div class="dv-card" style="width:900px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.035) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:13px 24px;border-bottom:1px solid rgba(126,240,176,.16);font-size:11.5px;letter-spacing:.05em">
+<span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span>
+<div style="display:flex;gap:16px;color:rgba(126,240,176,.5)"><span style="color:#7ef0b0;border-bottom:1px solid #7ef0b0;padding-bottom:2px">ABOUT</span><span>API</span><span>REQUEST A GAME</span><span>DONATE A GAME</span><span>STATUS</span><span>CREDITS</span><span>PRIVACY</span></div>
+</div>
+<div style="padding:30px 34px 34px">
+<div style="font-size:11px;letter-spacing:.14em;color:rgba(126,240,176,.4);margin-bottom:14px">$ cat about.txt</div>
+<h2 style="margin:0 0 18px;font:700 27px/1.2 'IBM Plex Mono',monospace">About</h2>
+<div style="font-size:12.5px;line-height:1.85;color:rgba(223,251,236,.78);max-width:580px">
+<p style="margin:0 0 16px">Workshop Downloader resolves published Workshop items through the Steam UGC API and returns their files directly. It exists because keeping a mod after the game is uninstalled, or reading a mod's contents before running it, should not require a client.</p>
+<p style="margin:0 0 16px">Requests are made server-side. The site holds no Steam account of yours, sets no tracking cookies, and keeps no copy of the files after a transfer finishes.</p>
+<p style="margin:0 0 16px">Some games gate Workshop access behind ownership. Coverage for those depends on donated keys, which is what the <span style="color:#7ef0b0">donation page</span> is for, and on demand, which is what <span style="color:#7ef0b0">requests</span> measure.</p>
+</div>
+<div style="margin-top:26px;padding-top:22px;border-top:1px solid rgba(126,240,176,.14);display:grid;grid-template-columns:repeat(4,1fr);gap:14px;font-size:12px">
+<div><div style="font-size:19px;font-weight:700;color:#dffbec">1,204,551</div><div style="color:rgba(126,240,176,.4);font-size:10.5px;letter-spacing:.08em;margin-top:3px">ITEMS RESOLVED</div></div>
+<div><div style="font-size:19px;font-weight:700;color:#dffbec">318</div><div style="color:rgba(126,240,176,.4);font-size:10.5px;letter-spacing:.08em;margin-top:3px">GAMES COVERED</div></div>
+<div><div style="font-size:19px;font-weight:700;color:#dffbec">341 ms</div><div style="color:rgba(126,240,176,.4);font-size:10.5px;letter-spacing:.08em;margin-top:3px">MEDIAN RESOLVE</div></div>
+<div><div style="font-size:19px;font-weight:700;color:#dffbec">65</div><div style="color:rgba(126,240,176,.4);font-size:10.5px;letter-spacing:.08em;margin-top:3px">KEYS DONATED</div></div>
+</div>
+<div style="margin-top:30px;border:1px solid rgba(126,240,176,.3);background:rgba(126,240,176,.035);position:relative;overflow:hidden">
+<div style="position:absolute;left:0;right:0;height:60px;top:0;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(126,240,176,.05),transparent);animation:scan 6s linear infinite"></div>
+<div style="position:relative;padding:24px 26px 26px">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+<span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:10px;letter-spacing:.12em;padding:4px 9px">COMING SOON</span>
+<span style="font-size:11px;letter-spacing:.12em;color:rgba(126,240,176,.45)">WORKSHOP.DL DESKTOP · WIN / LINUX / MACOS</span>
+</div>
+<div style="font:700 21px/1.3 'IBM Plex Mono',monospace;margin-bottom:12px">Install straight into the game, not into a folder</div>
+<div style="font-size:12.5px;line-height:1.85;color:rgba(223,251,236,.75);max-width:560px;margin-bottom:22px">A desktop companion that finds your local Steam library and puts a downloaded item where the game actually reads it — the right workshop content directory, the right app id, dependencies pulled in with it. You pick how it talks to Steam.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px">
+<div style="border:1px solid rgba(126,240,176,.25);padding:16px 17px">
+<div style="display:flex;align-items:center;gap:9px;margin-bottom:9px"><span style="color:#7ef0b0">(●)</span><span style="font-size:12.5px;font-weight:700;color:#dffbec">Official API</span></div>
+<div style="font-size:11.5px;line-height:1.8;color:rgba(223,251,236,.7)">Uses the documented Steam client interfaces on a machine where Steam is already signed in. Nothing is scripted around the client, subscriptions stay in sync, and the game sees the item exactly as if you had subscribed.</div>
+</div>
+<div style="border:1px solid rgba(126,240,176,.25);padding:16px 17px">
+<div style="display:flex;align-items:center;gap:9px;margin-bottom:9px"><span style="color:rgba(126,240,176,.4)">( )</span><span style="font-size:12.5px;font-weight:700;color:#dffbec">SteamCMD directly</span></div>
+<div style="font-size:11.5px;line-height:1.8;color:rgba(223,251,236,.7)">Drives a local SteamCMD install for headless machines, dedicated servers, and games you own but do not have installed. Slower on first run, works without the graphical client.</div>
+</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px 26px;font-size:11.5px;color:rgba(223,251,236,.7);border-top:1px solid rgba(126,240,176,.14);padding-top:18px">
+<span><span style="color:#7ef0b0">·</span> Direct game install, per library folder</span>
+<span><span style="color:#7ef0b0">·</span> Collections installed in one pass</span>
+<span><span style="color:#7ef0b0">·</span> Dependency resolution</span>
+<span><span style="color:#7ef0b0">·</span> Update checks against time_updated</span>
+<span><span style="color:#7ef0b0">·</span> Offline library of what you pulled</span>
+<span><span style="color:#7ef0b0">·</span> Queue and resume</span>
+</div>
+<div style="display:flex;align-items:center;gap:12px;margin-top:22px">
+<div style="flex:1;max-width:300px;border:1px solid rgba(126,240,176,.3);background:rgba(10,12,11,.6);padding:12px 14px;font-size:12.5px;color:rgba(223,251,236,.4);display:flex;align-items:center;gap:8px"><span style="color:rgba(126,240,176,.5)">&gt;</span>email for the beta<span style="display:inline-block;width:8px;height:15px;background:#7ef0b0;animation:cur 1.05s step-end infinite"></span></div>
+<span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:12px;letter-spacing:.08em;padding:13px 22px">NOTIFY ME</span>
+<span style="font-size:11px;color:rgba(126,240,176,.35);line-height:1.6">One mail at release.<br>Address is deleted after it is sent.</span>
+</div>
+</div>
+</div>
+<div style="margin-top:26px;font-size:11px;color:rgba(126,240,176,.3);line-height:1.75">This website is a community project and is not affiliated with Valve Corporation or Steam. Steam and the Steam logo are trademarks of Valve Corporation. SteamCMD is provided by Valve; the desktop tool automates a copy you install yourself.</div>
+</div>
+<div style="border-top:1px solid rgba(126,240,176,.12);padding:14px 24px;font-size:11px;color:rgba(126,240,176,.3)">This website is a community project and is not affiliated with Valve Corporation or Steam.</div>
+</div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "give the desktop tool its own page" · "add request-a-game to mobile" · "add the new nav items to every other page"</p>
+</section>
 
 <section class="dv-turn" id="t2">
 <div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Direction A (phosphor) — the remaining pages, same system</span></div>
@@ -38,7 +498,7 @@ a{color:#2a78d6}a:hover{color:#1a5aa8}
 <div class="dv-opts">
 
 <div class="dv-opt" id="2a"><div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Donate a game</div>
-<div class="dv-card" style="width:820px;background:#0a0c0b;border-color:#1c2420">
+<div class="dv-card" style="width:900px;background:#0a0c0b;border-color:#1c2420">
 <div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
 <div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.035) 0 1px,transparent 1px 3px);z-index:3"></div>
 <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 24px;border-bottom:1px solid rgba(126,240,176,.16);font-size:11.5px;letter-spacing:.05em">
@@ -98,7 +558,7 @@ a{color:#2a78d6}a:hover{color:#1a5aa8}
 </div>
 
 <div class="dv-opt" id="2b"><div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a>Credits — hue hashed from the name, on phosphor</div>
-<div class="dv-card" style="width:820px;background:#0a0c0b;border-color:#1c2420">
+<div class="dv-card" style="width:900px;background:#0a0c0b;border-color:#1c2420">
 <div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
 <div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.035) 0 1px,transparent 1px 3px);z-index:3"></div>
 <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 24px;border-bottom:1px solid rgba(126,240,176,.16);font-size:11.5px;letter-spacing:.05em">
@@ -129,7 +589,7 @@ a{color:#2a78d6}a:hover{color:#1a5aa8}
 </div>
 
 <div class="dv-opt" id="2c"><div class="dv-olabel"><a class="dv-oid" href="#2c">2c</a>Privacy policy</div>
-<div class="dv-card" style="width:820px;background:#0a0c0b;border-color:#1c2420">
+<div class="dv-card" style="width:900px;background:#0a0c0b;border-color:#1c2420">
 <div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
 <div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.035) 0 1px,transparent 1px 3px);z-index:3"></div>
 <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 24px;border-bottom:1px solid rgba(126,240,176,.16);font-size:11.5px;letter-spacing:.05em">
@@ -186,8 +646,8 @@ a{color:#2a78d6}a:hover{color:#1a5aa8}
 <div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.035) 0 1px,transparent 1px 3px);z-index:3"></div>
 <div style="display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid rgba(126,240,176,.16);font-size:11px"><span style="color:#7ef0b0">←</span><span style="color:rgba(126,240,176,.6)">2874113045</span><span style="margin-left:auto;color:rgba(126,240,176,.35);font-size:10px">341ms</span></div>
 <div style="padding:16px 16px 0">
-<div style="height:120px;border:1px solid rgba(126,240,176,.22);background:repeating-linear-gradient(135deg,rgba(126,240,176,.07) 0 6px,transparent 6px 12px);display:flex;align-items:center;justify-content:center;font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.5)">m_hPreviewFile — 636×358</div>
-<div style="font-size:9.5px;letter-spacing:.14em;color:rgba(126,240,176,.4);margin:16px 0 5px">m_rgchTitle</div>
+<div style="height:120px;border:1px solid rgba(126,240,176,.22);background:repeating-linear-gradient(135deg,rgba(126,240,176,.07) 0 6px,transparent 6px 12px);display:flex;align-items:center;justify-content:center;font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.5)">preview image — 636×358</div>
+<div style="font-size:9.5px;letter-spacing:.14em;color:rgba(126,240,176,.4);margin:16px 0 5px">MOD</div>
 <div style="font:700 19px/1.25 'IBM Plex Mono',monospace">Overhauled Rail Network</div>
 <div style="font-size:11px;color:rgba(126,240,176,.55);margin-top:6px">vaultkeeper_77 · STELLAR DRIFT</div>
 <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:12px">
@@ -247,7 +707,7 @@ a{color:#2a78d6}a:hover{color:#1a5aa8}
 <div class="dv-opts">
 
 <div class="dv-opt" id="1a"><div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Phosphor — full-height terminal, green CRT, command-line framing</div>
-<div class="dv-card" style="width:1120px;background:#0a0c0b;border-color:#1c2420">
+<div class="dv-card" style="width:900px;background:#0a0c0b;border-color:#1c2420">
 <div style="position:relative;overflow:hidden;font-family:'IBM Plex Mono',monospace;color:#7ef0b0;background:radial-gradient(120% 90% at 50% 0%,#0f1512 0%,#080a09 70%)">
 <div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.045) 0 1px,transparent 1px 3px);z-index:3"></div>
 <div style="position:absolute;left:0;right:0;height:80px;top:0;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(126,240,176,.055),transparent);animation:scan 7s linear infinite;z-index:3"></div>
@@ -292,7 +752,7 @@ a{color:#2a78d6}a:hover{color:#1a5aa8}
 <div class="dv-opts">
 
 <div class="dv-opt" id="1d"><div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>Record view — every API field on screen, description in a scrollable pane</div>
-<div class="dv-card" style="width:1120px;background:#0a0c0b;border-color:#1c2420">
+<div class="dv-card" style="width:900px;background:#0a0c0b;border-color:#1c2420">
 <div style="font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b;position:relative">
 <div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.03) 0 1px,transparent 1px 3px);z-index:3"></div>
 <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 24px;border-bottom:1px solid rgba(126,240,176,.16);font-size:12px">
@@ -304,27 +764,27 @@ a{color:#2a78d6}a:hover{color:#1a5aa8}
 </div>
 <div style="display:flex;gap:0;align-items:stretch">
 <div style="width:380px;border-right:1px solid rgba(126,240,176,.12);padding:22px 22px 26px;flex:none">
-<div style="height:200px;border:1px solid rgba(126,240,176,.22);background:repeating-linear-gradient(135deg,rgba(126,240,176,.07) 0 6px,transparent 6px 12px);display:flex;align-items:center;justify-content:center;font-size:10.5px;letter-spacing:.1em;color:rgba(126,240,176,.5)">m_hPreviewFile — 636×358</div>
-<div style="margin-top:20px;display:flex;flex-direction:column;gap:9px;font-size:11.5px">
-<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_nPublishedFileId</span><span>2874113045</span></div>
-<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_eFileType</span><span>COMMUNITY</span></div>
-<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_nConsumerAppID</span><span>2074010</span></div>
-<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_nFileSize</span><span>184.2 MB</span></div>
-<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_rtimeCreated</span><span>2022-11-04</span></div>
-<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_rtimeUpdated</span><span>2026-06-18</span></div>
-<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_unVotesUp</span><span>18,402</span></div>
-<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_unVotesDown</span><span>612</span></div>
-<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_unNumChildren</span><span>0</span></div>
-<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_eVisibility</span><span style="color:#7ef0b0">PUBLIC</span></div>
-<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">m_bBanned</span><span style="color:#7ef0b0">false</span></div>
+<div style="height:200px;border:1px solid rgba(126,240,176,.22);background:repeating-linear-gradient(135deg,rgba(126,240,176,.07) 0 6px,transparent 6px 12px);display:flex;align-items:center;justify-content:center;font-size:10.5px;letter-spacing:.1em;color:rgba(126,240,176,.5)">preview image — 636×358</div>
+<div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px;margin-bottom:10px;font-size:10.5px;letter-spacing:.12em"><span style="color:rgba(126,240,176,.4)">DETAILS</span><span style="color:rgba(126,240,176,.4);border:1px solid rgba(126,240,176,.16);padding:3px 8px">[ ] show API names</span></div>
+<div style="display:flex;flex-direction:column;gap:9px;font-size:11.5px">
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">Item ID</span><span>2874113045</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">Type</span><span>Single item</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">Game</span><span>Stellar Drift</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">Download size</span><span>184.2 MB</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">First published</span><span>4 Nov 2022</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">Last updated</span><span>18 Jun 2026</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">Ratings</span><span>18,402 up · 612 down</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">Items inside</span><span>None — not a collection</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">Availability</span><span style="color:#7ef0b0">Public</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">Moderation</span><span style="color:#7ef0b0">Not removed</span></div>
 </div>
 <div style="margin-top:22px;padding-top:16px;border-top:1px solid rgba(126,240,176,.12);font-size:11px;color:rgba(126,240,176,.45);line-height:1.7">
-subscriptions 241,880<br>favorites 33,104<br>lifetime views 1,204,551</div>
+Subscribers 241,880<br>Favourites 33,104<br>Lifetime views 1,204,551</div>
 </div>
 <div style="flex:1;padding:22px 26px 26px;min-width:0">
-<div style="font-size:10.5px;letter-spacing:.14em;color:rgba(126,240,176,.4)">m_rgchTitle</div>
+<div style="font-size:10.5px;letter-spacing:.14em;color:rgba(126,240,176,.4)">MOD</div>
 <h2 style="margin:6px 0 4px;font:700 27px/1.2 'IBM Plex Mono',monospace;color:#dffbec;letter-spacing:-.01em">Overhauled Rail Network</h2>
-<div style="font-size:12.5px;color:rgba(126,240,176,.6);margin-bottom:18px">by <span style="color:#7ef0b0">m_ulSteamIDOwner</span> · vaultkeeper_77 · for STELLAR DRIFT</div>
+<div style="font-size:12.5px;color:rgba(126,240,176,.6);margin-bottom:18px">by <span style="color:#7ef0b0">vaultkeeper_77</span> · for Stellar Drift</div>
 <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px">
 <span style="font-size:10.5px;border:1px solid rgba(126,240,176,.28);color:rgba(126,240,176,.75);padding:4px 9px">Transport</span>
 <span style="font-size:10.5px;border:1px solid rgba(126,240,176,.28);color:rgba(126,240,176,.75);padding:4px 9px">Buildings</span>
@@ -370,7 +830,7 @@ Replaces the base game rail system with a signal-aware network. Junctions now re
 <div class="dv-opts">
 
 <div class="dv-opt" id="1f"><div class="dv-olabel"><a class="dv-oid" href="#1f">1f</a>Log stream — the transfer narrates itself, line by line</div>
-<div class="dv-card" style="width:546px;background:#0a0c0b;border-color:#1c2420">
+<div class="dv-card" style="width:440px;background:#0a0c0b;border-color:#1c2420">
 <div style="font-family:'IBM Plex Mono',monospace;color:#dffbec;padding:22px 24px 24px">
 <div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(126,240,176,.45);margin-bottom:16px"><span>TRANSFER 2874113045</span><span>ELAPSED 00:14</span></div>
 <div style="font-size:12px;line-height:1.9;color:rgba(223,251,236,.75)">
@@ -381,7 +841,7 @@ Replaces the base game rail system with a signal-aware network. Junctions now re
 <div><span style="color:#7ef0b0">[14.02]</span> receiving <span style="display:inline-block;width:9px;height:14px;background:#7ef0b0;vertical-align:-2px;animation:cur 1.05s step-end infinite"></span></div>
 </div>
 <div style="margin-top:20px;height:26px;border:1px solid rgba(126,240,176,.3);padding:3px;position:relative">
-<div style="height:100%;width:63%;background-image:repeating-linear-gradient(115deg,#7ef0b0 0 12px,#4fbf87 12px 24px);background-size:40px 100%;animation:barber .7s linear infinite"></div>
+<div style="height:100%;width:63%;position:relative;overflow:hidden;background:#63cd95"><div style="position:absolute;top:0;bottom:0;left:-44px;right:-44px;background:repeating-linear-gradient(115deg,#7ef0b0 0 14px,#63cd95 14px 28px);animation:barber .9s linear infinite"></div></div>
 <span style="position:absolute;right:10px;top:5px;font-size:11px;color:#dffbec;mix-blend-mode:difference">63%</span>
 </div>
 <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:11px;color:rgba(126,240,176,.45)"><span>116.4 / 184.2 MB</span><span>8.1 MB/s · eta 00:08</span></div>
@@ -395,11 +855,11 @@ Replaces the base game rail system with a signal-aware network. Junctions now re
 <div class="dv-sub">D · Collection — parent node with its children as a tree</div>
 <div class="dv-opts">
 <div class="dv-opt" id="1h"><div class="dv-olabel"><a class="dv-oid" href="#1h">1h</a>Tree listing, per-item selection, one archive out</div>
-<div class="dv-card" style="width:1120px;background:#0a0c0b;border-color:#1c2420">
+<div class="dv-card" style="width:900px;background:#0a0c0b;border-color:#1c2420">
 <div style="font-family:'IBM Plex Mono',monospace;color:#dffbec;padding:24px 26px 26px">
 <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding-bottom:18px;border-bottom:1px solid rgba(126,240,176,.14)">
 <div>
-<div style="font-size:10.5px;letter-spacing:.14em;color:rgba(126,240,176,.4);margin-bottom:6px">COLLECTION · 3011884502 · m_unNumChildren 17</div>
+<div style="font-size:10.5px;letter-spacing:.14em;color:rgba(126,240,176,.4);margin-bottom:6px">COLLECTION · 3011884502 · 17 ITEMS</div>
 <div style="font:700 24px 'IBM Plex Mono',monospace;color:#dffbec">Essential QoL — Collection</div>
 <div style="font-size:12px;color:rgba(126,240,176,.55);margin-top:5px">by loop_gardener · STELLAR DRIFT · updated 2026-07-29</div>
 </div>
@@ -414,8 +874,8 @@ Replaces the base game rail system with a signal-aware network. Junctions now re
 <div style="display:flex;align-items:center;gap:12px;padding:9px 0 9px 22px;border-bottom:1px solid rgba(126,240,176,.06)"><span style="color:rgba(126,240,176,.35)">├─</span><span style="color:#7ef0b0">[×]</span><span style="color:rgba(126,240,176,.4);width:104px">2874113045</span><span style="flex:1">Overhauled Rail Network</span><span style="color:rgba(126,240,176,.5);font-size:11.5px">184.2 MB</span></div>
 <div style="display:flex;align-items:center;gap:12px;padding:9px 0 9px 22px;border-bottom:1px solid rgba(126,240,176,.06)"><span style="color:rgba(126,240,176,.35)">├─</span><span style="color:#7ef0b0">[×]</span><span style="color:rgba(126,240,176,.4);width:104px">1902334761</span><span style="flex:1">Nightfall Weather Pack</span><span style="color:rgba(126,240,176,.5);font-size:11.5px">42.8 MB</span></div>
 <div style="display:flex;align-items:center;gap:12px;padding:9px 0 9px 22px;border-bottom:1px solid rgba(126,240,176,.06);background:rgba(126,240,176,.05)"><span style="color:rgba(126,240,176,.35)">├─</span><span style="color:#7ef0b0">[×]</span><span style="color:rgba(126,240,176,.4);width:104px">2233901847</span><span style="flex:1">Faster Build Menu <span style="color:rgba(126,240,176,.4);font-size:11px">— depends on 1902334761</span></span><span style="color:rgba(126,240,176,.5);font-size:11.5px">3.1 MB</span></div>
-<div style="display:flex;align-items:center;gap:12px;padding:9px 0 9px 22px;border-bottom:1px solid rgba(126,240,176,.06)"><span style="color:rgba(126,240,176,.35)">├─</span><span style="color:rgba(126,240,176,.35)">[ ]</span><span style="color:rgba(126,240,176,.25);width:104px">2988112034</span><span style="flex:1;color:rgba(223,251,236,.35);text-decoration:line-through">Ancient Ruins Expansion</span><span style="color:#ff9b9b;font-size:11px">REMOVED · m_eResult 9</span></div>
-<div style="display:flex;align-items:center;gap:12px;padding:9px 0 9px 22px;border-bottom:1px solid rgba(126,240,176,.06)"><span style="color:rgba(126,240,176,.35)">├─</span><span style="color:rgba(126,240,176,.35)">[ ]</span><span style="color:rgba(126,240,176,.25);width:104px">2761009918</span><span style="flex:1;color:rgba(223,251,236,.4)">Legacy Camera Tweaks</span><span style="color:#ffcf6b;font-size:11px">PRIVATE · m_eVisibility 2</span></div>
+<div style="display:flex;align-items:center;gap:12px;padding:9px 0 9px 22px;border-bottom:1px solid rgba(126,240,176,.06)"><span style="color:rgba(126,240,176,.35)">├─</span><span style="color:rgba(126,240,176,.35)">[ ]</span><span style="color:rgba(126,240,176,.25);width:104px">2988112034</span><span style="flex:1;color:rgba(223,251,236,.35);text-decoration:line-through">Ancient Ruins Expansion</span><span style="color:#ff9b9b;font-size:11px">REMOVED FROM STEAM</span></div>
+<div style="display:flex;align-items:center;gap:12px;padding:9px 0 9px 22px;border-bottom:1px solid rgba(126,240,176,.06)"><span style="color:rgba(126,240,176,.35)">├─</span><span style="color:rgba(126,240,176,.35)">[ ]</span><span style="color:rgba(126,240,176,.25);width:104px">2761009918</span><span style="flex:1;color:rgba(223,251,236,.4)">Legacy Camera Tweaks</span><span style="color:#ffcf6b;font-size:11px">PRIVATE</span></div>
 <div style="display:flex;align-items:center;gap:12px;padding:9px 0 9px 22px;border-bottom:1px solid rgba(126,240,176,.06)"><span style="color:rgba(126,240,176,.35)">├─</span><span style="color:#7ef0b0">[×]</span><span style="color:rgba(126,240,176,.4);width:104px">3104778210</span><span style="flex:1">Cargo Contracts UI</span><span style="color:rgba(126,240,176,.5);font-size:11.5px">11.9 MB</span></div>
 <div style="display:flex;align-items:center;gap:12px;padding:9px 0 9px 22px;border-bottom:1px solid rgba(126,240,176,.06)"><span style="color:rgba(126,240,176,.35)">├─</span><span style="color:#7ef0b0">[×]</span><span style="color:rgba(126,240,176,.4);width:104px">2455610093</span><span style="flex:1">Terrain Blend Fixes</span><span style="color:rgba(126,240,176,.5);font-size:11.5px">88.0 MB</span></div>
 <div style="padding:11px 0 0 22px;color:rgba(126,240,176,.4);font-size:12px">└─ 10 more items · <span style="color:#7ef0b0">expand</span></div>
@@ -430,7 +890,7 @@ Replaces the base game rail system with a signal-aware network. Junctions now re
 <div class="dv-opts">
 
 <div class="dv-opt" id="1k"><div class="dv-olabel"><a class="dv-oid" href="#1k">1k</a>About</div>
-<div class="dv-card" style="width:700px;background:#0a0c0b;border-color:#1c2420">
+<div class="dv-card" style="width:900px;background:#0a0c0b;border-color:#1c2420">
 <div style="font-family:'IBM Plex Mono',monospace;color:#dffbec;padding:30px 32px 32px">
 <div style="font-size:11px;letter-spacing:.14em;color:rgba(126,240,176,.4);margin-bottom:16px">$ cat about.txt</div>
 <h2 style="margin:0 0 18px;font:700 26px 'IBM Plex Mono',monospace;color:#dffbec">About</h2>
@@ -451,14 +911,14 @@ Replaces the base game rail system with a signal-aware network. Junctions now re
 </div>
 
 <div class="dv-opt" id="1m"><div class="dv-olabel"><a class="dv-oid" href="#1m">1m</a>Error states — bad input, removed item, rate limited</div>
-<div class="dv-card" style="width:700px;background:#0a0c0b;border-color:#1c2420">
+<div class="dv-card" style="width:440px;background:#0a0c0b;border-color:#1c2420">
 <div style="font-family:'IBM Plex Mono',monospace;color:#dffbec;padding:26px 28px 28px;display:flex;flex-direction:column;gap:14px">
 <div style="border:1px solid rgba(255,155,155,.35);background:rgba(255,155,155,.06);padding:16px 18px">
 <div style="font-size:11px;letter-spacing:.12em;color:#ff9b9b;margin-bottom:7px">ERR · UNPARSEABLE INPUT</div>
 <div style="font-size:12.5px;line-height:1.7;color:rgba(223,251,236,.8)">That is not a Workshop URL or an item ID. Accepted: a <span style="color:#7ef0b0">filedetails</span> link, a <span style="color:#7ef0b0">sharedfiles</span> link, or a bare numeric ID.</div>
 </div>
 <div style="border:1px solid rgba(255,207,107,.32);background:rgba(255,207,107,.05);padding:16px 18px">
-<div style="font-size:11px;letter-spacing:.12em;color:#ffcf6b;margin-bottom:7px">m_eResult 9 · FILE NOT FOUND</div>
+<div style="font-size:11px;letter-spacing:.12em;color:#ffcf6b;margin-bottom:7px">ITEM NOT FOUND</div>
 <div style="font-size:12.5px;line-height:1.7;color:rgba(223,251,236,.8)">Item 2988112034 was removed by its author or by Steam. Nothing is retrievable — we keep no mirror.</div>
 </div>
 <div style="border:1px solid rgba(126,240,176,.25);background:rgba(126,240,176,.04);padding:16px 18px">

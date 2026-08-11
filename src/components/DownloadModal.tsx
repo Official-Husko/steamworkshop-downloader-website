@@ -41,7 +41,7 @@ export function DownloadModal({ id, title, sizeBytes, archive, onClose }: Downlo
   useEffect(() => {
     const schedule: [number, string][] = [
       [0, 'resolving published file id…'],
-      [340, `ok — ${title}`],
+      [340, `ok · ${title}`],
       [410, `requesting UGC handle ${handle}…`],
       [880, archive ? `building archive, ${formatBytes(sizeBytes)} expected` : `stream open, ${formatBytes(sizeBytes)} expected`],
     ]
@@ -76,7 +76,7 @@ export function DownloadModal({ id, title, sizeBytes, archive, onClose }: Downlo
           ...l,
           {
             t: elapsed / 1000,
-            text: archive ? 'archive complete — sha1 verified' : 'done — sha1 verified',
+            text: archive ? 'archive complete · sha1 verified' : 'done · sha1 verified',
             accent: true,
           },
         ])

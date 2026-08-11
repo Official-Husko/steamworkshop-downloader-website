@@ -1,18 +1,25 @@
 import { Link } from '../router'
 import { siteStats } from '../data/items'
 import { formatCount } from '../lib/format'
+import { useSEO } from '../hooks/useSEO'
 import '../styles/docs.css'
 
 export function About() {
+  useSEO({
+    title: 'About',
+    description: 'How MODRELAY resolves and serves Steam Workshop items, and what it does and does not keep.',
+    path: '/about',
+  })
+
   return (
     <div class="page-narrow doc-page">
       <div class="doc-kicker">$ cat about.txt</div>
       <h1 class="doc-title">About</h1>
       <div class="doc-copy">
         <p>
-          Workshop Downloader resolves published Workshop items through the Steam UGC API and returns their files
-          directly. It exists because keeping a mod after the game is uninstalled, or reading a mod's contents
-          before running it, should not require a client.
+          MODRELAY resolves published Workshop items through the Steam UGC API and returns their files directly.
+          It exists because keeping a mod after the game is uninstalled, or reading a mod's contents before running
+          it, should not require a client.
         </p>
         <p>
           Requests are made server-side. The site holds no Steam account of yours, sets no tracking cookies, and

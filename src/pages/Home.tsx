@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'preact/hooks'
 import { Link, useRouter } from '../router'
 import { AsciiLogo } from '../components/AsciiLogo'
 import { useRecentLookups } from '../hooks/useRecentLookups'
+import { useSEO } from '../hooks/useSEO'
 import { parseWorkshopInput } from '../lib/parseWorkshopInput'
 import { formatElapsed } from '../lib/format'
 import '../styles/home.css'
@@ -11,6 +12,13 @@ const RATE_LIMIT_MAX_ATTEMPTS = 4
 const RATE_LIMIT_COOLDOWN_S = 45
 
 export function Home() {
+  useSEO({
+    title: 'MODRELAY',
+    description:
+      'Direct file retrieval for published Steam Workshop items. Paste a Workshop URL or ID and download it directly, no Steam client required.',
+    path: '/',
+  })
+
   const { navigate } = useRouter()
   const { entries } = useRecentLookups()
   const [value, setValue] = useState('')

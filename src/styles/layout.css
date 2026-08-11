@@ -50,6 +50,7 @@
 
 .brand-version {
   color: rgba(var(--accent-rgb), 0.45);
+  white-space: nowrap;
 }
 
 .site-nav {

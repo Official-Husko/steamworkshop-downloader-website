@@ -231,7 +231,7 @@ const fillerChildren: CollectionChild[] = [
 export const collections: Record<string, WorkshopCollection> = {
   '3011884502': {
     id: '3011884502',
-    title: 'Essential QoL — Collection',
+    title: 'Essential QoL Collection',
     owner: 'loop_gardener',
     game: 'Stellar Drift',
     updatedAt: '2026-07-29',
@@ -310,5 +310,5 @@ export const siteStats = {
 export const seedRecent: { id: string; title: string; sub: string }[] = [
   { id: '2874113045', title: 'Overhauled Rail Network', sub: '184.2 MB' },
   { id: '1902334761', title: 'Nightfall Weather Pack', sub: '42.8 MB' },
-  { id: '3011884502', title: 'Essential QoL — Collection', sub: '17 items' },
+  { id: '3011884502', title: 'Essential QoL Collection', sub: '17 items' },
 ]

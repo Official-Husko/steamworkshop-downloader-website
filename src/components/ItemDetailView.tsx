@@ -4,12 +4,22 @@ import type { WorkshopItem } from '../data/items'
 import { items as itemsById } from '../data/items'
 import { formatBytes, formatCount } from '../lib/format'
 import { useRecentLookups } from '../hooks/useRecentLookups'
+import { useSEO } from '../hooks/useSEO'
 import { DownloadModal } from './DownloadModal'
 import '../styles/item-detail.css'
 
 type Tab = 'description' | 'changelog' | 'dependencies'
 
 export function ItemDetailView({ item }: { item: WorkshopItem }) {
+  useSEO({
+    title: item.title,
+    description: `Download "${item.title}" (${formatBytes(item.sizeBytes)}) from Steam Workshop via MODRELAY. ${item.descriptionIntro}`.slice(
+      0,
+      200,
+    ),
+    path: `/items/${item.id}`,
+  })
+
   const { push } = useRecentLookups()
   const [tab, setTab] = useState<Tab>('description')
   const [downloadOpen, setDownloadOpen] = useState(false)
@@ -47,7 +57,7 @@ export function ItemDetailView({ item }: { item: WorkshopItem }) {
 
       <div class="page item-body">
         <aside class="item-side">
-          <div class="item-preview">m_hPreviewFile — 636×358</div>
+          <div class="item-preview">m_hPreviewFile · 636×358</div>
           <dl class="item-fields">
             <Field label="m_nPublishedFileId" value={item.id} />
             <Field label="m_eFileType" value={item.fileType} />

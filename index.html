@@ -5,14 +5,64 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark" />
-    <meta name="description" content="Direct file retrieval for published Steam Workshop items." />
-    <title>WORKSHOP.DL</title>
+    <meta name="theme-color" content="#0a0c0b" />
+    <meta name="robots" content="index, follow" />
+
+    <!--
+      SEO note: this is a client-rendered SPA with no server-side
+      rendering, so these static tags are the ONLY thing non-JS link
+      unfurlers (Discord, iMessage, Slack, etc.) ever see, always for the
+      homepage regardless of the shared URL's actual path. Per-route
+      title/description/canonical are set at runtime by src/hooks/useSEO.ts
+      for crawlers that do execute JS (e.g. Googlebot).
+    -->
+    <title>MODRELAY</title>
+    <meta
+      name="description"
+      content="Direct file retrieval for published Steam Workshop items. Paste a Workshop URL or ID and download it directly, no Steam client required."
+    />
+    <link rel="canonical" href="https://workshop.lonewolves.dev/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MODRELAY" />
+    <meta property="og:title" content="MODRELAY" />
+    <meta
+      property="og:description"
+      content="Direct file retrieval for published Steam Workshop items. Paste a Workshop URL or ID and download it directly, no Steam client required."
+    />
+    <meta property="og:url" content="https://workshop.lonewolves.dev/" />
+    <meta property="og:image" content="https://workshop.lonewolves.dev/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="MODRELAY · direct file retrieval for published Steam Workshop items" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MODRELAY" />
+    <meta
+      name="twitter:description"
+      content="Direct file retrieval for published Steam Workshop items. No Steam client required."
+    />
+    <meta name="twitter:image" content="https://workshop.lonewolves.dev/og-image.png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "MODRELAY",
+        "url": "https://workshop.lonewolves.dev/",
+        "description": "Direct file retrieval for published Steam Workshop items.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      }
+    </script>
   </head>
   <body>
     <div id="app"></div>
