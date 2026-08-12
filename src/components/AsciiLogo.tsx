@@ -1,3 +1,5 @@
+import { TypewriterText } from './TypewriterText'
+
 const GLYPH = `
 ███    ███  ██████  ██████  ██████  ███████ ██       █████  ██    ██
 ████  ████ ██    ██ ██   ██ ██   ██ ██      ██      ██   ██  ██  ██
@@ -6,9 +8,5 @@ const GLYPH = `
  ██      ██  ██████  ██████  ██   ██ ███████ ███████ ██   ██    ██`
 
 export function AsciiLogo({ class: className }: { class?: string }) {
-  return (
-    <pre class={`ascii-logo ${className ?? ''}`} aria-label="MODRELAY">
-      {GLYPH}
-    </pre>
-  )
+  return <TypewriterText as="pre" text={GLYPH} class={`ascii-logo ${className ?? ''}`} typeMs={4} aria-label="MODRELAY" />
 }

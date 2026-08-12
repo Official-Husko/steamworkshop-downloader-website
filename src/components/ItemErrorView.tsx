@@ -1,5 +1,6 @@
 import { Link } from '../router'
 import { useSEO } from '../hooks/useSEO'
+import { TypewriterText } from './TypewriterText'
 import '../styles/item-detail.css'
 
 interface ItemErrorViewProps {
@@ -32,7 +33,7 @@ export function ItemErrorView({ id, kind, title }: ItemErrorViewProps) {
       </div>
       <div class="page-narrow item-error-wrap">
         <div class="warn-box">
-          <div class="box-title">{heading}</div>
+          <TypewriterText as="div" class="box-title" text={heading} />
           <div class="box-body">{body}</div>
         </div>
         <Link href="/" class="accent-link item-error-back">

@@ -3,6 +3,8 @@ import { Link } from '../router'
 import { siteStats } from '../data/items'
 import { formatCount } from '../lib/format'
 import { useSEO } from '../hooks/useSEO'
+import { TerminalTextInput } from '../components/TerminalTextInput'
+import { TypewriterText } from '../components/TypewriterText'
 import '../styles/docs.css'
 import '../styles/about.css'
 
@@ -33,7 +35,7 @@ export function About() {
 
   return (
     <div class="page-narrow doc-page">
-      <div class="doc-kicker">$ cat about.txt</div>
+      <TypewriterText as="div" class="doc-kicker" text="$ cat about.txt" />
       <h1 class="doc-title">About</h1>
       <div class="doc-copy">
         <p>
@@ -74,6 +76,15 @@ export function About() {
         <div class="about-stat">
           <div class="about-stat-value">{siteStats.keysDonated}</div>
           <div class="about-stat-label">KEYS DONATED</div>
+        </div>
+      </div>
+
+      <div class="ok-box about-source-box">
+        <div class="box-title">SOURCE · CLOSED FOR NOW</div>
+        <div class="box-body">
+          The codebase is closed source while the core feature set, Steam resolution, the public API, and the
+          desktop tool, is still being built. Once that work is done, the whole project will be published as open
+          source rather than kept closed indefinitely.
         </div>
       </div>
 
@@ -131,7 +142,7 @@ export function About() {
             <form class="desktop-notify" onSubmit={handleNotify}>
               <div class="desktop-notify-bar">
                 <span class="accent-inline">&gt;</span>
-                <input
+                <TerminalTextInput
                   class="desktop-notify-input"
                   type="email"
                   value={email}
@@ -139,7 +150,6 @@ export function About() {
                   placeholder="email for the beta"
                   autoComplete="off"
                 />
-                {!email && <span class="cursor" aria-hidden="true" />}
               </div>
               <button type="submit" class="btn btn-primary">
                 NOTIFY ME

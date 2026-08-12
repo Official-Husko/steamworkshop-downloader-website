@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
 import { Link, useRouter } from '../router'
 import { AsciiLogo } from '../components/AsciiLogo'
+import { TerminalTextInput } from '../components/TerminalTextInput'
 import { useRecentLookups } from '../hooks/useRecentLookups'
 import { useSEO } from '../hooks/useSEO'
 import { parseWorkshopInput } from '../lib/parseWorkshopInput'
@@ -10,6 +11,12 @@ import '../styles/home.css'
 const RATE_LIMIT_WINDOW_MS = 60_000
 const RATE_LIMIT_MAX_ATTEMPTS = 4
 const RATE_LIMIT_COOLDOWN_S = 45
+
+const LOOKUP_PLACEHOLDER_EXAMPLES = [
+  'steamcommunity.com/sharedfiles/filedetails/?id=2874113045',
+  'steamcommunity.com/workshop/filedetails/?id=3011884502',
+  '2874113045',
+]
 
 export function Home() {
   useSEO({
@@ -94,8 +101,8 @@ export function Home() {
           <div class="lookup-caption">// paste a workshop URL or a bare published file id</div>
           <div class={error ? 'lookup-bar has-error' : 'lookup-bar'}>
             <span class="lookup-prompt">&gt;</span>
-            <input
-              ref={inputRef}
+            <TerminalTextInput
+              inputRef={inputRef}
               class="lookup-input"
               type="text"
               value={value}
@@ -103,12 +110,12 @@ export function Home() {
                 setValue((e.target as HTMLInputElement).value)
                 setError(false)
               }}
-              placeholder="steamcommunity.com/sharedfiles/filedetails/?id=2874113045"
+              placeholder={LOOKUP_PLACEHOLDER_EXAMPLES}
+              aria-label="Workshop URL or item ID"
               autoComplete="off"
               spellcheck={false}
               disabled={!!rateLimitedUntil}
             />
-            {!value && <span class="cursor" aria-hidden="true" />}
             <button type="submit" class="lookup-submit" disabled={!!rateLimitedUntil}>
               RESOLVE ⏎
             </button>

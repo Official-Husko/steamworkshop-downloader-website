@@ -3,6 +3,8 @@ import { Link } from '../router'
 import { gameRequests as seedRequests, moreGameRequests, requestTotals, type GameRequest } from '../data/requests'
 import { useSEO } from '../hooks/useSEO'
 import { Dropdown } from '../components/Dropdown'
+import { TerminalTextInput } from '../components/TerminalTextInput'
+import { TypewriterText } from '../components/TypewriterText'
 import '../styles/docs.css'
 import '../styles/request.css'
 
@@ -17,6 +19,8 @@ const FILTERS: { key: FilterKey; label: string; count: number }[] = [
 ]
 
 let nextAppId = 9_000_000
+
+const REQUEST_INPUT_EXAMPLES = [...seedRequests.slice(0, 5).map((g) => g.name), 'store.steampowered.com/app/440']
 
 export function RequestGame() {
   useSEO({
@@ -66,7 +70,7 @@ export function RequestGame() {
 
   return (
     <div class="page request-page">
-      <div class="doc-kicker">$ ./request --app</div>
+      <TypewriterText as="div" class="doc-kicker" text="$ ./request --app" />
       <h1 class="doc-title">Ask for a game we do not cover</h1>
       <p class="doc-copy" style={{ marginBottom: '30px' }}>
         Coverage is limited to games the service owns. Requesting one adds it to the queue below; the count is what
@@ -76,14 +80,14 @@ export function RequestGame() {
       <form class="request-add" onSubmit={handleAdd}>
         <div class="request-add-bar">
           <span class="request-add-prompt">&gt;</span>
-          <input
+          <TerminalTextInput
             class="request-add-input"
             value={input}
             onInput={(e) => setInput((e.target as HTMLInputElement).value)}
-            placeholder="game name, Steam store URL, or app id"
+            placeholder={REQUEST_INPUT_EXAMPLES}
+            aria-label="Game name, Steam store URL, or app id"
             autoComplete="off"
           />
-          {!input && <span class="cursor" aria-hidden="true" />}
         </div>
         <button type="submit" class="btn btn-primary">
           ADD REQUEST

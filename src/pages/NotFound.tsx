@@ -1,5 +1,6 @@
 import { Link, useRouter } from '../router'
 import { useSEO } from '../hooks/useSEO'
+import { TypewriterText } from '../components/TypewriterText'
 import '../styles/notfound.css'
 
 const GLYPH = `  ██  ██  ████  ██  ██
@@ -19,7 +20,7 @@ export function NotFound() {
   return (
     <div class="notfound">
       <div class="notfound-inner">
-        <pre class="notfound-glyph">{GLYPH}</pre>
+        <TypewriterText as="pre" class="notfound-glyph" text={GLYPH} typeMs={12} aria-label="404" />
         <div class="notfound-text">
           No page at this address.{' '}
           <Link href="/" class="accent-link">

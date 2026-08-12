@@ -1,5 +1,6 @@
 import { Link } from '../router'
 import { useSEO } from '../hooks/useSEO'
+import { TypewriterText } from '../components/TypewriterText'
 import '../styles/docs.css'
 
 const ROWS: [string, string][] = [
@@ -47,7 +48,7 @@ export function Terms() {
   return (
     <div class="page-narrow doc-page">
       <div class="doc-meta-row">
-        <span>$ cat terms.txt</span>
+        <TypewriterText text="$ cat terms.txt" />
         <span>LAST MODIFIED 2026-08-11</span>
       </div>
       <h1 class="doc-title">Terms of Service</h1>

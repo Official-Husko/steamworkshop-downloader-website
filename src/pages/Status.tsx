@@ -12,6 +12,7 @@ import { useCountdown } from '../hooks/useCountdown'
 import { useSEO } from '../hooks/useSEO'
 import { formatCompact, formatCount, formatCountdown, formatPercent, usageTier } from '../lib/format'
 import { BarberBar } from '../components/BarberBar'
+import { TypewriterText } from '../components/TypewriterText'
 import '../styles/status.css'
 
 const STATUS_LABEL: Record<string, { label: string; class: string }> = {
@@ -43,7 +44,7 @@ export function Status() {
     <div class="page status-page">
       <div class="status-head">
         <div>
-          <div class="doc-kicker">$ ./status --all</div>
+          <TypewriterText as="div" class="doc-kicker" text="$ ./status --all" />
           <h1 class="doc-title" style={{ marginBottom: 0 }}>
             System status
           </h1>

@@ -1,5 +1,6 @@
 import { Link } from '../router'
 import { useSEO } from '../hooks/useSEO'
+import { TypewriterText } from '../components/TypewriterText'
 import '../styles/docs.css'
 
 const ROWS: [string, string][] = [
@@ -27,7 +28,7 @@ export function Privacy() {
   return (
     <div class="page-narrow doc-page">
       <div class="doc-meta-row">
-        <span>$ cat privacy.txt</span>
+        <TypewriterText text="$ cat privacy.txt" />
         <span>LAST MODIFIED 2026-08-11</span>
       </div>
       <h1 class="doc-title">What we hold, and for how long</h1>

@@ -8,6 +8,7 @@ import { useSEO } from '../hooks/useSEO'
 import { useQuotaGate } from '../hooks/useQuotaGate'
 import { useDownloadQueue } from '../hooks/useDownloadQueue'
 import { DownloadModal } from './DownloadModal'
+import { TypewriterText } from './TypewriterText'
 import '../styles/item-detail.css'
 
 type Tab = 'description' | 'changelog' | 'dependencies'
@@ -134,7 +135,7 @@ export function ItemDetailView({ item }: { item: WorkshopItem }) {
 
         <div class="item-main">
           <div class="item-kicker">{showApiNames ? 'm_rgchTitle' : 'MOD'}</div>
-          <h1 class="item-title">{item.title}</h1>
+          <TypewriterText as="h1" class="item-title" text={item.title} typeMs={28} />
           <div class="item-byline">
             {showApiNames ? (
               <>

@@ -2,7 +2,7 @@
 
 Direct file retrieval for published Steam Workshop items — paste a Workshop URL or a bare item ID and download it, no Steam client required.
 
-Lives at [workshop.lonewolves.dev](https://workshop.lonewolves.dev).
+Lives at [modrelay.lonewolves.dev](https://modrelay.lonewolves.dev).
 
 ![Preact](https://img.shields.io/badge/Preact-673AB8?logo=preact&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)

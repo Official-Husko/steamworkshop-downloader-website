@@ -1,7 +1,10 @@
 import { useState } from 'preact/hooks'
 import { Link } from '../router'
 import { mostRequestedNeedingKey } from '../data/requests'
+import { donorNames } from '../data/items'
 import { useSEO } from '../hooks/useSEO'
+import { TerminalTextInput } from '../components/TerminalTextInput'
+import { TypewriterText } from '../components/TypewriterText'
 import '../styles/docs.css'
 import '../styles/donate.css'
 
@@ -12,6 +15,9 @@ function formatKeyInput(raw: string): string {
     .slice(0, 15)
   return clean.match(/.{1,5}/g)?.join('-') ?? clean
 }
+
+const GAME_NAME_EXAMPLES = mostRequestedNeedingKey(6).map((g) => g.name)
+const CREDITS_NAME_EXAMPLES = donorNames.slice(0, 10)
 
 export function Donate() {
   useSEO({
@@ -40,7 +46,7 @@ export function Donate() {
 
   return (
     <div class="page donate-page">
-      <div class="doc-kicker">$ ./donate --key</div>
+      <TypewriterText as="div" class="doc-kicker" text="$ ./donate --key" />
       <h1 class="donate-title">Give a key, widen the coverage</h1>
       <p class="donate-intro">
         Some games must be owned before their Workshop items can be resolved. A donated key makes every item for
@@ -64,11 +70,12 @@ export function Donate() {
                   <span>GAME NAME</span>
                   <span class="opt">OPTIONAL</span>
                 </div>
-                <input
+                <TerminalTextInput
                   class="field-input"
                   value={game}
                   onInput={(e) => setGame((e.target as HTMLInputElement).value)}
-                  placeholder="Stellar Drift"
+                  placeholder={GAME_NAME_EXAMPLES}
+                  aria-label="Game name"
                 />
                 <div class="field-hint">Leave blank and we resolve it from the key.</div>
               </div>
@@ -114,11 +121,12 @@ export function Donate() {
                   <span>CREDITS NAME</span>
                   <span class="opt">OPTIONAL</span>
                 </div>
-                <input
+                <TerminalTextInput
                   class="field-input"
                   value={creditsName}
                   onInput={(e) => setCreditsName((e.target as HTMLInputElement).value)}
-                  placeholder="How you want to appear on the credits page"
+                  placeholder={CREDITS_NAME_EXAMPLES}
+                  aria-label="How you want to appear on the credits page"
                 />
               </div>
 

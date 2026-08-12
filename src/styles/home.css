@@ -63,11 +63,8 @@
 }
 
 .lookup-input {
-  flex: 1;
-  min-width: 0;
   font-size: 17px;
   color: var(--fg-strong);
-  caret-color: var(--accent);
   overflow: hidden;
   text-overflow: ellipsis;
 }

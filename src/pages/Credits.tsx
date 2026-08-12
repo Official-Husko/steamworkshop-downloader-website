@@ -1,6 +1,7 @@
 import { donorNames } from '../data/items'
 import { nameHue } from '../lib/hue'
 import { useSEO } from '../hooks/useSEO'
+import { TypewriterText } from '../components/TypewriterText'
 import '../styles/docs.css'
 import '../styles/credits.css'
 
@@ -13,7 +14,7 @@ export function Credits() {
 
   return (
     <div class="page-narrow credits-page">
-      <div class="doc-kicker">$ cat credits.txt | sort</div>
+      <TypewriterText as="div" class="doc-kicker" text="$ cat credits.txt | sort" />
       <h1 class="doc-title">People who donated a game</h1>
       <p class="doc-copy" style={{ marginBottom: '26px' }}>
         Everyone here gave a key and asked to be named. Colour is derived from the name itself, so the same name

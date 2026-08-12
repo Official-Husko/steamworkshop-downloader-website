@@ -1,10 +1,19 @@
-import { useState } from 'preact/hooks'
+import { useEffect, useState } from 'preact/hooks'
 import type { ComponentChildren } from 'preact'
 import { Link } from '../router'
 import { useSEO } from '../hooks/useSEO'
+import { TypewriterText } from '../components/TypewriterText'
 import '../styles/api.css'
 
-const TOC = ['Overview', 'Authentication', 'GET /v1/item', 'GET /v1/collection', 'GET /v1/download', 'Errors', 'Rate limits']
+const TOC = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'authentication', label: 'Authentication' },
+  { id: 'get-item', label: 'GET /v1/item' },
+  { id: 'get-collection', label: 'GET /v1/collection' },
+  { id: 'get-download', label: 'GET /v1/download' },
+  { id: 'errors', label: 'Errors' },
+  { id: 'rate-limits', label: 'Rate limits' },
+]
 
 // Plain-text versions, used for the clipboard copy actions — the colored
 // JSX below (CurlExample/JsonExample) is for display only.
@@ -156,6 +165,56 @@ export function PublicApi() {
   })
 
   const [copied, setCopied] = useState<'curl' | 'json' | null>(null)
+  const [activeId, setActiveId] = useState(TOC[0].id)
+
+  useEffect(() => {
+    if (window.location.hash) {
+      const id = decodeURIComponent(window.location.hash.slice(1))
+      requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ block: 'start' }))
+    }
+
+    const sections = TOC.map((t) => document.getElementById(t.id)).filter((el): el is HTMLElement => !!el)
+    if (sections.length === 0) return
+
+    // Active section = the last one whose heading has scrolled above the
+    // offset line, not "whichever is geometrically nearest zero" — a
+    // simple top-sort misfires when a tall section (the JSON example
+    // block) is still half in view while the next heading has also
+    // already passed the line.
+    const OFFSET = 96
+    let ticking = false
+    function updateActive() {
+      // Near the bottom of the page, the last section(s) may never reach
+      // the offset line themselves if there isn't a full viewport of
+      // content left below them — force the last entry active instead.
+      const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2
+      if (atBottom) {
+        setActiveId(sections[sections.length - 1].id)
+        return
+      }
+      let current = sections[0].id
+      for (const el of sections) {
+        if (el.getBoundingClientRect().top <= OFFSET) current = el.id
+      }
+      setActiveId(current)
+    }
+    function onScroll() {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        updateActive()
+        ticking = false
+      })
+    }
+
+    updateActive()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [])
 
   function copy(kind: 'curl' | 'json', text: string) {
     navigator.clipboard
@@ -172,10 +231,10 @@ export function PublicApi() {
       <div class="api-shell">
         <nav class="api-toc" aria-label="On this page">
           <div class="api-toc-heading">CONTENTS</div>
-          {TOC.map((t, i) => (
-            <div key={t} class={i === 0 ? 'api-toc-item is-active' : 'api-toc-item'}>
-              {t}
-            </div>
+          {TOC.map((t) => (
+            <a key={t.id} href={`#${t.id}`} class={activeId === t.id ? 'api-toc-item is-active' : 'api-toc-item'}>
+              {t.label}
+            </a>
           ))}
           <div class="api-toc-base">
             Base URL
@@ -185,16 +244,23 @@ export function PublicApi() {
         </nav>
 
         <div class="api-content">
-          <div class="doc-kicker">$ curl -s workshop.lonewolves.dev/api/v1/item/2874113045</div>
-          <h1 class="doc-title" style={{ marginBottom: '12px' }}>
-            API
-          </h1>
-          <p class="doc-copy" style={{ marginBottom: '26px' }}>
-            The same endpoints the site uses. JSON in, JSON out. Field names mirror Steam's UGC details struct so
-            responses can be dropped straight into existing tooling. Every endpoint requires a key.
-          </p>
+          <TypewriterText
+            as="div"
+            class="doc-kicker"
+            text="$ cat api-docs.md"
+            typeMs={20}
+          />
+          <div id="overview">
+            <h1 class="doc-title" style={{ marginBottom: '12px' }}>
+              API
+            </h1>
+            <p class="doc-copy" style={{ marginBottom: '26px' }}>
+              The same endpoints the site uses. JSON in, JSON out. Field names mirror Steam's UGC details struct so
+              responses can be dropped straight into existing tooling. Every endpoint requires a key.
+            </p>
+          </div>
 
-          <div class="api-auth-box">
+          <div class="api-auth-box" id="authentication">
             <div class="api-auth-head">
               <span class="api-auth-title">AUTHENTICATION</span>
               <span class="api-tag">INVITE ONLY</span>
@@ -229,44 +295,50 @@ export function PublicApi() {
             </div>
           </div>
 
-          <div class="api-endpoint">
-            <span class="api-method">GET</span>
-            <span class="api-path">/v1/item/:published_file_id</span>
-          </div>
-          <p class="api-endpoint-note">
-            Resolves a single published file. Accepts a bare id or a full Workshop URL as{' '}
-            <span class="accent-inline">?url=</span>.
-          </p>
-          <div class="api-response">
-            <div class="api-response-head">
-              <span>200 OK · application/json</span>
-              <button type="button" class="api-copy-inline" onClick={() => copy('json', JSON_EXAMPLE)}>
-                {copied === 'json' ? 'COPIED' : 'COPY'}
-              </button>
+          <div id="get-item">
+            <div class="api-endpoint">
+              <span class="api-method">GET</span>
+              <span class="api-path">/v1/item/:published_file_id</span>
             </div>
-            <JsonExample />
+            <p class="api-endpoint-note">
+              Resolves a single published file. Accepts a bare id or a full Workshop URL as{' '}
+              <span class="accent-inline">?url=</span>.
+            </p>
+            <div class="api-response">
+              <div class="api-response-head">
+                <span>200 OK · application/json</span>
+                <button type="button" class="api-copy-inline" onClick={() => copy('json', JSON_EXAMPLE)}>
+                  {copied === 'json' ? 'COPIED' : 'COPY'}
+                </button>
+              </div>
+              <JsonExample />
+            </div>
           </div>
 
-          <div class="api-endpoint">
-            <span class="api-method">GET</span>
-            <span class="api-path">/v1/collection/:id</span>
+          <div id="get-collection">
+            <div class="api-endpoint">
+              <span class="api-method">GET</span>
+              <span class="api-path">/v1/collection/:id</span>
+            </div>
+            <p class="api-endpoint-note">
+              Same shape, with <span class="accent-inline">children[]</span> fully expanded. Unresolvable children
+              keep their id and carry a <span class="accent-inline">result</span> code instead of metadata.
+            </p>
           </div>
-          <p class="api-endpoint-note">
-            Same shape, with <span class="accent-inline">children[]</span> fully expanded. Unresolvable children keep
-            their id and carry a <span class="accent-inline">result</span> code instead of metadata.
-          </p>
 
-          <div class="api-endpoint">
-            <span class="api-method">GET</span>
-            <span class="api-path">/v1/download/:id</span>
+          <div id="get-download">
+            <div class="api-endpoint">
+              <span class="api-method">GET</span>
+              <span class="api-path">/v1/download/:id</span>
+            </div>
+            <p class="api-endpoint-note" style={{ marginBottom: '22px' }}>
+              302 to a short-lived signed URL. Add <span class="accent-inline">?format=zip</span> on a collection to
+              receive one archive.
+            </p>
           </div>
-          <p class="api-endpoint-note" style={{ marginBottom: '22px' }}>
-            302 to a short-lived signed URL. Add <span class="accent-inline">?format=zip</span> on a collection to
-            receive one archive.
-          </p>
 
           <div class="api-grid">
-            <div>
+            <div id="errors">
               <div class="api-grid-heading">ERRORS</div>
               {ERRORS.map(([code, msg]) => (
                 <div class="api-grid-row" key={code}>
@@ -275,7 +347,7 @@ export function PublicApi() {
                 </div>
               ))}
             </div>
-            <div>
+            <div id="rate-limits">
               <div class="api-grid-heading">RATE LIMITS</div>
               {RATE_LIMITS.map(([k, v]) => (
                 <div class="api-rate-row" key={k}>

@@ -1,0 +1,44 @@
+.terminal-caret-host {
+  /* Works both as a flex-row child (lookup/request/notify bars, sized via
+     flex-basis 0%) and as a plain block child (donate/apply form fields,
+     sized via width) — the two never fight because flex-basis wins over
+     width whenever there IS a flex parent. */
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  flex: 1 1 0%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.terminal-caret-input {
+  caret-color: transparent;
+  width: 100%;
+}
+
+.terminal-caret {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Reuses the input's own class for identical padding/font/line-height so
+   the revealed text lines up exactly with where real typed text would
+   land — only the box decoration (border/background) and color need
+   overriding, since this sits visually on top of the real input. */
+.terminal-ghost {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  white-space: pre;
+  overflow: hidden;
+  pointer-events: none;
+  color: rgba(var(--fg-rgb), 0.3) !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}

@@ -1,6 +1,8 @@
 import { useState } from 'preact/hooks'
 import { Link } from '../router'
 import { useSEO } from '../hooks/useSEO'
+import { TerminalTextInput } from '../components/TerminalTextInput'
+import { TypewriterText } from '../components/TypewriterText'
 import '../styles/api.css'
 
 const HARD_RULES = [
@@ -11,6 +13,8 @@ const HARD_RULES = [
   'Identify yourself in the User-Agent.',
   'No commercial resale of the responses.',
 ]
+
+const PROJECT_NAME_EXAMPLES = ['Modpack Archiver', 'Workshop CLI Sync', 'Server Mod Mirror', 'Rail Network QA Bot']
 
 const AGREEMENTS = [
   'I will not redistribute, mirror or resell downloaded files.',
@@ -51,7 +55,7 @@ export function ApiApply() {
   return (
     <div class="page apply-page">
       <div class="apply-meta-row">
-        <span>$ ./apply --api-key</span>
+        <TypewriterText text="$ ./apply --api-key" />
         <span>14 OF 40 SLOTS OPEN</span>
       </div>
       <h1 class="apply-title">Apply for an API key</h1>
@@ -77,11 +81,12 @@ export function ApiApply() {
                   <span class="req">PROJECT NAME</span>
                   <span class="req">REQUIRED</span>
                 </div>
-                <input
+                <TerminalTextInput
                   class="field-input"
                   value={projectName}
                   onInput={(e) => setProjectName((e.target as HTMLInputElement).value)}
-                  placeholder="Modpack Archiver"
+                  placeholder={PROJECT_NAME_EXAMPLES}
+                  aria-label="Project name"
                 />
               </div>
 
@@ -105,7 +110,7 @@ export function ApiApply() {
                     <span class="req">CONTACT EMAIL</span>
                     <span class="req">REQUIRED</span>
                   </div>
-                  <input
+                  <TerminalTextInput
                     class="field-input"
                     type="email"
                     value={email}
@@ -118,7 +123,7 @@ export function ApiApply() {
                     <span class="req">REQ / DAY</span>
                     <span class="req">REQ</span>
                   </div>
-                  <input
+                  <TerminalTextInput
                     class="field-input"
                     value={reqPerDay}
                     onInput={(e) => setReqPerDay((e.target as HTMLInputElement).value)}
@@ -132,7 +137,7 @@ export function ApiApply() {
                   <span>SOURCE OR HOMEPAGE</span>
                   <span class="opt">OPTIONAL</span>
                 </div>
-                <input
+                <TerminalTextInput
                   class="field-input"
                   value={source}
                   onInput={(e) => setSource((e.target as HTMLInputElement).value)}

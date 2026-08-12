@@ -8,6 +8,7 @@ import { useQuotaGate } from '../hooks/useQuotaGate'
 import { useDownloadQueue } from '../hooks/useDownloadQueue'
 import { DownloadModal } from './DownloadModal'
 import { Dropdown } from './Dropdown'
+import { TypewriterText } from './TypewriterText'
 import '../styles/item-detail.css'
 import '../styles/collection.css'
 
@@ -75,7 +76,7 @@ export function CollectionView({ collection }: { collection: WorkshopCollection 
           <div class="collection-kicker">
             COLLECTION · {collection.id} · {collection.numChildren} ITEMS
           </div>
-          <h1 class="collection-title">{collection.title}</h1>
+          <TypewriterText as="h1" class="collection-title" text={collection.title} typeMs={28} />
           <div class="collection-byline">
             by {collection.owner} · {collection.game.toUpperCase()} · updated {collection.updatedAt}
           </div>
