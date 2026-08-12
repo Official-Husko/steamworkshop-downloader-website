@@ -1,0 +1,338 @@
+.admin-tabs-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.admin-table th {
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  color: rgba(var(--accent-rgb), 0.4);
+  text-align: left;
+  padding: 0 10px 8px 0;
+  font-weight: 400;
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.12);
+}
+.admin-table th.num {
+  text-align: right;
+}
+.admin-table td {
+  padding: 10px 10px 10px 0;
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.07);
+  vertical-align: middle;
+  color: rgba(var(--fg-rgb), 0.85);
+}
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+.admin-table tr.is-highlight td {
+  background: rgba(var(--accent-rgb), 0.04);
+}
+.admin-table tr.is-amber td {
+  background: rgba(var(--warn-rgb), 0.05);
+}
+.admin-table tr.is-dim td {
+  color: rgba(var(--fg-rgb), 0.4);
+}
+.admin-table .col-actions {
+  text-align: right;
+  white-space: nowrap;
+}
+.admin-table .col-actions .admin-btn {
+  margin-left: 6px;
+}
+/* Unscoped (not .admin-table-only) since GameCoverage/Traffic reuse these
+   cell-tint utilities on flex-row tables, not just <table> markup. */
+.is-dim-cell {
+  color: rgba(var(--accent-rgb), 0.4);
+}
+.is-amber-cell {
+  color: var(--warn);
+}
+.is-err-cell {
+  color: var(--err);
+}
+.is-ok-cell {
+  color: var(--accent);
+}
+.admin-sev-cell {
+  width: 20px;
+}
+
+.admin-explain-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 18px;
+}
+.admin-explain-box {
+  flex: 1;
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+  background: rgba(var(--accent-rgb), 0.03);
+  padding: 14px 16px;
+  font-size: 11.5px;
+  line-height: 1.7;
+  color: rgba(var(--fg-rgb), 0.8);
+}
+.admin-explain-box.is-danger {
+  flex: none;
+  width: 330px;
+  border-color: rgba(var(--err-rgb), 0.3);
+  background: rgba(var(--err-rgb), 0.05);
+}
+.admin-explain-box.is-warn {
+  flex: none;
+  border-color: rgba(var(--warn-rgb), 0.3);
+  background: rgba(var(--warn-rgb), 0.05);
+}
+.admin-explain-title {
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: rgba(var(--accent-rgb), 0.4);
+  margin-bottom: 8px;
+}
+.admin-explain-title.is-danger {
+  color: var(--err);
+}
+.admin-explain-title.is-warn {
+  color: var(--warn);
+}
+
+/* ---------- API applications: queue + detail ---------- */
+
+.admin-apps-layout {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+.admin-apps-queue {
+  width: 322px;
+  flex: none;
+}
+.admin-apps-queue-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  color: rgba(var(--accent-rgb), 0.4);
+  margin-bottom: 10px;
+}
+.admin-apps-item {
+  padding: 10px 12px;
+  border-left: 2px solid transparent;
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.08);
+  cursor: pointer;
+}
+.admin-apps-item.is-selected {
+  background: rgba(var(--accent-rgb), 0.08);
+  border-left-color: var(--accent);
+}
+.admin-apps-item-top {
+  display: flex;
+  justify-content: space-between;
+  color: var(--fg-strong);
+  font-size: 12.5px;
+}
+.admin-apps-item.is-selected .admin-apps-item-top {
+  color: var(--fg-strong);
+}
+.admin-apps-item-wait {
+  color: rgba(var(--accent-rgb), 0.45);
+}
+.admin-apps-item-wait.is-amber {
+  color: var(--warn);
+}
+.admin-apps-item-stat {
+  font-size: 10.5px;
+  color: rgba(var(--fg-rgb), 0.5);
+  margin-top: 3px;
+}
+.admin-apps-item-stat.is-err {
+  color: var(--err);
+}
+.admin-apps-decided-head {
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  color: rgba(var(--accent-rgb), 0.4);
+  margin: 18px 0 10px;
+}
+.admin-apps-decided-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 12px;
+  font-size: 11.5px;
+  color: rgba(var(--fg-rgb), 0.6);
+}
+.admin-apps-decided-outcome.is-ok {
+  color: var(--accent);
+}
+.admin-apps-decided-outcome.is-err {
+  color: var(--err);
+}
+
+.admin-apps-detail {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid rgba(var(--accent-rgb), 0.16);
+  padding: 18px 20px;
+}
+.admin-apps-detail-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 6px;
+}
+.admin-apps-detail-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--fg-strong);
+}
+.admin-apps-detail-meta {
+  font-size: 11px;
+  color: rgba(var(--accent-rgb), 0.45);
+  margin-bottom: 16px;
+}
+.admin-apps-detail-actions {
+  display: flex;
+  gap: 8px;
+  flex: none;
+}
+.admin-apps-panel {
+  border: 1px solid rgba(var(--accent-rgb), 0.14);
+  padding: 12px 14px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: rgba(var(--fg-rgb), 0.8);
+  margin-bottom: 16px;
+}
+.admin-apps-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 20px;
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+.admin-apps-field-label {
+  color: rgba(var(--accent-rgb), 0.4);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+.admin-apps-field-value {
+  color: rgba(var(--fg-rgb), 0.85);
+}
+.admin-apps-field-value.is-link {
+  color: var(--accent);
+}
+
+.admin-apps-checks {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 11.5px;
+  margin-bottom: 16px;
+}
+.admin-apps-check-row {
+  display: flex;
+  gap: 9px;
+  color: rgba(var(--fg-rgb), 0.8);
+}
+.admin-apps-check-row.is-info {
+  color: rgba(var(--fg-rgb), 0.6);
+}
+
+.admin-apps-side {
+  width: 262px;
+  flex: none;
+}
+.admin-issue-field {
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+  background: rgba(var(--accent-rgb), 0.04);
+  padding: 9px 12px;
+  margin-bottom: 10px;
+}
+.admin-issue-field-label {
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  color: rgba(var(--accent-rgb), 0.4);
+  margin-bottom: 4px;
+}
+.admin-issue-field input {
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--fg-strong);
+}
+.admin-issue-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  color: rgba(var(--fg-rgb), 0.8);
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+.admin-issue-note {
+  font-size: 10.5px;
+  color: rgba(var(--accent-rgb), 0.4);
+  line-height: 1.7;
+  margin-top: 12px;
+}
+
+/* ---------- issued keys ---------- */
+
+.admin-search-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.admin-search-input {
+  width: 280px;
+  background: none;
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+  padding: 7px 11px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--fg-strong);
+  outline: none;
+}
+.admin-search-input::placeholder {
+  color: rgba(var(--accent-rgb), 0.35);
+}
+
+.admin-mini-bar-track {
+  width: 90px;
+  height: 5px;
+  background: rgba(var(--accent-rgb), 0.12);
+  margin-bottom: 3px;
+}
+.admin-mini-bar-fill {
+  height: 100%;
+  background: var(--accent);
+}
+.admin-mini-bar-fill.is-amber {
+  background: var(--warn);
+}
+
+@media (max-width: 900px) {
+  .admin-apps-layout {
+    flex-direction: column;
+  }
+  .admin-apps-queue,
+  .admin-apps-side {
+    width: 100%;
+  }
+  .admin-explain-row {
+    flex-direction: column;
+  }
+  .admin-explain-box.is-danger {
+    width: 100%;
+  }
+}
+

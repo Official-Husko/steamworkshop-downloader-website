@@ -1,0 +1,87 @@
+.admin-logs-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.admin-logs-filter {
+  flex: 1;
+  min-width: 220px;
+  background: none;
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+  padding: 7px 11px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: rgba(var(--accent-rgb), 0.55);
+  outline: none;
+}
+.admin-logs-filter::placeholder {
+  color: rgba(var(--accent-rgb), 0.4);
+}
+
+.admin-logs-panel {
+  border: 1px solid rgba(var(--accent-rgb), 0.16);
+  padding: 12px 16px;
+  font-size: 11.5px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+.admin-logs-row {
+  display: flex;
+  gap: 10px;
+  padding: 3px 0;
+  white-space: nowrap;
+}
+.admin-logs-row.is-warn {
+  background: rgba(var(--warn-rgb), 0.06);
+}
+.admin-logs-row.is-err {
+  background: rgba(var(--err-rgb), 0.06);
+}
+.admin-logs-row.is-audit {
+  background: rgba(var(--accent-rgb), 0.05);
+}
+.admin-logs-time {
+  color: rgba(var(--accent-rgb), 0.4);
+  flex: none;
+}
+.admin-logs-cat {
+  flex: none;
+  width: 62px;
+  color: rgba(var(--accent-rgb), 0.5);
+}
+.admin-logs-row.is-warn .admin-logs-cat {
+  color: var(--warn);
+}
+.admin-logs-row.is-err .admin-logs-cat {
+  color: var(--err);
+}
+.admin-logs-actor {
+  flex: none;
+  width: 130px;
+  color: rgba(var(--accent-rgb), 0.55);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.admin-logs-msg {
+  color: rgba(var(--fg-rgb), 0.75);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.admin-logs-row.is-warn .admin-logs-msg {
+  color: var(--warn);
+}
+.admin-logs-row.is-err .admin-logs-msg {
+  color: var(--err);
+}
+.admin-logs-row.is-audit .admin-logs-msg {
+  color: var(--fg-strong);
+}
+
+.admin-logs-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}

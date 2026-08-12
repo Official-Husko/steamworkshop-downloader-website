@@ -19,6 +19,9 @@ COPY --from=build /out/server /usr/local/bin/server
 
 USER app
 EXPOSE 8080
+# Admin listener: internal-only, never published by docker-compose (see
+# main.go's admin server and CLAUDE.md for why).
+EXPOSE 8090
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD wget -qO- http://127.0.0.1:8080/healthz || exit 1
 

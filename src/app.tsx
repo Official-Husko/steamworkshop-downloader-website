@@ -11,6 +11,8 @@ import { RequestGame } from './pages/RequestGame'
 import { PublicApi } from './pages/PublicApi'
 import { ApiApply } from './pages/ApiApply'
 import { Status } from './pages/Status'
+import { Maintenance } from './pages/Maintenance'
+import { ServiceUnavailable } from './pages/ServiceUnavailable'
 import { NotFound } from './pages/NotFound'
 
 const routes: RouteDef[] = [
@@ -25,6 +27,8 @@ const routes: RouteDef[] = [
   { path: '/api', render: () => <PublicApi /> },
   { path: '/api/apply', render: () => <ApiApply /> },
   { path: '/status', render: () => <Status /> },
+  { path: '/maintenance', render: () => <Maintenance /> },
+  { path: '/unavailable', render: () => <ServiceUnavailable /> },
 ]
 
 function Routes() {

@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f0eee9;font-family:'IBM Plex Sans',system-ui,sans-serif}
+a{color:#2a78d6}a:hover{color:#1a5aa8}
+.dv-turn{padding:32px 36px 26px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px;width:max-content;min-width:100%;box-sizing:border-box}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 8px}
+.dv-tid{font:600 10px 'IBM Plex Mono',monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 'IBM Plex Sans',sans-serif;color:#1a1a1a}
+.dv-note{margin:0 0 20px;max-width:760px;font:13px/1.6 'IBM Plex Sans',sans-serif;color:rgba(0,0,0,.6)}
+.dv-sub{margin:24px 0 14px;font:600 11px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.4)}
+.dv-opts{display:flex;flex-wrap:nowrap;gap:24px;align-items:flex-start;width:max-content}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px 'IBM Plex Mono',monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 'IBM Plex Sans',sans-serif;color:rgba(0,0,0,.55)}
+.dv-card{max-width:100%;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}
+.dv-opt:target .dv-oid{background:#2a78d6;color:#fff}
+.dv-next{margin:26px 0 0;font:12px/1.5 'IBM Plex Sans',sans-serif;color:rgba(0,0,0,.5)}
+@keyframes cur{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes scan{0%{transform:translateY(-100%)}100%{transform:translateY(1200%)}}
+@keyframes barber{from{transform:translateX(0)}to{transform:translateX(30.894px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style></helmet>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Admin — auth, console, key handling, logs, service controls</span></div>
+<p class="dv-note">Same phosphor system as the public site, with two deliberate differences so you never confuse the two: the header reads <code style="font-family:'IBM Plex Mono',monospace;font-size:12px">WORKSHOP.DL / ADMIN</code> against an inverted bar, and every destructive control is amber or red rather than green. No public footer disclaimer here. Left rail is the same on every admin page. Anything that reveals a visitor IP or a full key is masked until you click to reveal, and the reveal is itself logged in the audit trail.</p>
+
+<div class="dv-sub">A · Getting in</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a"><div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Access code — clean, locked out, and accepted</div>
+<div style="display:flex;gap:16px">
+<div class="dv-card" style="width:440px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;min-height:400px;display:flex;flex-direction:column;justify-content:center;padding:34px 30px;background:radial-gradient(120% 90% at 50% 0%,#0f1512 0%,#080a09 70%)">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.045) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="position:absolute;left:0;right:0;height:70px;top:0;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(126,240,176,.05),transparent);animation:scan 7s linear infinite;z-index:3"></div>
+<pre style="margin:0 0 8px;font-size:8.6px;line-height:1.15;color:rgba(126,240,176,.85);text-shadow:0 0 12px rgba(126,240,176,.35)"> █████  ██████  ███    ███ ██ ███    ██
+██   ██ ██   ██ ████  ████ ██ ████   ██
+███████ ██   ██ ██ ████ ██ ██ ██ ██  ██
+██   ██ ██   ██ ██  ██  ██ ██ ██  ██ ██
+██   ██ ██████  ██      ██ ██ ██   ████</pre>
+<div style="font-size:10.5px;letter-spacing:.14em;color:rgba(126,240,176,.45);margin-bottom:34px">RESTRICTED · ACCESS CODE REQUIRED</div>
+<div style="font-size:11px;color:rgba(126,240,176,.45);margin-bottom:9px">// enter access code</div>
+<div style="border:1px solid rgba(126,240,176,.4);background:rgba(126,240,176,.05);padding:15px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 0 30px -10px rgba(126,240,176,.28) inset">
+<span style="color:#7ef0b0;font-weight:700">&gt;</span>
+<span style="font-size:17px;letter-spacing:.5em;color:#dffbec">••••••</span>
+<span style="display:inline-block;width:9px;height:19px;background:#7ef0b0;animation:cur 1.05s step-end infinite"></span>
+<span style="margin-left:auto;font-size:10px;color:rgba(126,240,176,.4)">6 / 12</span>
+</div>
+<div style="margin-top:10px;background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:12.5px;letter-spacing:.08em;text-align:center;padding:14px">AUTHENTICATE ⏎</div>
+<div style="margin-top:22px;padding-top:16px;border-top:1px solid rgba(126,240,176,.12);font-size:10.5px;color:rgba(126,240,176,.35);line-height:1.8">Session lasts 4 hours, then re-auth.<br>Every attempt is logged with IP and user agent.</div>
+</div>
+</div>
+<div class="dv-card" style="width:440px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;min-height:400px;display:flex;flex-direction:column;justify-content:center;padding:34px 30px;background:radial-gradient(120% 90% at 50% 0%,#150f0f 0%,#080a09 70%)">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(255,155,155,.04) 0 1px,transparent 1px 3px);z-index:3"></div>
+<pre style="margin:0 0 8px;font-size:8.6px;line-height:1.15;color:rgba(255,155,155,.8)"> █████  ██████  ███    ███ ██ ███    ██
+██   ██ ██   ██ ████  ████ ██ ████   ██
+███████ ██   ██ ██ ████ ██ ██ ██ ██  ██
+██   ██ ██   ██ ██  ██  ██ ██ ██  ██ ██
+██   ██ ██████  ██      ██ ██ ██   ████</pre>
+<div style="font-size:10.5px;letter-spacing:.14em;color:rgba(255,155,155,.6);margin-bottom:34px">LOCKED · TOO MANY ATTEMPTS</div>
+<div style="border:1px solid rgba(255,155,155,.45);background:rgba(255,155,155,.07);padding:16px">
+<div style="font-size:11px;letter-spacing:.12em;color:#ff9b9b;margin-bottom:9px">3 OF 3 ATTEMPTS USED</div>
+<div style="font-size:11.5px;line-height:1.75;color:rgba(223,251,236,.8)">This address is blocked from further attempts. The lockout doubles each time it triggers.</div>
+<div style="margin-top:14px;display:flex;align-items:baseline;gap:10px"><span style="font-size:26px;font-weight:700;color:#ff9b9b">14:59</span><span style="font-size:10px;letter-spacing:.1em;color:rgba(255,155,155,.7)">REMAINING</span></div>
+</div>
+<div style="margin-top:14px;border:1px solid rgba(126,240,176,.16);padding:14px 15px;font-size:11px;line-height:1.85;color:rgba(126,240,176,.5)">
+<div style="letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:7px">RECORDED</div>
+<div style="display:flex;justify-content:space-between"><span>ip</span><span style="color:rgba(223,251,236,.75)">81.7.14.•••</span></div>
+<div style="display:flex;justify-content:space-between"><span>agent</span><span style="color:rgba(223,251,236,.75)">Firefox 142 / Linux</span></div>
+<div style="display:flex;justify-content:space-between"><span>first attempt</span><span style="color:rgba(223,251,236,.75)">11:04:22 UTC</span></div>
+</div>
+</div>
+</div>
+<div class="dv-card" style="width:440px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;min-height:400px;display:flex;flex-direction:column;justify-content:center;padding:34px 30px;background:radial-gradient(120% 90% at 50% 0%,#0f1512 0%,#080a09 70%)">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.045) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="font-size:11px;letter-spacing:.14em;color:rgba(126,240,176,.4);margin-bottom:16px">$ auth --code ······</div>
+<div style="font-size:12.5px;line-height:2.1;color:rgba(223,251,236,.8)">
+<div><span style="color:rgba(126,240,176,.4)">[00.00]</span> code accepted</div>
+<div><span style="color:rgba(126,240,176,.4)">[00.02]</span> session <span style="color:#7ef0b0">4h</span> · expires 15:41 UTC</div>
+<div><span style="color:rgba(126,240,176,.4)">[00.02]</span> role <span style="color:#7ef0b0">operator</span></div>
+<div><span style="color:rgba(126,240,176,.4)">[00.03]</span> 3 items need attention</div>
+<div style="color:#7ef0b0">[00.04]</div>
+</div>
+<div style="margin-top:20px;border:1px solid rgba(126,240,176,.25);background:rgba(126,240,176,.04);padding:14px 16px;font-size:11.5px;line-height:1.9">
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.5)">pending key applications</span><span style="color:#ffcf6b;font-weight:700">4</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.5)">unredeemed donated keys</span><span style="color:#ffcf6b;font-weight:700">7</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.5)">games marked broken</span><span style="color:#ff9b9b;font-weight:700">4</span></div>
+</div>
+<div style="margin-top:auto;padding-top:22px;font-size:11px;color:rgba(126,240,176,.4);display:flex;align-items:center;gap:10px">
+<span style="display:inline-block;width:12px;height:12px;border:2px solid rgba(126,240,176,.3);border-top-color:#7ef0b0;border-radius:50%;animation:spin .8s linear infinite"></span>
+Opening console…</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="dv-sub">B · Console</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1b"><div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Overview — internal figures, not the public status page</div>
+<div class="dv-card" style="width:1180px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.03) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:11px 22px;background:rgba(126,240,176,.1);border-bottom:1px solid rgba(126,240,176,.3);font-size:11.5px;letter-spacing:.05em">
+<div style="display:flex;align-items:center;gap:12px"><span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span><span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:9.5px;letter-spacing:.14em;padding:3px 8px">ADMIN</span></div>
+<div style="display:flex;gap:18px;align-items:center;color:rgba(126,240,176,.6)">
+<span style="color:#ffcf6b">4 PENDING</span><span>operator</span><span>SESSION 3:41</span><span style="border:1px solid rgba(126,240,176,.35);padding:5px 11px;color:#7ef0b0">LOCK</span>
+</div>
+</div>
+<div style="display:flex;align-items:stretch">
+<div style="width:178px;flex:none;border-right:1px solid rgba(126,240,176,.14);padding:18px 0;font-size:11.5px">
+<div style="padding:0 18px 8px;font-size:9.5px;letter-spacing:.14em;color:rgba(126,240,176,.35)">CONSOLE</div>
+<div style="padding:8px 18px;background:rgba(126,240,176,.1);border-left:2px solid #7ef0b0;color:#dffbec">Overview</div>
+<div style="padding:8px 18px;border-left:2px solid transparent;color:rgba(223,251,236,.7)">Traffic</div>
+<div style="padding:8px 18px;border-left:2px solid transparent;color:rgba(223,251,236,.7);display:flex;justify-content:space-between">Logs<span style="color:rgba(126,240,176,.4)">live</span></div>
+<div style="padding:14px 18px 8px;font-size:9.5px;letter-spacing:.14em;color:rgba(126,240,176,.35)">KEYS</div>
+<div style="padding:8px 18px;border-left:2px solid transparent;color:rgba(223,251,236,.7);display:flex;justify-content:space-between">Donated keys<span style="color:#ffcf6b">7</span></div>
+<div style="padding:8px 18px;border-left:2px solid transparent;color:rgba(223,251,236,.7);display:flex;justify-content:space-between">API applications<span style="color:#ffcf6b">4</span></div>
+<div style="padding:8px 18px;border-left:2px solid transparent;color:rgba(223,251,236,.7)">Issued keys</div>
+<div style="padding:14px 18px 8px;font-size:9.5px;letter-spacing:.14em;color:rgba(126,240,176,.35)">CONTENT</div>
+<div style="padding:8px 18px;border-left:2px solid transparent;color:rgba(223,251,236,.7)">Requested games</div>
+<div style="padding:8px 18px;border-left:2px solid transparent;color:rgba(223,251,236,.7)">Game coverage</div>
+<div style="padding:8px 18px;border-left:2px solid transparent;color:rgba(223,251,236,.7)">Credits list</div>
+<div style="padding:14px 18px 8px;font-size:9.5px;letter-spacing:.14em;color:rgba(126,240,176,.35)">SERVICE</div>
+<div style="padding:8px 18px;border-left:2px solid transparent;color:rgba(223,251,236,.7)">Site messages</div>
+<div style="padding:8px 18px;border-left:2px solid transparent;color:rgba(223,251,236,.7)">Maintenance</div>
+</div>
+<div style="flex:1;min-width:0;padding:20px 24px 26px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px">
+<h2 style="margin:0;font:700 21px 'IBM Plex Mono',monospace">Overview</h2>
+<div style="display:flex;gap:8px;font-size:10.5px;color:rgba(126,240,176,.45)"><span style="border:1px solid rgba(126,240,176,.4);color:#7ef0b0;padding:4px 10px">24 H</span><span style="border:1px solid rgba(126,240,176,.14);padding:4px 10px">7 D</span><span style="border:1px solid rgba(126,240,176,.14);padding:4px 10px">30 D</span></div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(126,240,176,.14);border:1px solid rgba(126,240,176,.14);margin-bottom:16px">
+<div style="background:#0a0c0b;padding:14px 15px"><div style="font-size:19px;font-weight:700">63,412</div><div style="font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.4);margin-top:4px">FILE REQUESTS · 63%</div></div>
+<div style="background:#0a0c0b;padding:14px 15px"><div style="font-size:19px;font-weight:700;color:#ffcf6b">88,140</div><div style="font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.4);margin-top:4px">DETAIL LOOKUPS · 88%</div></div>
+<div style="background:#0a0c0b;padding:14px 15px"><div style="font-size:19px;font-weight:700">18,904</div><div style="font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.4);margin-top:4px">UNIQUE VISITORS</div></div>
+<div style="background:#0a0c0b;padding:14px 15px"><div style="font-size:19px;font-weight:700">4.1 <span style="font-size:12px;color:rgba(126,240,176,.5)">TB</span></div><div style="font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.4);margin-top:4px">EGRESS TODAY</div></div>
+<div style="background:#0a0c0b;padding:14px 15px"><div style="font-size:19px;font-weight:700;color:#ff9b9b">1.8%</div><div style="font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.4);margin-top:4px">FAILED TRANSFERS</div></div>
+</div>
+<div style="display:flex;gap:16px;margin-bottom:18px">
+<div style="flex:1;border:1px solid rgba(126,240,176,.16);padding:15px 17px">
+<div style="display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:12px"><span>REQUESTS PER HOUR · 24 H</span><span>PEAK 7,104</span></div>
+<div style="display:flex;align-items:flex-end;gap:3px;height:74px">
+<div style="flex:1;height:22%;background:rgba(126,240,176,.35)"></div><div style="flex:1;height:18%;background:rgba(126,240,176,.35)"></div><div style="flex:1;height:15%;background:rgba(126,240,176,.35)"></div><div style="flex:1;height:12%;background:rgba(126,240,176,.35)"></div><div style="flex:1;height:16%;background:rgba(126,240,176,.35)"></div><div style="flex:1;height:26%;background:rgba(126,240,176,.35)"></div><div style="flex:1;height:44%;background:rgba(126,240,176,.5)"></div><div style="flex:1;height:68%;background:rgba(126,240,176,.5)"></div><div style="flex:1;height:100%;background:#7ef0b0"></div><div style="flex:1;height:88%;background:#7ef0b0"></div><div style="flex:1;height:74%;background:rgba(126,240,176,.6)"></div><div style="flex:1;height:66%;background:rgba(126,240,176,.6)"></div><div style="flex:1;height:71%;background:rgba(126,240,176,.6)"></div><div style="flex:1;height:63%;background:rgba(126,240,176,.5)"></div><div style="flex:1;height:58%;background:rgba(126,240,176,.5)"></div><div style="flex:1;height:61%;background:rgba(126,240,176,.5)"></div><div style="flex:1;height:70%;background:rgba(126,240,176,.6)"></div><div style="flex:1;height:82%;background:#7ef0b0"></div><div style="flex:1;height:78%;background:rgba(126,240,176,.6)"></div><div style="flex:1;height:64%;background:rgba(126,240,176,.5)"></div><div style="flex:1;height:48%;background:rgba(126,240,176,.4)"></div><div style="flex:1;height:36%;background:rgba(126,240,176,.4)"></div><div style="flex:1;height:29%;background:rgba(126,240,176,.35)"></div><div style="flex:1;height:24%;background:rgba(126,240,176,.35)"></div>
+</div>
+<div style="display:flex;justify-content:space-between;font-size:9.5px;color:rgba(126,240,176,.35);margin-top:7px"><span>00 UTC</span><span>08</span><span>16</span><span>23</span></div>
+</div>
+<div style="width:290px;flex:none;border:1px solid rgba(126,240,176,.16);padding:15px 17px">
+<div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:12px">NEEDS ATTENTION</div>
+<div style="display:flex;flex-direction:column;gap:9px;font-size:11.5px">
+<div style="display:flex;gap:9px;align-items:baseline"><span style="color:#ffcf6b">▲</span><span style="flex:1;color:rgba(223,251,236,.85)">Detail lookups at 88% — throttle at 90%</span></div>
+<div style="display:flex;gap:9px;align-items:baseline"><span style="color:#ff9b9b">■</span><span style="flex:1;color:rgba(223,251,236,.85)">Cobalt Wharf extractor failing since 06:14</span></div>
+<div style="display:flex;gap:9px;align-items:baseline"><span style="color:#ffcf6b">▲</span><span style="flex:1;color:rgba(223,251,236,.85)">4 API applications older than 7 days</span></div>
+<div style="display:flex;gap:9px;align-items:baseline"><span style="color:#ffcf6b">▲</span><span style="flex:1;color:rgba(223,251,236,.85)">7 donated keys unredeemed</span></div>
+<div style="display:flex;gap:9px;align-items:baseline"><span style="color:rgba(126,240,176,.5)">·</span><span style="flex:1;color:rgba(223,251,236,.6)">One IP at 41% of all downloads — review</span></div>
+</div>
+</div>
+</div>
+<div style="display:flex;gap:16px">
+<div style="flex:1;border:1px solid rgba(126,240,176,.16);padding:15px 17px">
+<div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:12px">TOP USER AGENTS · 24 H</div>
+<div style="font-size:11.5px;display:flex;flex-direction:column;gap:8px">
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:rgba(223,251,236,.85)">Chrome 141 / Windows</span><span style="color:rgba(126,240,176,.5)">7,214 · 38%</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:38%;background:#7ef0b0"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:rgba(223,251,236,.85)">Firefox 142 / Windows</span><span style="color:rgba(126,240,176,.5)">3,880 · 21%</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:21%;background:#7ef0b0"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:rgba(223,251,236,.85)">Chrome 141 / Android</span><span style="color:rgba(126,240,176,.5)">2,104 · 11%</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:11%;background:rgba(126,240,176,.7)"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:rgba(223,251,236,.85)">Safari 19 / macOS</span><span style="color:rgba(126,240,176,.5)">1,660 · 9%</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:9%;background:rgba(126,240,176,.7)"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:#ffcf6b">python-requests/2.32</span><span style="color:rgba(126,240,176,.5)">1,402 · 7%</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:7%;background:#ffcf6b"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:#ffcf6b">curl/8.9.1</span><span style="color:rgba(126,240,176,.5)">988 · 5%</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:5%;background:#ffcf6b"></div></div></div>
+<div style="font-size:10.5px;color:rgba(126,240,176,.35);margin-top:2px">Unkeyed script traffic is amber. 12% of requests, all rate limited.</div>
+</div>
+</div>
+<div style="flex:1;border:1px solid rgba(126,240,176,.16);padding:15px 17px">
+<div style="display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:12px"><span>LAST VISITORS</span><span style="color:#7ef0b0">REVEAL ALL</span></div>
+<div style="font-size:11px;display:flex;flex-direction:column;gap:0">
+<div style="display:flex;gap:10px;padding-bottom:6px;font-size:9.5px;letter-spacing:.08em;color:rgba(126,240,176,.35);border-bottom:1px solid rgba(126,240,176,.1)"><span style="width:104px">IP</span><span style="width:34px">GEO</span><span style="flex:1">AGENT</span><span style="width:46px;text-align:right">REQS</span><span style="width:44px;text-align:right">SEEN</span></div>
+<div style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid rgba(126,240,176,.06)"><span style="width:104px;color:rgba(223,251,236,.8)">81.7.14.•••</span><span style="width:34px;color:rgba(126,240,176,.5)">DE</span><span style="flex:1;color:rgba(223,251,236,.7)">Firefox 142</span><span style="width:46px;text-align:right">14</span><span style="width:44px;text-align:right;color:rgba(126,240,176,.45)">2s</span></div>
+<div style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid rgba(126,240,176,.06)"><span style="width:104px;color:rgba(223,251,236,.8)">104.28.90.•••</span><span style="width:34px;color:rgba(126,240,176,.5)">US</span><span style="flex:1;color:rgba(223,251,236,.7)">Chrome 141</span><span style="width:46px;text-align:right">3</span><span style="width:44px;text-align:right;color:rgba(126,240,176,.45)">9s</span></div>
+<div style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid rgba(126,240,176,.06);background:rgba(255,207,107,.06)"><span style="width:104px;color:#ffcf6b">45.155.203.•••</span><span style="width:34px;color:rgba(126,240,176,.5)">NL</span><span style="flex:1;color:#ffcf6b">python-requests/2.32</span><span style="width:46px;text-align:right;color:#ffcf6b">1,402</span><span style="width:44px;text-align:right;color:rgba(126,240,176,.45)">11s</span></div>
+<div style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid rgba(126,240,176,.06)"><span style="width:104px;color:rgba(223,251,236,.8)">92.184.104.•••</span><span style="width:34px;color:rgba(126,240,176,.5)">FR</span><span style="flex:1;color:rgba(223,251,236,.7)">Safari 19 / iOS</span><span style="width:46px;text-align:right">1</span><span style="width:44px;text-align:right;color:rgba(126,240,176,.45)">18s</span></div>
+<div style="display:flex;gap:10px;padding:6px 0;border-bottom:1px solid rgba(126,240,176,.06)"><span style="width:104px;color:rgba(223,251,236,.8)">203.0.113.•••</span><span style="width:34px;color:rgba(126,240,176,.5)">JP</span><span style="flex:1;color:rgba(223,251,236,.7)">Chrome 141 / Android</span><span style="width:46px;text-align:right">6</span><span style="width:44px;text-align:right;color:rgba(126,240,176,.45)">24s</span></div>
+<div style="display:flex;gap:10px;padding:6px 0"><span style="width:104px;color:rgba(223,251,236,.8)">188.22.7.•••</span><span style="width:34px;color:rgba(126,240,176,.5)">AT</span><span style="flex:1;color:rgba(223,251,236,.7)">Edge 141</span><span style="width:46px;text-align:right">2</span><span style="width:44px;text-align:right;color:rgba(126,240,176,.45)">31s</span></div>
+</div>
+<div style="font-size:10.5px;color:rgba(126,240,176,.35);margin-top:9px;line-height:1.6">Last octet masked. Revealing writes an entry to the audit log with your session id.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="dv-sub">C · Keys</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1c"><div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Donated keys — inbox and redemption</div>
+<div class="dv-card" style="width:1180px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.03) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:11px 22px;background:rgba(126,240,176,.1);border-bottom:1px solid rgba(126,240,176,.3);font-size:11.5px;letter-spacing:.05em">
+<div style="display:flex;align-items:center;gap:12px"><span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span><span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:9.5px;letter-spacing:.14em;padding:3px 8px">ADMIN</span><span style="color:rgba(126,240,176,.5)">/ donated keys</span></div>
+<div style="display:flex;gap:18px;align-items:center;color:rgba(126,240,176,.6)"><span>operator</span><span>SESSION 3:38</span><span style="border:1px solid rgba(126,240,176,.35);padding:5px 11px;color:#7ef0b0">LOCK</span></div>
+</div>
+<div style="padding:20px 24px 26px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px">
+<h2 style="margin:0;font:700 21px 'IBM Plex Mono',monospace">Donated keys</h2>
+<div style="display:flex;gap:8px;font-size:10.5px"><span style="border:1px solid rgba(255,207,107,.4);color:#ffcf6b;padding:4px 10px">UNREDEEMED 7</span><span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.5);padding:4px 10px">REDEEMED 58</span><span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.5);padding:4px 10px">INVALID 4</span><span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.5);padding:4px 10px">ALL 69</span></div>
+</div>
+<div style="border:1px solid rgba(126,240,176,.14);font-size:11.5px;margin-bottom:18px">
+<div style="display:flex;gap:12px;padding:9px 14px;border-bottom:1px solid rgba(126,240,176,.14);font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.4)"><span style="width:16px"></span><span style="width:78px">RECEIVED</span><span style="width:132px">GAME</span><span style="width:168px">KEY</span><span style="width:118px">CREDITS NAME</span><span style="flex:1">MESSAGE</span><span style="width:170px;text-align:right">ACTION</span></div>
+<div style="display:flex;gap:12px;padding:10px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center;background:rgba(126,240,176,.04)">
+<span style="width:16px;color:#ffcf6b">▲</span><span style="width:78px;color:rgba(126,240,176,.5)">2h ago</span><span style="width:132px">Stellar Drift</span>
+<span style="width:168px;letter-spacing:.06em;color:rgba(223,251,236,.5)">7KQ2M-•••••-•••••</span>
+<span style="width:118px;color:#7ef0b0">vaultkeeper_77</span>
+<span style="flex:1;color:rgba(223,251,236,.6);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Spare copy from a bundle. Hope it helps.</span>
+<span style="width:170px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.35);color:#7ef0b0;padding:5px 9px;font-size:10.5px">REVEAL</span><span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;padding:5px 9px;font-size:10.5px">REDEEM</span><span style="border:1px solid rgba(255,155,155,.35);color:#ff9b9b;padding:5px 9px;font-size:10.5px">VOID</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:10px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center">
+<span style="width:16px;color:#ffcf6b">▲</span><span style="width:78px;color:rgba(126,240,176,.5)">6h ago</span><span style="width:132px;color:rgba(126,240,176,.5)">— not given</span>
+<span style="width:168px;letter-spacing:.06em;color:rgba(223,251,236,.5)">QQ84B-•••••-•••••</span>
+<span style="width:118px;color:rgba(126,240,176,.4)">anonymous</span>
+<span style="flex:1;color:rgba(126,240,176,.35)">no message</span>
+<span style="width:170px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.35);color:#7ef0b0;padding:5px 9px;font-size:10.5px">REVEAL</span><span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;padding:5px 9px;font-size:10.5px">REDEEM</span><span style="border:1px solid rgba(255,155,155,.35);color:#ff9b9b;padding:5px 9px;font-size:10.5px">VOID</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:10px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center">
+<span style="width:16px;color:rgba(126,240,176,.4)">·</span><span style="width:78px;color:rgba(126,240,176,.5)">yesterday</span><span style="width:132px">Harrowmere</span>
+<span style="width:168px;letter-spacing:.06em;color:rgba(126,240,176,.3)">redeemed · 2026-08-10</span>
+<span style="width:118px;color:#7ef0b0">Mara Vance</span>
+<span style="flex:1;color:rgba(223,251,236,.6);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Was hoping someone would cover this one.</span>
+<span style="width:170px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.4);padding:5px 9px;font-size:10.5px">AUDIT</span><span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.4);padding:5px 9px;font-size:10.5px">CREDITS ✓</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:10px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center">
+<span style="width:16px;color:#ff9b9b">■</span><span style="width:78px;color:rgba(126,240,176,.5)">3d ago</span><span style="width:132px;color:rgba(223,251,236,.5)">Tin Can Diver</span>
+<span style="width:168px;color:#ff9b9b">invalid · already used</span>
+<span style="width:118px;color:rgba(126,240,176,.4)">tinfoil_dan</span>
+<span style="flex:1;color:rgba(223,251,236,.4);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">—</span>
+<span style="width:170px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.3);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">MAIL DONOR</span><span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.4);padding:5px 9px;font-size:10.5px">ARCHIVE</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:10px 14px;align-items:center">
+<span style="width:16px;color:rgba(126,240,176,.4)">·</span><span style="width:78px;color:rgba(126,240,176,.5)">5d ago</span><span style="width:132px">Ninefold Abbey</span>
+<span style="width:168px;letter-spacing:.06em;color:rgba(126,240,176,.3)">redeemed · 2026-08-06</span>
+<span style="width:118px;color:rgba(126,240,176,.4)">anonymous</span>
+<span style="flex:1;color:rgba(223,251,236,.6);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Please do not credit me.</span>
+<span style="width:170px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.4);padding:5px 9px;font-size:10.5px">AUDIT</span><span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.4);padding:5px 9px;font-size:10.5px">NO CREDIT</span></span>
+</div>
+</div>
+<div style="display:flex;gap:16px">
+<div style="flex:1;border:1px solid rgba(126,240,176,.25);background:rgba(126,240,176,.03);padding:15px 17px">
+<div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:10px">REDEMPTION FLOW</div>
+<div style="font-size:11.5px;line-height:1.85;color:rgba(223,251,236,.75)">Reveal shows the key once, in clear, for 30 seconds. Redeem marks it used and asks which app id it unlocked, which is what flips the game to covered on the public list and closes its request queue entry.</div>
+</div>
+<div style="width:330px;flex:none;border:1px solid rgba(255,155,155,.3);background:rgba(255,155,155,.05);padding:15px 17px">
+<div style="font-size:9.5px;letter-spacing:.12em;color:#ff9b9b;margin-bottom:10px">VOID</div>
+<div style="font-size:11.5px;line-height:1.85;color:rgba(223,251,236,.75)">Discards the key without redeeming and deletes it from storage. Used for duplicates and anything that looks resold. Irreversible, and the donor is not told automatically.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1d"><div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>API applications — queue and one open application</div>
+<div class="dv-card" style="width:1180px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.03) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:11px 22px;background:rgba(126,240,176,.1);border-bottom:1px solid rgba(126,240,176,.3);font-size:11.5px;letter-spacing:.05em">
+<div style="display:flex;align-items:center;gap:12px"><span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span><span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:9.5px;letter-spacing:.14em;padding:3px 8px">ADMIN</span><span style="color:rgba(126,240,176,.5)">/ api applications</span></div>
+<div style="display:flex;gap:18px;align-items:center;color:rgba(126,240,176,.6)"><span>14 OF 40 SLOTS OPEN</span><span>SESSION 3:36</span><span style="border:1px solid rgba(126,240,176,.35);padding:5px 11px;color:#7ef0b0">LOCK</span></div>
+</div>
+<div style="display:flex;align-items:stretch">
+<div style="width:322px;flex:none;border-right:1px solid rgba(126,240,176,.14)">
+<div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(126,240,176,.14);font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4)"><span>QUEUE · 4 PENDING</span><span style="color:#7ef0b0">OLDEST FIRST</span></div>
+<div style="padding:13px 16px;border-bottom:1px solid rgba(126,240,176,.08);border-left:2px solid #7ef0b0;background:rgba(126,240,176,.08)">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:12.5px;color:#dffbec">Modpack Archiver</span><span style="font-size:10px;color:#ffcf6b">9 d</span></div>
+<div style="font-size:10.5px;color:rgba(126,240,176,.45);margin-top:4px">400 req/day · open source</div>
+</div>
+<div style="padding:13px 16px;border-bottom:1px solid rgba(126,240,176,.08);border-left:2px solid transparent">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:12.5px;color:rgba(223,251,236,.8)">drift-mod-manager</span><span style="font-size:10px;color:#ffcf6b">8 d</span></div>
+<div style="font-size:10.5px;color:rgba(126,240,176,.45);margin-top:4px">2,000 req/day · closed source</div>
+</div>
+<div style="padding:13px 16px;border-bottom:1px solid rgba(126,240,176,.08);border-left:2px solid transparent">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:12.5px;color:rgba(223,251,236,.8)">Abbey Wiki Bot</span><span style="font-size:10px;color:rgba(126,240,176,.45)">4 d</span></div>
+<div style="font-size:10.5px;color:rgba(126,240,176,.45);margin-top:4px">120 req/day · open source</div>
+</div>
+<div style="padding:13px 16px;border-bottom:1px solid rgba(126,240,176,.08);border-left:2px solid transparent">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:12.5px;color:rgba(223,251,236,.8)">(no name given)</span><span style="font-size:10px;color:rgba(126,240,176,.45)">1 d</span></div>
+<div style="font-size:10.5px;color:#ff9b9b;margin-top:4px">missing 2 required fields</div>
+</div>
+<div style="padding:12px 16px;border-bottom:1px solid rgba(126,240,176,.14);font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.35)">DECIDED · LAST 30 D</div>
+<div style="padding:11px 16px;font-size:11.5px;display:flex;justify-content:space-between"><span style="color:rgba(223,251,236,.6)">Stellar Atlas</span><span style="color:#7ef0b0;font-size:10px">ISSUED</span></div>
+<div style="padding:11px 16px;font-size:11.5px;display:flex;justify-content:space-between"><span style="color:rgba(223,251,236,.6)">bulk-workshop-sync</span><span style="color:#ff9b9b;font-size:10px">REJECTED · RULE 03</span></div>
+<div style="padding:11px 16px;font-size:11.5px;display:flex;justify-content:space-between"><span style="color:rgba(223,251,236,.6)">ModVault</span><span style="color:#ff9b9b;font-size:10px">REJECTED · NO REPLY</span></div>
+</div>
+<div style="flex:1;min-width:0;padding:20px 24px 26px">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+<div>
+<h2 style="margin:0 0 5px;font:700 21px 'IBM Plex Mono',monospace">Modpack Archiver</h2>
+<div style="font-size:11.5px;color:rgba(126,240,176,.5)">applied 2026-08-02 · waiting 9 days · from 81.7.14.•••</div>
+</div>
+<div style="display:flex;gap:8px">
+<span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:11px;letter-spacing:.06em;padding:9px 16px">ISSUE KEY</span>
+<span style="border:1px solid rgba(255,207,107,.45);color:#ffcf6b;font-size:11px;padding:8px 14px">ASK FOR MORE</span>
+<span style="border:1px solid rgba(255,155,155,.45);color:#ff9b9b;font-size:11px;padding:8px 14px">REJECT</span>
+</div>
+</div>
+<div style="display:flex;gap:18px;align-items:flex-start">
+<div style="flex:1;min-width:0">
+<div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:8px">WHAT IT DOES</div>
+<div style="border:1px solid rgba(126,240,176,.14);background:rgba(126,240,176,.02);padding:14px 16px;font-size:12px;line-height:1.8;color:rgba(223,251,236,.8);margin-bottom:16px">Archives modpack manifests for a community of about 900 players so a pack can be rebuilt after items are delisted. Resolves only the items a pack references, once per pack update. Caches everything for a week.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 20px;font-size:11.5px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">contact</span><span>dan@modpackarchiver.dev</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">stated volume</span><span>400 / day</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">source</span><span style="color:#7ef0b0">git.sr.ht/~dan/archiver</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(126,240,176,.45)">commercial</span><span>no</span></div>
+</div>
+<div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:8px">AUTOMATED CHECKS</div>
+<div style="display:flex;flex-direction:column;gap:7px;font-size:11.5px">
+<div style="display:flex;gap:10px"><span style="color:#7ef0b0">✓</span><span style="flex:1;color:rgba(223,251,236,.8)">All four agreements ticked</span></div>
+<div style="display:flex;gap:10px"><span style="color:#7ef0b0">✓</span><span style="flex:1;color:rgba(223,251,236,.8)">Contact domain resolves, MX present</span></div>
+<div style="display:flex;gap:10px"><span style="color:#7ef0b0">✓</span><span style="flex:1;color:rgba(223,251,236,.8)">Stated volume within 2% of daily budget</span></div>
+<div style="display:flex;gap:10px"><span style="color:#7ef0b0">✓</span><span style="flex:1;color:rgba(223,251,236,.8)">No prior rejection from this address</span></div>
+<div style="display:flex;gap:10px"><span style="color:#ffcf6b">▲</span><span style="flex:1;color:rgba(223,251,236,.8)">Site use before applying: 11 days — rule asks for 30</span></div>
+<div style="display:flex;gap:10px"><span style="color:rgba(126,240,176,.5)">·</span><span style="flex:1;color:rgba(223,251,236,.6)">Same address donated a key on 2026-08-09 — donors skip the wait</span></div>
+</div>
+</div>
+<div style="width:262px;flex:none;border-left:1px solid rgba(126,240,176,.12);padding-left:20px">
+<div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:10px">ISSUE WITH</div>
+<div style="display:flex;flex-direction:column;gap:11px;font-size:11.5px">
+<div><div style="color:rgba(126,240,176,.5);margin-bottom:5px">daily read cap</div><div style="border:1px solid rgba(126,240,176,.25);background:rgba(126,240,176,.04);padding:9px 11px">500</div></div>
+<div><div style="color:rgba(126,240,176,.5);margin-bottom:5px">daily download cap</div><div style="border:1px solid rgba(126,240,176,.25);background:rgba(126,240,176,.04);padding:9px 11px">50</div></div>
+<div><div style="color:rgba(126,240,176,.5);margin-bottom:5px">expires</div><div style="border:1px solid rgba(126,240,176,.25);background:rgba(126,240,176,.04);padding:9px 11px">90 days, renewable</div></div>
+<div style="display:flex;gap:9px;align-items:flex-start"><span style="color:#7ef0b0">[×]</span><span style="line-height:1.6;color:rgba(223,251,236,.8)">Mail the key to the contact address</span></div>
+<div style="display:flex;gap:9px;align-items:flex-start"><span style="color:rgba(126,240,176,.35)">[ ]</span><span style="line-height:1.6;color:rgba(223,251,236,.8)">Add to the public API users list</span></div>
+</div>
+<div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(126,240,176,.12);font-size:10.5px;color:rgba(126,240,176,.4);line-height:1.7">Issuing generates <span style="color:rgba(223,251,236,.7)">wdl_live_…</span> and shows it once. You cannot retrieve it later, only rotate.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1e"><div class="dv-olabel"><a class="dv-oid" href="#1e">1e</a>Issued keys — usage per consumer</div>
+<div class="dv-card" style="width:1180px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.03) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:11px 22px;background:rgba(126,240,176,.1);border-bottom:1px solid rgba(126,240,176,.3);font-size:11.5px;letter-spacing:.05em">
+<div style="display:flex;align-items:center;gap:12px"><span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span><span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:9.5px;letter-spacing:.14em;padding:3px 8px">ADMIN</span><span style="color:rgba(126,240,176,.5)">/ issued keys</span></div>
+<div style="display:flex;gap:18px;align-items:center;color:rgba(126,240,176,.6)"><span>26 ACTIVE · 40 CAP</span><span>SESSION 3:31</span><span style="border:1px solid rgba(126,240,176,.35);padding:5px 11px;color:#7ef0b0">LOCK</span></div>
+</div>
+<div style="padding:20px 24px 26px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px">
+<h2 style="margin:0;font:700 21px 'IBM Plex Mono',monospace">Issued keys</h2>
+<div style="display:flex;gap:10px;align-items:center;font-size:10.5px;color:rgba(126,240,176,.45)"><span style="border:1px solid rgba(126,240,176,.2);padding:6px 12px;min-width:200px">search project, key prefix or email</span><span style="border:1px solid rgba(126,240,176,.4);color:#7ef0b0;padding:5px 10px">ACTIVE</span><span style="border:1px solid rgba(126,240,176,.14);padding:5px 10px">REVOKED</span></div>
+</div>
+<div style="border:1px solid rgba(126,240,176,.14);font-size:11.5px">
+<div style="display:flex;gap:12px;padding:9px 14px;border-bottom:1px solid rgba(126,240,176,.14);font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.4)"><span style="width:150px">PROJECT</span><span style="width:128px">KEY</span><span style="width:150px">READS TODAY</span><span style="width:118px">DOWNLOADS</span><span style="width:70px">CACHE HIT</span><span style="width:82px">LAST SEEN</span><span style="flex:1">FLAGS</span><span style="width:150px;text-align:right">ACTION</span></div>
+<div style="display:flex;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center">
+<span style="width:150px">Stellar Atlas</span><span style="width:128px;color:rgba(126,240,176,.5)">wdl_live_8f2c…</span>
+<span style="width:150px;display:flex;align-items:center;gap:8px"><span style="flex:1;height:5px;background:rgba(126,240,176,.12)"><span style="display:block;height:100%;width:34%;background:#7ef0b0"></span></span><span style="color:rgba(126,240,176,.55);font-size:10.5px">170/500</span></span>
+<span style="width:118px;color:rgba(126,240,176,.6)">12 / 50</span><span style="width:70px;color:#7ef0b0">94%</span><span style="width:82px;color:rgba(126,240,176,.5)">4m ago</span>
+<span style="flex:1;color:rgba(126,240,176,.35)">—</span>
+<span style="width:150px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">ROTATE</span><span style="border:1px solid rgba(255,155,155,.35);color:#ff9b9b;padding:5px 9px;font-size:10.5px">REVOKE</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center;background:rgba(255,207,107,.05)">
+<span style="width:150px">drift-tools</span><span style="width:128px;color:rgba(126,240,176,.5)">wdl_live_b104…</span>
+<span style="width:150px;display:flex;align-items:center;gap:8px"><span style="flex:1;height:5px;background:rgba(126,240,176,.12)"><span style="display:block;height:100%;width:97%;background:#ffcf6b"></span></span><span style="color:#ffcf6b;font-size:10.5px">1940/2000</span></span>
+<span style="width:118px;color:rgba(126,240,176,.6)">88 / 100</span><span style="width:70px;color:#ffcf6b">41%</span><span style="width:82px;color:rgba(126,240,176,.5)">just now</span>
+<span style="flex:1;color:#ffcf6b;font-size:10.5px">low cache hit · retry storm 09:41</span>
+<span style="width:150px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(255,207,107,.45);color:#ffcf6b;padding:5px 9px;font-size:10.5px">THROTTLE</span><span style="border:1px solid rgba(255,155,155,.35);color:#ff9b9b;padding:5px 9px;font-size:10.5px">REVOKE</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center">
+<span style="width:150px">Abbey Wiki Bot</span><span style="width:128px;color:rgba(126,240,176,.5)">wdl_live_5ae9…</span>
+<span style="width:150px;display:flex;align-items:center;gap:8px"><span style="flex:1;height:5px;background:rgba(126,240,176,.12)"><span style="display:block;height:100%;width:12%;background:#7ef0b0"></span></span><span style="color:rgba(126,240,176,.55);font-size:10.5px">14/120</span></span>
+<span style="width:118px;color:rgba(126,240,176,.6)">0 / 10</span><span style="width:70px;color:#7ef0b0">99%</span><span style="width:82px;color:rgba(126,240,176,.5)">2h ago</span>
+<span style="flex:1;color:rgba(126,240,176,.35)">—</span>
+<span style="width:150px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">ROTATE</span><span style="border:1px solid rgba(255,155,155,.35);color:#ff9b9b;padding:5px 9px;font-size:10.5px">REVOKE</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:11px 14px;align-items:center">
+<span style="width:150px;color:rgba(223,251,236,.45)">bulk-workshop-sync</span><span style="width:128px;color:rgba(126,240,176,.3)">wdl_live_c771…</span>
+<span style="width:150px;color:rgba(126,240,176,.3);font-size:10.5px">revoked 2026-07-28</span>
+<span style="width:118px;color:rgba(126,240,176,.3)">—</span><span style="width:70px;color:rgba(126,240,176,.3)">—</span><span style="width:82px;color:rgba(126,240,176,.3)">14d ago</span>
+<span style="flex:1;color:#ff9b9b;font-size:10.5px">rule 03 · catalogue scrape</span>
+<span style="width:150px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.4);padding:5px 9px;font-size:10.5px">AUDIT</span></span>
+</div>
+</div>
+<div style="margin-top:14px;font-size:11px;color:rgba(126,240,176,.4);line-height:1.75">Throttle halves the caps until you lift it and mails the maintainer. Revoke is immediate and permanent; the key cannot be reissued to the same project without a fresh application.</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="dv-sub">D · Traffic, logs, content</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1f"><div class="dv-olabel"><a class="dv-oid" href="#1f">1f</a>Live logs</div>
+<div class="dv-card" style="width:1180px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.03) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:11px 22px;background:rgba(126,240,176,.1);border-bottom:1px solid rgba(126,240,176,.3);font-size:11.5px;letter-spacing:.05em">
+<div style="display:flex;align-items:center;gap:12px"><span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span><span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:9.5px;letter-spacing:.14em;padding:3px 8px">ADMIN</span><span style="color:rgba(126,240,176,.5)">/ logs</span></div>
+<div style="display:flex;gap:18px;align-items:center;color:rgba(126,240,176,.6)"><span style="display:flex;align-items:center;gap:7px"><span style="width:7px;height:7px;border-radius:50%;background:#7ef0b0;display:block;box-shadow:0 0 8px #7ef0b0"></span>TAILING</span><span>SESSION 3:22</span><span style="border:1px solid rgba(126,240,176,.35);padding:5px 11px;color:#7ef0b0">LOCK</span></div>
+</div>
+<div style="padding:18px 24px 24px">
+<div style="display:flex;gap:8px;align-items:center;margin-bottom:14px;font-size:10.5px">
+<span style="border:1px solid rgba(126,240,176,.2);padding:7px 12px;flex:1;color:rgba(126,240,176,.45)">filter · level:error OR key:wdl_live_b104 · regex ok</span>
+<span style="border:1px solid rgba(126,240,176,.4);color:#7ef0b0;padding:6px 11px">ALL 4,812</span>
+<span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.5);padding:6px 11px">RESOLVE</span>
+<span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.5);padding:6px 11px">TRANSFER</span>
+<span style="border:1px solid rgba(255,207,107,.4);color:#ffcf6b;padding:6px 11px">WARN 61</span>
+<span style="border:1px solid rgba(255,155,155,.4);color:#ff9b9b;padding:6px 11px">ERROR 14</span>
+<span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.5);padding:6px 11px">AUDIT 9</span>
+<span style="border:1px solid rgba(126,240,176,.2);color:rgba(126,240,176,.6);padding:6px 11px">PAUSE ⏸</span>
+</div>
+<div style="border:1px solid rgba(126,240,176,.14);background:rgba(126,240,176,.015);padding:14px 16px;font-size:11.5px;line-height:1.95">
+<div style="display:flex;gap:12px"><span style="color:rgba(126,240,176,.35);width:64px">11:41:08</span><span style="color:#7ef0b0;width:56px">RESOLVE</span><span style="color:rgba(126,240,176,.4);width:104px">81.7.14.•••</span><span style="flex:1;color:rgba(223,251,236,.8)">2874113045 ok 341ms · cache miss · Stellar Drift</span></div>
+<div style="display:flex;gap:12px"><span style="color:rgba(126,240,176,.35);width:64px">11:41:08</span><span style="color:rgba(126,240,176,.6);width:56px">CACHE</span><span style="color:rgba(126,240,176,.4);width:104px">—</span><span style="flex:1;color:rgba(223,251,236,.7)">stored 2874113045 ttl 24h</span></div>
+<div style="display:flex;gap:12px"><span style="color:rgba(126,240,176,.35);width:64px">11:41:11</span><span style="color:#7ef0b0;width:56px">XFER</span><span style="color:rgba(126,240,176,.4);width:104px">81.7.14.•••</span><span style="flex:1;color:rgba(223,251,236,.8)">start 2874113045 184.2MB</span></div>
+<div style="display:flex;gap:12px;background:rgba(255,207,107,.06)"><span style="color:rgba(126,240,176,.35);width:64px">11:41:14</span><span style="color:#ffcf6b;width:56px">WARN</span><span style="color:rgba(126,240,176,.4);width:104px">45.155.203.•••</span><span style="flex:1;color:#ffcf6b">429 rate limited · python-requests/2.32 · 6th in 60s</span></div>
+<div style="display:flex;gap:12px"><span style="color:rgba(126,240,176,.35);width:64px">11:41:19</span><span style="color:#7ef0b0;width:56px">RESOLVE</span><span style="color:rgba(126,240,176,.4);width:104px">104.28.90.•••</span><span style="flex:1;color:rgba(223,251,236,.8)">3011884502 ok 12ms · cache hit · 17 children</span></div>
+<div style="display:flex;gap:12px;background:rgba(255,155,155,.07)"><span style="color:rgba(126,240,176,.35);width:64px">11:41:22</span><span style="color:#ff9b9b;width:56px">ERROR</span><span style="color:rgba(126,240,176,.4);width:104px">203.0.113.•••</span><span style="flex:1;color:#ff9b9b">extractor failed 1602880 · Cobalt Wharf · unknown container magic 0x4357</span></div>
+<div style="display:flex;gap:12px"><span style="color:rgba(126,240,176,.35);width:64px">11:41:24</span><span style="color:rgba(126,240,176,.6);width:56px">XFER</span><span style="color:rgba(126,240,176,.4);width:104px">81.7.14.•••</span><span style="flex:1;color:rgba(223,251,236,.7)">done 2874113045 184.2MB 13.1s 14.0MB/s sha1 ok</span></div>
+<div style="display:flex;gap:12px;background:rgba(126,240,176,.05)"><span style="color:rgba(126,240,176,.35);width:64px">11:41:31</span><span style="color:#7ef0b0;width:56px">AUDIT</span><span style="color:rgba(126,240,176,.4);width:104px">session a71f</span><span style="flex:1;color:#dffbec">key revealed · donation #612 · Stellar Drift</span></div>
+<div style="display:flex;gap:12px"><span style="color:rgba(126,240,176,.35);width:64px">11:41:33</span><span style="color:rgba(126,240,176,.6);width:56px">API</span><span style="color:rgba(126,240,176,.4);width:104px">wdl_live_b104</span><span style="flex:1;color:rgba(223,251,236,.7)">GET /v1/item/1902334761 200 · 1,941st today</span></div>
+<div style="display:flex;gap:12px;background:rgba(255,207,107,.06)"><span style="color:rgba(126,240,176,.35);width:64px">11:41:33</span><span style="color:#ffcf6b;width:56px">WARN</span><span style="color:rgba(126,240,176,.4);width:104px">wdl_live_b104</span><span style="flex:1;color:#ffcf6b">daily read cap reached · further reads 429 until 00:00 UTC</span></div>
+<div style="display:flex;gap:12px"><span style="color:rgba(126,240,176,.35);width:64px">11:41:36</span><span style="color:#7ef0b0;width:56px">RESOLVE</span><span style="color:rgba(126,240,176,.4);width:104px">188.22.7.•••</span><span style="flex:1;color:rgba(223,251,236,.8)">2233901847 ok 9ms · cache hit</span></div>
+<div style="display:flex;gap:12px"><span style="color:rgba(126,240,176,.35);width:64px">11:41:38</span><span style="color:#7ef0b0;width:56px">XFER</span><span style="color:rgba(126,240,176,.4);width:104px">92.184.104.•••</span><span style="flex:1;color:rgba(223,251,236,.8)">start 1902334761 42.8MB<span style="display:inline-block;width:8px;height:13px;background:#7ef0b0;margin-left:6px;vertical-align:-2px;animation:cur 1.05s step-end infinite"></span></span></div>
+</div>
+<div style="display:flex;justify-content:space-between;margin-top:12px;font-size:10.5px;color:rgba(126,240,176,.4)">
+<span>Retained 7 days, then dropped. IPs masked to /24 in storage; the last octet shown here is decrypted per session and never written.</span>
+<span style="color:#7ef0b0">EXPORT FILTERED · NDJSON</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1g"><div class="dv-olabel"><a class="dv-oid" href="#1g">1g</a>Requested games — editable status</div>
+<div class="dv-card" style="width:1180px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.03) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:11px 22px;background:rgba(126,240,176,.1);border-bottom:1px solid rgba(126,240,176,.3);font-size:11.5px;letter-spacing:.05em">
+<div style="display:flex;align-items:center;gap:12px"><span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span><span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:9.5px;letter-spacing:.14em;padding:3px 8px">ADMIN</span><span style="color:rgba(126,240,176,.5)">/ requested games</span></div>
+<div style="display:flex;gap:18px;align-items:center;color:rgba(126,240,176,.6)"><span>214 REQUESTS · 318 COVERED</span><span>SESSION 3:14</span><span style="border:1px solid rgba(126,240,176,.35);padding:5px 11px;color:#7ef0b0">LOCK</span></div>
+</div>
+<div style="padding:20px 24px 26px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px">
+<h2 style="margin:0;font:700 21px 'IBM Plex Mono',monospace">Requested games</h2>
+<div style="display:flex;gap:8px;font-size:10.5px"><span style="border:1px solid rgba(126,240,176,.4);color:#7ef0b0;padding:5px 10px">OPEN 189</span><span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.5);padding:5px 10px">COVERED 21</span><span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.5);padding:5px 10px">CLOSED 4</span><span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.5);padding:5px 10px">MERGED 0</span></div>
+</div>
+<div style="border:1px solid rgba(126,240,176,.14);font-size:11.5px">
+<div style="display:flex;gap:12px;padding:9px 14px;border-bottom:1px solid rgba(126,240,176,.14);font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.4)"><span style="width:50px;text-align:right">REQS</span><span style="width:78px">APP ID</span><span style="width:170px">GAME</span><span style="width:250px">STATUS</span><span style="flex:1">PUBLIC NOTE</span><span style="width:120px;text-align:right">ACTION</span></div>
+<div style="display:flex;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center">
+<span style="width:50px;text-align:right;color:#7ef0b0;font-weight:700">412</span><span style="width:78px;color:rgba(126,240,176,.45)">2074010</span><span style="width:170px">Stellar Drift</span>
+<span style="width:250px;display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(255,207,107,.4);background:rgba(255,207,107,.06);padding:6px 10px;font-size:10.5px;color:#ffcf6b">NEEDS A KEY <span style="color:rgba(255,207,107,.6)">▾</span></span>
+<span style="flex:1;color:rgba(223,251,236,.6);font-size:10.5px">Waiting on a donated key.</span>
+<span style="width:120px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">EDIT</span><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">MERGE</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:flex-start;background:rgba(126,240,176,.04)">
+<span style="width:50px;text-align:right;color:#7ef0b0;font-weight:700">241</span><span style="width:78px;color:rgba(126,240,176,.45)">0900117</span><span style="width:170px">Tin Can Diver</span>
+<div style="width:250px;position:relative">
+<div style="display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(126,240,176,.5);background:rgba(126,240,176,.08);padding:6px 10px;font-size:10.5px;color:#dffbec">PARTIAL — MISSING EXTRACTOR <span style="color:#7ef0b0">▴</span></div>
+<div style="margin-top:4px;border:1px solid rgba(126,240,176,.4);background:#0d100e;box-shadow:0 14px 34px -10px rgba(0,0,0,.9);font-size:10.5px">
+<div style="padding:8px 10px;color:rgba(223,251,236,.8);border-bottom:1px solid rgba(126,240,176,.1)">OPEN · NEEDS A KEY</div>
+<div style="padding:8px 10px;color:rgba(223,251,236,.8);border-bottom:1px solid rgba(126,240,176,.1)">COVERED · WORKING</div>
+<div style="padding:8px 10px;background:rgba(126,240,176,.12);color:#dffbec;border-bottom:1px solid rgba(126,240,176,.1)">COVERED · PARTIAL</div>
+<div style="padding:8px 10px;color:#ff9b9b;border-bottom:1px solid rgba(126,240,176,.1)">COVERED · BROKEN</div>
+<div style="padding:8px 10px;color:rgba(223,251,236,.8);border-bottom:1px solid rgba(126,240,176,.1)">CLOSED · NO WORKSHOP</div>
+<div style="padding:8px 10px;color:rgba(223,251,236,.8)">CLOSED · SERVER-SIDE ONLY</div>
+</div>
+</div>
+<span style="flex:1;color:rgba(223,251,236,.75);font-size:10.5px;line-height:1.6">Downloads work, we cannot unpack .tcd containers — you get the raw file.</span>
+<span style="width:120px;display:flex;gap:6px;justify-content:flex-end"><span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;padding:5px 9px;font-size:10.5px">SAVE</span><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">CANCEL</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center">
+<span style="width:50px;text-align:right;color:#7ef0b0;font-weight:700">173</span><span style="width:78px;color:rgba(126,240,176,.45)">1188770</span><span style="width:170px">Grease Monkey 2</span>
+<span style="width:250px;display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(126,240,176,.25);padding:6px 10px;font-size:10.5px;color:#7ef0b0">COVERED · WORKING <span style="color:rgba(126,240,176,.5)">▾</span></span>
+<span style="flex:1;color:rgba(223,251,236,.6);font-size:10.5px">Covered 2026-07-14 by a donated key.</span>
+<span style="width:120px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">EDIT</span><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">MERGE</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center">
+<span style="width:50px;text-align:right;color:#7ef0b0;font-weight:700">96</span><span style="width:78px;color:rgba(126,240,176,.45)">1602880</span><span style="width:170px">Cobalt Wharf</span>
+<span style="width:250px;display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(255,155,155,.4);background:rgba(255,155,155,.06);padding:6px 10px;font-size:10.5px;color:#ff9b9b">COVERED · BROKEN <span style="color:rgba(255,155,155,.6)">▾</span></span>
+<span style="flex:1;color:#ff9b9b;font-size:10.5px">Upstream changed the container format. Being looked at.</span>
+<span style="width:120px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">EDIT</span><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">MERGE</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:11px 14px;align-items:center">
+<span style="width:50px;text-align:right;color:rgba(126,240,176,.5);font-weight:700">61</span><span style="width:78px;color:rgba(126,240,176,.3)">2310044</span><span style="width:170px;color:rgba(223,251,236,.5)">Loft &amp; Ladder</span>
+<span style="width:250px;display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(126,240,176,.14);padding:6px 10px;font-size:10.5px;color:rgba(223,251,236,.5)">CLOSED · NO WORKSHOP <span style="color:rgba(126,240,176,.35)">▾</span></span>
+<span style="flex:1;color:rgba(223,251,236,.45);font-size:10.5px">Game has no Workshop. Nothing to resolve.</span>
+<span style="width:120px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">EDIT</span><span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.4);padding:5px 9px;font-size:10.5px">REOPEN</span></span>
+</div>
+</div>
+<div style="margin-top:14px;font-size:11px;color:rgba(126,240,176,.4);line-height:1.75">Status and public note both appear on the request queue and the coverage table. Marking a game covered closes its queue entry and mails everyone who asked, if they left an address. Merge folds duplicate entries into one and adds their counts together.</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="dv-sub">E · Service controls</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1h"><div class="dv-olabel"><a class="dv-oid" href="#1h">1h</a>Site messages — composer with live preview</div>
+<div class="dv-card" style="width:900px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.03) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:11px 22px;background:rgba(126,240,176,.1);border-bottom:1px solid rgba(126,240,176,.3);font-size:11.5px;letter-spacing:.05em">
+<div style="display:flex;align-items:center;gap:12px"><span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span><span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:9.5px;letter-spacing:.14em;padding:3px 8px">ADMIN</span><span style="color:rgba(126,240,176,.5)">/ site messages</span></div>
+<div style="display:flex;gap:18px;align-items:center;color:rgba(126,240,176,.6)"><span style="color:#ffcf6b">1 LIVE</span><span style="border:1px solid rgba(126,240,176,.35);padding:5px 11px;color:#7ef0b0">LOCK</span></div>
+</div>
+<div style="padding:20px 24px 26px">
+<h2 style="margin:0 0 6px;font:700 21px 'IBM Plex Mono',monospace">Site messages</h2>
+<p style="margin:0 0 18px;font-size:11.5px;line-height:1.75;color:rgba(223,251,236,.65);max-width:520px">A banner shown under the header on every public page. The quota banner is generated automatically and is separate from these.</p>
+<div style="display:flex;gap:20px;align-items:flex-start">
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:14px">
+<div>
+<div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:7px">LEVEL</div>
+<div style="display:flex;gap:6px;font-size:10.5px">
+<span style="border:1px solid rgba(126,240,176,.4);color:#7ef0b0;padding:6px 12px">INFO</span>
+<span style="border:1px solid rgba(255,207,107,.5);background:rgba(255,207,107,.1);color:#ffcf6b;padding:6px 12px">WARNING</span>
+<span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.45);padding:6px 12px">CRITICAL</span>
+</div>
+</div>
+<div>
+<div style="display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:7px"><span>MESSAGE</span><span>92 / 200</span></div>
+<div style="border:1px solid rgba(126,240,176,.3);background:rgba(126,240,176,.04);padding:12px 14px;font-size:12px;line-height:1.7;color:rgba(223,251,236,.85);height:62px">Steam's API is returning errors for some games. Retry in a few minutes if a lookup fails.<span style="display:inline-block;width:8px;height:14px;background:#7ef0b0;margin-left:2px;vertical-align:-2px;animation:cur 1.05s step-end infinite"></span></div>
+</div>
+<div style="display:flex;gap:12px">
+<div style="flex:1"><div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:7px">LINK LABEL · OPTIONAL</div><div style="border:1px solid rgba(126,240,176,.2);padding:10px 12px;font-size:11.5px;color:rgba(223,251,236,.5)">See status</div></div>
+<div style="flex:1"><div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:7px">LINK TARGET</div><div style="border:1px solid rgba(126,240,176,.2);padding:10px 12px;font-size:11.5px;color:rgba(223,251,236,.5)">/status</div></div>
+</div>
+<div>
+<div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:7px">SHOW ON</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;font-size:10.5px">
+<span style="border:1px solid rgba(126,240,176,.4);background:rgba(126,240,176,.1);color:#7ef0b0;padding:5px 10px">ALL PAGES</span>
+<span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.45);padding:5px 10px">HOME</span>
+<span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.45);padding:5px 10px">ITEM</span>
+<span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.45);padding:5px 10px">COLLECTION</span>
+<span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.45);padding:5px 10px">DONATE</span>
+<span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.45);padding:5px 10px">API</span>
+</div>
+</div>
+<div style="display:flex;gap:12px">
+<div style="flex:1"><div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:7px">EXPIRES</div><div style="border:1px solid rgba(126,240,176,.2);padding:10px 12px;font-size:11.5px;color:rgba(223,251,236,.75)">in 6 hours</div></div>
+<div style="flex:1"><div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:7px">DISMISSIBLE</div><div style="border:1px solid rgba(126,240,176,.2);padding:10px 12px;font-size:11.5px;color:rgba(223,251,236,.75)">[×] yes, per session</div></div>
+</div>
+<div style="display:flex;gap:10px;align-items:center;margin-top:2px">
+<span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:12px;letter-spacing:.06em;padding:12px 22px">PUBLISH</span>
+<span style="border:1px solid rgba(126,240,176,.3);color:rgba(126,240,176,.75);font-size:11.5px;padding:11px 16px">SAVE DRAFT</span>
+<span style="font-size:10.5px;color:rgba(126,240,176,.4);line-height:1.6">Live within 10 seconds.<br>Publishing writes to the audit log.</span>
+</div>
+</div>
+<div style="width:330px;flex:none;border-left:1px solid rgba(126,240,176,.12);padding-left:20px">
+<div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:9px">PREVIEW</div>
+<div style="border:1px solid rgba(126,240,176,.16)">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;border-bottom:1px solid rgba(126,240,176,.16);font-size:9px;letter-spacing:.05em"><span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span><span style="color:rgba(126,240,176,.4)">ABOUT · API · STATUS</span></div>
+<div style="border-bottom:1px solid rgba(255,207,107,.4);background:rgba(255,207,107,.07);display:flex;align-items:center;gap:9px;padding:9px 11px">
+<span style="color:#ffcf6b;font-size:11px">▲</span>
+<span style="flex:1;font-size:10px;line-height:1.55;color:rgba(223,251,236,.85)">Steam's API is returning errors for some games. Retry in a few minutes if a lookup fails.</span>
+<span style="font-size:9px;color:#ffcf6b;border:1px solid rgba(255,207,107,.4);padding:3px 7px;flex:none">SEE STATUS</span>
+<span style="font-size:10px;color:rgba(255,207,107,.6);flex:none">✕</span>
+</div>
+<div style="padding:22px 11px 26px;text-align:center;opacity:.4"><div style="font-size:13px;font-weight:700;margin-bottom:7px">FETCH ANY ITEM</div><div style="border:1px solid rgba(126,240,176,.25);padding:8px;font-size:9.5px;color:rgba(126,240,176,.45)">&gt; workshop URL or item id</div></div>
+</div>
+<div style="margin-top:16px;font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:9px">HISTORY</div>
+<div style="font-size:11px;display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;gap:9px"><span style="color:#ffcf6b">▲</span><div style="flex:1"><div style="color:rgba(223,251,236,.8)">Steam API errors</div><div style="color:rgba(126,240,176,.4);font-size:10px;margin-top:2px">live · published 11:02 · expires 17:02</div></div></div>
+<div style="display:flex;gap:9px"><span style="color:rgba(126,240,176,.4)">·</span><div style="flex:1"><div style="color:rgba(223,251,236,.55)">Maintenance 02:00–02:40 UTC</div><div style="color:rgba(126,240,176,.35);font-size:10px;margin-top:2px">expired 2026-08-09</div></div></div>
+<div style="display:flex;gap:9px"><span style="color:rgba(126,240,176,.4)">·</span><div style="flex:1"><div style="color:rgba(223,251,236,.55)">Thanks for 60 donated keys</div><div style="color:rgba(126,240,176,.35);font-size:10px;margin-top:2px">taken down 2026-07-30</div></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1i"><div class="dv-olabel"><a class="dv-oid" href="#1i">1i</a>Maintenance switch</div>
+<div class="dv-card" style="width:560px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.03) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:11px 20px;background:rgba(126,240,176,.1);border-bottom:1px solid rgba(126,240,176,.3);font-size:11px;letter-spacing:.05em">
+<div style="display:flex;align-items:center;gap:10px"><span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span><span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:9px;letter-spacing:.14em;padding:3px 7px">ADMIN</span><span style="color:rgba(126,240,176,.5)">/ maintenance</span></div>
+<span style="border:1px solid rgba(126,240,176,.35);padding:5px 10px;color:#7ef0b0">LOCK</span>
+</div>
+<div style="padding:20px 22px 24px">
+<h2 style="margin:0 0 16px;font:700 20px 'IBM Plex Mono',monospace">Maintenance</h2>
+<div style="display:flex;flex-direction:column;gap:11px">
+<div style="border:1px solid rgba(126,240,176,.16);padding:13px 15px;display:flex;align-items:center;gap:13px">
+<span style="width:38px;height:20px;border:1px solid rgba(126,240,176,.3);display:flex;align-items:center;padding:2px;flex:none"><span style="width:14px;height:100%;background:rgba(126,240,176,.3);display:block"></span></span>
+<div style="flex:1"><div style="font-size:12px;color:#dffbec">Downloads paused</div><div style="font-size:10.5px;color:rgba(126,240,176,.4);margin-top:3px;line-height:1.6">Lookups keep working. Shows the queue-for-later state.</div></div>
+<span style="font-size:10px;color:rgba(126,240,176,.4);flex:none">OFF</span>
+</div>
+<div style="border:1px solid rgba(255,207,107,.4);background:rgba(255,207,107,.05);padding:13px 15px;display:flex;align-items:center;gap:13px">
+<span style="width:38px;height:20px;border:1px solid rgba(255,207,107,.5);display:flex;align-items:center;justify-content:flex-end;padding:2px;flex:none"><span style="width:14px;height:100%;background:#ffcf6b;display:block"></span></span>
+<div style="flex:1"><div style="font-size:12px;color:#ffcf6b">Read-only mode</div><div style="font-size:10.5px;color:rgba(255,207,107,.7);margin-top:3px;line-height:1.6">Cached lookups only. No new Steam calls, no forms.</div></div>
+<span style="font-size:10px;color:#ffcf6b;flex:none">ON</span>
+</div>
+<div style="border:1px solid rgba(126,240,176,.16);padding:13px 15px;display:flex;align-items:center;gap:13px">
+<span style="width:38px;height:20px;border:1px solid rgba(126,240,176,.3);display:flex;align-items:center;padding:2px;flex:none"><span style="width:14px;height:100%;background:rgba(126,240,176,.3);display:block"></span></span>
+<div style="flex:1"><div style="font-size:12px;color:#dffbec">Full maintenance</div><div style="font-size:10.5px;color:rgba(126,240,176,.4);margin-top:3px;line-height:1.6">Every public page replaced by the maintenance screen. Admin stays reachable.</div></div>
+<span style="font-size:10px;color:rgba(126,240,176,.4);flex:none">OFF</span>
+</div>
+</div>
+<div style="margin-top:16px;display:flex;flex-direction:column;gap:11px">
+<div><div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:7px">REASON SHOWN TO VISITORS</div><div style="border:1px solid rgba(126,240,176,.2);padding:11px 13px;font-size:11.5px;line-height:1.7;color:rgba(223,251,236,.75)">Migrating the cache to a bigger disk.</div></div>
+<div style="display:flex gap:12px;display:flex;gap:12px">
+<div style="flex:1"><div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:7px">EXPECTED BACK</div><div style="border:1px solid rgba(126,240,176,.2);padding:11px 13px;font-size:11.5px;color:rgba(223,251,236,.75)">02:40 UTC</div></div>
+<div style="flex:1"><div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:7px">AUTO-LIFT</div><div style="border:1px solid rgba(126,240,176,.2);padding:11px 13px;font-size:11.5px;color:rgba(223,251,236,.75)">[×] at that time</div></div>
+</div>
+</div>
+<div style="margin-top:16px;border:1px solid rgba(255,155,155,.35);background:rgba(255,155,155,.05);padding:13px 15px">
+<div style="font-size:11.5px;line-height:1.75;color:rgba(223,251,236,.8);margin-bottom:11px">Turning on full maintenance drops 412 in-flight transfers. Type <span style="color:#ff9b9b">MAINTENANCE</span> to confirm.</div>
+<div style="display:flex;gap:9px;align-items:center">
+<div style="flex:1;border:1px solid rgba(255,155,155,.4);padding:9px 11px;font-size:11.5px;letter-spacing:.1em;color:rgba(223,251,236,.4)">type to confirm</div>
+<span style="background:rgba(255,155,155,.22);color:rgba(223,251,236,.5);font-weight:700;font-size:11px;letter-spacing:.06em;padding:10px 16px">ENABLE</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1j"><div class="dv-olabel"><a class="dv-oid" href="#1j">1j</a>What visitors see — maintenance and temporarily unavailable</div>
+<div style="display:flex;gap:16px">
+<div class="dv-card" style="width:520px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;min-height:400px;display:flex;flex-direction:column;justify-content:center;padding:34px 30px;background:radial-gradient(120% 90% at 50% 0%,#0f1512 0%,#080a09 70%)">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.045) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="position:absolute;left:0;right:0;height:70px;top:0;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(126,240,176,.05),transparent);animation:scan 7s linear infinite;z-index:3"></div>
+<div style="font-size:11px;letter-spacing:.16em;color:rgba(126,240,176,.45);margin-bottom:26px">SCHEDULED MAINTENANCE</div>
+<div style="font:700 26px/1.25 'IBM Plex Mono',monospace;margin-bottom:12px">Back shortly</div>
+<div style="font-size:12.5px;line-height:1.85;color:rgba(223,251,236,.75);margin-bottom:22px">Migrating the cache to a bigger disk. Nothing is lost — queued downloads resume on their own when the service returns.</div>
+<div style="border:1px solid rgba(126,240,176,.3);background:rgba(126,240,176,.04);padding:15px 17px;display:flex;align-items:center;gap:16px">
+<div><div style="font-size:24px;font-weight:700;color:#7ef0b0">00:18:42</div><div style="font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.45);margin-top:3px">ESTIMATED · BACK AT 02:40 UTC</div></div>
+<div style="margin-left:auto;text-align:right;font-size:10.5px;color:rgba(126,240,176,.45);line-height:1.7">This page refreshes itself.<br>No need to reload.</div>
+</div>
+<div style="margin-top:20px;font-size:11px;color:rgba(126,240,176,.3);line-height:1.7">Status updates are posted on the status page, which stays up. This website is a community project and is not affiliated with Valve Corporation or Steam.</div>
+</div>
+</div>
+<div class="dv-card" style="width:520px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;min-height:400px;display:flex;flex-direction:column;justify-content:center;padding:34px 30px;background:radial-gradient(120% 90% at 50% 0%,#151006 0%,#080a09 70%)">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(255,207,107,.035) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="font-size:11px;letter-spacing:.16em;color:rgba(255,207,107,.6);margin-bottom:16px">503 · TEMPORARILY UNAVAILABLE</div>
+<div style="font:700 26px/1.25 'IBM Plex Mono',monospace;margin-bottom:12px">Steam is not answering</div>
+<div style="font-size:12.5px;line-height:1.85;color:rgba(223,251,236,.75);margin-bottom:20px">Upstream requests have been failing for the last few minutes, so lookups cannot complete. This is not a problem on your end and nobody needs to do anything.</div>
+<div style="border:1px solid rgba(255,207,107,.35);background:rgba(255,207,107,.05);padding:14px 16px;font-size:11.5px;line-height:1.9">
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(255,207,107,.7)">first failure</span><span style="color:rgba(223,251,236,.85)">11:38:04 UTC</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(255,207,107,.7)">consecutive failures</span><span style="color:rgba(223,251,236,.85)">61</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(255,207,107,.7)">next automatic retry</span><span style="color:#ffcf6b">00:24</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:rgba(255,207,107,.7)">cached items still served</span><span style="color:#7ef0b0">yes</span></div>
+</div>
+<div style="margin-top:16px;display:flex;gap:10px">
+<span style="border:1px solid rgba(126,240,176,.35);color:#7ef0b0;font-size:11.5px;padding:11px 18px">RETRY NOW</span>
+<span style="border:1px solid rgba(126,240,176,.2);color:rgba(126,240,176,.65);font-size:11.5px;padding:11px 18px">STATUS PAGE</span>
+</div>
+<div style="margin-top:20px;font-size:11px;color:rgba(126,240,176,.3);line-height:1.7">Anything already in your recent list can still be opened from cache. This website is a community project and is not affiliated with Valve Corporation or Steam.</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="dv-sub">F · Remaining console pages</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1k"><div class="dv-olabel"><a class="dv-oid" href="#1k">1k</a>Traffic</div>
+<div class="dv-card" style="width:1180px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.03) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:11px 22px;background:rgba(126,240,176,.1);border-bottom:1px solid rgba(126,240,176,.3);font-size:11.5px;letter-spacing:.05em">
+<div style="display:flex;align-items:center;gap:12px"><span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span><span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:9.5px;letter-spacing:.14em;padding:3px 8px">ADMIN</span><span style="color:rgba(126,240,176,.5)">/ traffic</span></div>
+<div style="display:flex;gap:18px;align-items:center;color:rgba(126,240,176,.6)"><span>18,904 VISITORS · 24 H</span><span>SESSION 3:08</span><span style="border:1px solid rgba(126,240,176,.35);padding:5px 11px;color:#7ef0b0">LOCK</span></div>
+</div>
+<div style="padding:20px 24px 26px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px">
+<h2 style="margin:0;font:700 21px 'IBM Plex Mono',monospace">Traffic</h2>
+<div style="display:flex;gap:8px;font-size:10.5px;color:rgba(126,240,176,.45)"><span style="border:1px solid rgba(126,240,176,.4);color:#7ef0b0;padding:4px 10px">24 H</span><span style="border:1px solid rgba(126,240,176,.14);padding:4px 10px">7 D</span><span style="border:1px solid rgba(126,240,176,.14);padding:4px 10px">30 D</span><span style="border:1px solid rgba(126,240,176,.14);padding:4px 10px">EXPORT CSV</span></div>
+</div>
+<div style="border:1px solid rgba(126,240,176,.16);padding:16px 18px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:14px">
+<span>REQUESTS PER HOUR</span>
+<div style="display:flex;gap:16px"><span><span style="color:#7ef0b0">■</span> LOOKUPS</span><span><span style="color:rgba(126,240,176,.45)">■</span> DOWNLOADS</span><span><span style="color:#ffcf6b">■</span> UNKEYED SCRIPTS</span></div>
+</div>
+<div style="display:flex;align-items:flex-end;gap:4px;height:120px">
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:4%;background:#ffcf6b"></div><div style="height:7%;background:rgba(126,240,176,.4)"></div><div style="height:14%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:4%;background:#ffcf6b"></div><div style="height:6%;background:rgba(126,240,176,.4)"></div><div style="height:11%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:3%;background:#ffcf6b"></div><div style="height:5%;background:rgba(126,240,176,.4)"></div><div style="height:9%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:3%;background:#ffcf6b"></div><div style="height:4%;background:rgba(126,240,176,.4)"></div><div style="height:7%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:5%;background:#ffcf6b"></div><div style="height:5%;background:rgba(126,240,176,.4)"></div><div style="height:9%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:6%;background:#ffcf6b"></div><div style="height:8%;background:rgba(126,240,176,.4)"></div><div style="height:15%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:7%;background:#ffcf6b"></div><div style="height:14%;background:rgba(126,240,176,.4)"></div><div style="height:26%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:8%;background:#ffcf6b"></div><div style="height:21%;background:rgba(126,240,176,.4)"></div><div style="height:41%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:11%;background:#ffcf6b"></div><div style="height:31%;background:rgba(126,240,176,.4)"></div><div style="height:58%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:9%;background:#ffcf6b"></div><div style="height:27%;background:rgba(126,240,176,.4)"></div><div style="height:52%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:8%;background:#ffcf6b"></div><div style="height:23%;background:rgba(126,240,176,.4)"></div><div style="height:43%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:7%;background:#ffcf6b"></div><div style="height:20%;background:rgba(126,240,176,.4)"></div><div style="height:39%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:8%;background:#ffcf6b"></div><div style="height:22%;background:rgba(126,240,176,.4)"></div><div style="height:41%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:7%;background:#ffcf6b"></div><div style="height:19%;background:rgba(126,240,176,.4)"></div><div style="height:37%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:6%;background:#ffcf6b"></div><div style="height:18%;background:rgba(126,240,176,.4)"></div><div style="height:34%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:6%;background:#ffcf6b"></div><div style="height:19%;background:rgba(126,240,176,.4)"></div><div style="height:36%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:9%;background:#ffcf6b"></div><div style="height:22%;background:rgba(126,240,176,.4)"></div><div style="height:41%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:14%;background:#ffcf6b"></div><div style="height:26%;background:rgba(126,240,176,.4)"></div><div style="height:48%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:10%;background:#ffcf6b"></div><div style="height:24%;background:rgba(126,240,176,.4)"></div><div style="height:45%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:8%;background:#ffcf6b"></div><div style="height:20%;background:rgba(126,240,176,.4)"></div><div style="height:37%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:6%;background:#ffcf6b"></div><div style="height:15%;background:rgba(126,240,176,.4)"></div><div style="height:28%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:5%;background:#ffcf6b"></div><div style="height:11%;background:rgba(126,240,176,.4)"></div><div style="height:21%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:4%;background:#ffcf6b"></div><div style="height:9%;background:rgba(126,240,176,.4)"></div><div style="height:17%;background:#7ef0b0"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:1px;height:100%"><div style="height:4%;background:#ffcf6b"></div><div style="height:8%;background:rgba(126,240,176,.4)"></div><div style="height:14%;background:#7ef0b0"></div></div>
+</div>
+<div style="display:flex;justify-content:space-between;font-size:9.5px;color:rgba(126,240,176,.35);margin-top:8px"><span>00 UTC</span><span>06</span><span>12</span><span>18</span><span>23</span></div>
+</div>
+<div style="display:flex;gap:16px;margin-bottom:16px">
+<div style="flex:1;border:1px solid rgba(126,240,176,.16);padding:15px 17px">
+<div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:12px">ENTRY POINT</div>
+<div style="font-size:11.5px;display:flex;flex-direction:column;gap:8px">
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:rgba(223,251,236,.85)">Direct / bookmark</span><span style="color:rgba(126,240,176,.5)">9,104 · 48%</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:48%;background:#7ef0b0"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:rgba(223,251,236,.85)">reddit.com</span><span style="color:rgba(126,240,176,.5)">4,411 · 23%</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:23%;background:#7ef0b0"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:rgba(223,251,236,.85)">Search</span><span style="color:rgba(126,240,176,.5)">2,880 · 15%</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:15%;background:rgba(126,240,176,.7)"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:rgba(223,251,236,.85)">Discord</span><span style="color:rgba(126,240,176,.5)">1,714 · 9%</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:9%;background:rgba(126,240,176,.7)"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:rgba(223,251,236,.85)">steamcommunity.com</span><span style="color:rgba(126,240,176,.5)">795 · 4%</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:4%;background:rgba(126,240,176,.55)"></div></div></div>
+</div>
+</div>
+<div style="flex:1;border:1px solid rgba(126,240,176,.16);padding:15px 17px">
+<div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:12px">COUNTRY</div>
+<div style="font-size:11.5px;display:flex;flex-direction:column;gap:8px">
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:rgba(223,251,236,.85)">United States</span><span style="color:rgba(126,240,176,.5)">5,104 · 27%</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:27%;background:#7ef0b0"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:rgba(223,251,236,.85)">Germany</span><span style="color:rgba(126,240,176,.5)">3,218 · 17%</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:17%;background:#7ef0b0"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:rgba(223,251,236,.85)">Russia</span><span style="color:rgba(126,240,176,.5)">1,996 · 11%</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:11%;background:rgba(126,240,176,.7)"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:rgba(223,251,236,.85)">Brazil</span><span style="color:rgba(126,240,176,.5)">1,540 · 8%</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:8%;background:rgba(126,240,176,.7)"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:rgba(223,251,236,.85)">Netherlands</span><span style="color:#ffcf6b">1,388 · 7%</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:7%;background:#ffcf6b"></div></div></div>
+<div style="font-size:10.5px;color:rgba(126,240,176,.35);margin-top:2px">NL is inflated by one datacentre range — see below.</div>
+</div>
+</div>
+<div style="flex:1;border:1px solid rgba(126,240,176,.16);padding:15px 17px">
+<div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:12px">PAGE</div>
+<div style="font-size:11.5px;display:flex;flex-direction:column;gap:8px">
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:rgba(223,251,236,.85)">Home / lookup</span><span style="color:rgba(126,240,176,.5)">18,904</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:100%;background:#7ef0b0"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:rgba(223,251,236,.85)">Item detail</span><span style="color:rgba(126,240,176,.5)">14,220</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:75%;background:#7ef0b0"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:rgba(223,251,236,.85)">Collection</span><span style="color:rgba(126,240,176,.5)">3,104</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:16%;background:rgba(126,240,176,.7)"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:rgba(223,251,236,.85)">Request a game</span><span style="color:rgba(126,240,176,.5)">881</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:5%;background:rgba(126,240,176,.55)"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:rgba(223,251,236,.85)">Donate a game</span><span style="color:rgba(126,240,176,.5)">412</span></div><div style="height:3px;background:rgba(126,240,176,.12)"><div style="height:100%;width:3%;background:rgba(126,240,176,.55)"></div></div></div>
+</div>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px">
+<span style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4)">HEAVIEST ADDRESSES · 24 H</span>
+<span style="font-size:10.5px;color:#7ef0b0">REVEAL ALL · LOGGED</span>
+</div>
+<div style="border:1px solid rgba(126,240,176,.14);font-size:11.5px">
+<div style="display:flex;gap:12px;padding:9px 14px;border-bottom:1px solid rgba(126,240,176,.14);font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.4)"><span style="width:118px">IP</span><span style="width:40px">GEO</span><span style="width:190px">AGENT</span><span style="width:70px;text-align:right">REQS</span><span style="width:80px;text-align:right">EGRESS</span><span style="flex:1">NOTE</span><span style="width:170px;text-align:right">ACTION</span></div>
+<div style="display:flex;gap:12px;padding:10px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center;background:rgba(255,155,155,.06)">
+<span style="width:118px;color:#ff9b9b">45.155.203.•••</span><span style="width:40px;color:rgba(126,240,176,.5)">NL</span><span style="width:190px;color:#ffcf6b">python-requests/2.32</span><span style="width:70px;text-align:right;color:#ff9b9b">1,402</span><span style="width:80px;text-align:right;color:rgba(126,240,176,.6)">1.7 TB</span>
+<span style="flex:1;color:#ff9b9b;font-size:10.5px">41% of all egress · no key · ignores Retry-After</span>
+<span style="width:170px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(255,207,107,.45);color:#ffcf6b;padding:5px 9px;font-size:10.5px">THROTTLE</span><span style="border:1px solid rgba(255,155,155,.4);color:#ff9b9b;padding:5px 9px;font-size:10.5px">BLOCK /24</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:10px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center">
+<span style="width:118px;color:rgba(223,251,236,.8)">81.7.14.•••</span><span style="width:40px;color:rgba(126,240,176,.5)">DE</span><span style="width:190px;color:rgba(223,251,236,.7)">Firefox 142 / Linux</span><span style="width:70px;text-align:right">148</span><span style="width:80px;text-align:right;color:rgba(126,240,176,.6)">22 GB</span>
+<span style="flex:1;color:rgba(126,240,176,.4);font-size:10.5px">donor · applied for a key</span>
+<span style="width:170px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">REVEAL</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:10px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center">
+<span style="width:118px;color:rgba(223,251,236,.8)">198.51.100.•••</span><span style="width:40px;color:rgba(126,240,176,.5)">US</span><span style="width:190px;color:#ffcf6b">curl/8.9.1</span><span style="width:70px;text-align:right">421</span><span style="width:80px;text-align:right;color:rgba(126,240,176,.6)">96 GB</span>
+<span style="flex:1;color:rgba(126,240,176,.4);font-size:10.5px">matches wdl_live_b104 usage pattern — unkeyed</span>
+<span style="width:170px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">REVEAL</span><span style="border:1px solid rgba(255,207,107,.45);color:#ffcf6b;padding:5px 9px;font-size:10.5px">THROTTLE</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:10px 14px;align-items:center">
+<span style="width:118px;color:rgba(223,251,236,.8)">104.28.90.•••</span><span style="width:40px;color:rgba(126,240,176,.5)">US</span><span style="width:190px;color:rgba(223,251,236,.7)">Chrome 141 / Windows</span><span style="width:70px;text-align:right">64</span><span style="width:80px;text-align:right;color:rgba(126,240,176,.6)">11 GB</span>
+<span style="flex:1;color:rgba(126,240,176,.35);font-size:10.5px">—</span>
+<span style="width:170px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">REVEAL</span></span>
+</div>
+</div>
+<div style="margin-top:13px;font-size:11px;color:rgba(126,240,176,.4);line-height:1.75">Blocking a /24 is reversible and takes effect in 10 seconds. Throttle applies the unkeyed rate limit at a tenth of normal. Neither is announced to the address.</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1l"><div class="dv-olabel"><a class="dv-oid" href="#1l">1l</a>Game coverage</div>
+<div class="dv-card" style="width:1180px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.03) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:11px 22px;background:rgba(126,240,176,.1);border-bottom:1px solid rgba(126,240,176,.3);font-size:11.5px;letter-spacing:.05em">
+<div style="display:flex;align-items:center;gap:12px"><span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span><span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:9.5px;letter-spacing:.14em;padding:3px 8px">ADMIN</span><span style="color:rgba(126,240,176,.5)">/ game coverage</span></div>
+<div style="display:flex;gap:18px;align-items:center;color:rgba(126,240,176,.6)"><span>318 GAMES</span><span style="color:#ff9b9b">4 BROKEN</span><span style="border:1px solid rgba(126,240,176,.35);padding:5px 11px;color:#7ef0b0">LOCK</span></div>
+</div>
+<div style="padding:20px 24px 26px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px">
+<h2 style="margin:0;font:700 21px 'IBM Plex Mono',monospace">Game coverage</h2>
+<div style="display:flex;gap:10px;align-items:center;font-size:10.5px;color:rgba(126,240,176,.45)"><span style="border:1px solid rgba(126,240,176,.2);padding:6px 12px;min-width:190px">search game or app id</span><span style="border:1px solid rgba(126,240,176,.4);color:#7ef0b0;padding:5px 10px">+ ADD GAME</span></div>
+</div>
+<div style="display:flex;gap:1px;background:rgba(126,240,176,.14);border:1px solid rgba(126,240,176,.14);margin-bottom:16px">
+<div style="flex:1;background:#0a0c0b;padding:14px 16px"><div style="font-size:19px;font-weight:700;color:#7ef0b0">291</div><div style="font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.4);margin-top:4px">WORKING</div></div>
+<div style="flex:1;background:#0a0c0b;padding:14px 16px"><div style="font-size:19px;font-weight:700;color:#ffcf6b">23</div><div style="font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.4);margin-top:4px">PARTIAL</div></div>
+<div style="flex:1;background:#0a0c0b;padding:14px 16px"><div style="font-size:19px;font-weight:700;color:#ff9b9b">4</div><div style="font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.4);margin-top:4px">BROKEN</div></div>
+<div style="flex:1;background:#0a0c0b;padding:14px 16px"><div style="font-size:19px;font-weight:700">14</div><div style="font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.4);margin-top:4px">EXTRACTORS WRITTEN</div></div>
+<div style="flex:1;background:#0a0c0b;padding:14px 16px"><div style="font-size:19px;font-weight:700">65</div><div style="font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.4);margin-top:4px">VIA DONATED KEYS</div></div>
+<div style="flex:1;background:#0a0c0b;padding:14px 16px"><div style="font-size:19px;font-weight:700;color:#7ef0b0">99.1%</div><div style="font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.4);margin-top:4px">RESOLVE SUCCESS</div></div>
+</div>
+<div style="border:1px solid rgba(126,240,176,.14);font-size:11.5px">
+<div style="display:flex;gap:12px;padding:9px 14px;border-bottom:1px solid rgba(126,240,176,.14);font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.4)"><span style="width:170px">GAME</span><span style="width:70px">APP ID</span><span style="width:76px;text-align:right">ITEMS</span><span style="width:66px;text-align:right">EGRESS</span><span style="width:56px;text-align:right">FAIL %</span><span style="width:112px">OWNERSHIP</span><span style="width:132px">EXTRACTOR</span><span style="flex:1">STATUS</span><span style="width:112px;text-align:right">ACTION</span></div>
+<div style="display:flex;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center">
+<span style="width:170px">Stellar Drift</span><span style="width:70px;color:rgba(126,240,176,.45)">2074010</span><span style="width:76px;text-align:right">881,204</span><span style="width:66px;text-align:right;color:rgba(126,240,176,.6)">412 TB</span><span style="width:56px;text-align:right;color:#7ef0b0">0.2</span><span style="width:112px;color:rgba(126,240,176,.6)">donated key</span><span style="width:132px;color:rgba(126,240,176,.6)">generic zip</span>
+<span style="flex:1;color:#7ef0b0">■ Working</span>
+<span style="width:112px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">EDIT</span><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">TEST</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center">
+<span style="width:170px">Harrowmere</span><span style="width:70px;color:rgba(126,240,176,.45)">1449230</span><span style="width:76px;text-align:right">402,551</span><span style="width:66px;text-align:right;color:rgba(126,240,176,.6)">188 TB</span><span style="width:56px;text-align:right;color:#7ef0b0">0.4</span><span style="width:112px;color:rgba(126,240,176,.6)">donated key</span><span style="width:132px;color:rgba(126,240,176,.6)">hrw v3</span>
+<span style="flex:1;color:#7ef0b0">■ Working</span>
+<span style="width:112px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">EDIT</span><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">TEST</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center;background:rgba(255,207,107,.05)">
+<span style="width:170px">Tin Can Diver</span><span style="width:70px;color:rgba(126,240,176,.45)">0900117</span><span style="width:76px;text-align:right">96,330</span><span style="width:66px;text-align:right;color:rgba(126,240,176,.6)">27 TB</span><span style="width:56px;text-align:right;color:#ffcf6b">3.1</span><span style="width:112px;color:rgba(126,240,176,.6)">donated key</span><span style="width:132px;color:#ffcf6b">none · .tcd</span>
+<span style="flex:1;color:#ffcf6b">■ Partial — no extractor, raw file served</span>
+<span style="width:112px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">EDIT</span><span style="border:1px solid rgba(255,207,107,.45);color:#ffcf6b;padding:5px 9px;font-size:10.5px">SAMPLE</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center">
+<span style="width:170px">Grease Monkey 2</span><span style="width:70px;color:rgba(126,240,176,.45)">1188770</span><span style="width:76px;text-align:right">61,908</span><span style="width:66px;text-align:right;color:rgba(126,240,176,.6)">19 TB</span><span style="width:56px;text-align:right;color:#7ef0b0">0.1</span><span style="width:112px;color:rgba(126,240,176,.6)">donated key</span><span style="width:132px;color:rgba(126,240,176,.6)">generic zip</span>
+<span style="flex:1;color:#7ef0b0">■ Working</span>
+<span style="width:112px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">EDIT</span><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">TEST</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center;background:rgba(255,207,107,.05)">
+<span style="width:170px">Ninefold Abbey</span><span style="width:70px;color:rgba(126,240,176,.45)">1770020</span><span style="width:76px;text-align:right">40,117</span><span style="width:66px;text-align:right;color:rgba(126,240,176,.6)">8.2 TB</span><span style="width:56px;text-align:right;color:#ffcf6b">2.4</span><span style="width:112px;color:rgba(126,240,176,.6)">owned</span><span style="width:132px;color:#ffcf6b">partial · packed</span>
+<span style="flex:1;color:#ffcf6b">■ Partial — packed archives only</span>
+<span style="width:112px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">EDIT</span><span style="border:1px solid rgba(255,207,107,.45);color:#ffcf6b;padding:5px 9px;font-size:10.5px">SAMPLE</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center;background:rgba(255,155,155,.06)">
+<span style="width:170px;color:rgba(223,251,236,.6)">Cobalt Wharf</span><span style="width:70px;color:rgba(126,240,176,.35)">1602880</span><span style="width:76px;text-align:right;color:rgba(223,251,236,.6)">12,440</span><span style="width:66px;text-align:right;color:rgba(126,240,176,.35)">—</span><span style="width:56px;text-align:right;color:#ff9b9b">100</span><span style="width:112px;color:rgba(126,240,176,.6)">owned</span><span style="width:132px;color:#ff9b9b">cbw v1 · failing</span>
+<span style="flex:1;color:#ff9b9b">■ Broken — unknown container magic 0x4357 since 06:14</span>
+<span style="width:112px;display:flex;gap:6px;justify-content:flex-end"><span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px;font-size:10.5px">LOGS</span><span style="border:1px solid rgba(255,155,155,.4);color:#ff9b9b;padding:5px 9px;font-size:10.5px">SAMPLE</span></span>
+</div>
+<div style="display:flex;gap:12px;padding:11px 14px;align-items:center">
+<span style="flex:1;color:rgba(126,240,176,.4)">312 more games</span><span style="color:#7ef0b0">load next 50</span>
+</div>
+</div>
+<div style="display:flex;gap:16px;margin-top:16px">
+<div style="flex:1;border:1px solid rgba(126,240,176,.25);background:rgba(126,240,176,.03);padding:15px 17px">
+<div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:10px">TEST · SAMPLE</div>
+<div style="font-size:11.5px;line-height:1.85;color:rgba(223,251,236,.75)">Test resolves three known items and runs the extractor on them without touching the public cache. Sample downloads one raw file so you can inspect the container by hand.</div>
+</div>
+<div style="width:400px;flex:none;border:1px solid rgba(255,207,107,.3);background:rgba(255,207,107,.05);padding:15px 17px">
+<div style="font-size:9.5px;letter-spacing:.12em;color:#ffcf6b;margin-bottom:10px">STATUS IS PUBLIC</div>
+<div style="font-size:11.5px;line-height:1.85;color:rgba(223,251,236,.75)">Whatever you set here appears on the public status table and in the request queue, note included. Broken entries are sorted to the top of the work list by request count.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1m"><div class="dv-olabel"><a class="dv-oid" href="#1m">1m</a>Credits list</div>
+<div class="dv-card" style="width:900px;background:#0a0c0b;border-color:#1c2420">
+<div style="position:relative;font-family:'IBM Plex Mono',monospace;color:#dffbec;background:#0a0c0b">
+<div style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(126,240,176,.03) 0 1px,transparent 1px 3px);z-index:3"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:11px 22px;background:rgba(126,240,176,.1);border-bottom:1px solid rgba(126,240,176,.3);font-size:11.5px;letter-spacing:.05em">
+<div style="display:flex;align-items:center;gap:12px"><span style="color:#7ef0b0;font-weight:700">WORKSHOP.DL</span><span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:9.5px;letter-spacing:.14em;padding:3px 8px">ADMIN</span><span style="color:rgba(126,240,176,.5)">/ credits list</span></div>
+<div style="display:flex;gap:18px;align-items:center;color:rgba(126,240,176,.6)"><span>24 SHOWN · 41 ANONYMOUS</span><span style="border:1px solid rgba(126,240,176,.35);padding:5px 11px;color:#7ef0b0">LOCK</span></div>
+</div>
+<div style="padding:20px 24px 26px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+<h2 style="margin:0;font:700 21px 'IBM Plex Mono',monospace">Credits list</h2>
+<span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:11px;letter-spacing:.06em;padding:9px 16px">+ ADD NAME</span>
+</div>
+<p style="margin:0 0 14px;font-size:11.5px;line-height:1.75;color:rgba(223,251,236,.65);max-width:520px">Only donors who ticked the box appear. Hue is computed from the name and is not editable — rename to change it.</p>
+<div style="display:flex;gap:10px;align-items:center;margin-bottom:14px">
+<div style="flex:1;border:1px solid rgba(126,240,176,.25);background:rgba(126,240,176,.03);padding:8px 12px;display:flex;align-items:center;gap:9px;font-size:11.5px">
+<span style="color:rgba(126,240,176,.5)">&gt;</span><span style="color:rgba(223,251,236,.4)">search name, game or donation id</span>
+</div>
+<div style="display:flex;gap:8px;font-size:10.5px"><span style="border:1px solid rgba(126,240,176,.4);color:#7ef0b0;padding:6px 10px">SHOWN 24</span><span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.5);padding:6px 10px">HIDDEN 3</span><span style="border:1px solid rgba(255,207,107,.4);color:#ffcf6b;padding:6px 10px">NEEDS REVIEW 2</span><span style="border:1px solid rgba(126,240,176,.14);color:rgba(126,240,176,.5);padding:6px 10px">ANONYMOUS 41</span></div>
+<span style="font-size:10.5px;color:rgba(126,240,176,.45);border:1px solid rgba(126,240,176,.14);padding:6px 10px">SORT: DONATED ▾</span>
+</div>
+<div style="border:1px solid rgba(126,240,176,.4);background:rgba(126,240,176,.05);padding:15px 17px;margin-bottom:14px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px">
+<span style="font-size:11px;letter-spacing:.12em;color:#7ef0b0">ADD A NAME MANUALLY</span>
+<span style="font-size:10.5px;color:rgba(126,240,176,.4)">for donations taken outside the form</span>
+</div>
+<div style="display:flex;gap:10px;align-items:flex-end">
+<div style="flex:1"><div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:6px">NAME</div><div style="border:1px solid rgba(126,240,176,.3);background:rgba(10,12,11,.6);padding:9px 11px;font-size:12px;display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;display:block;background:oklch(.80 .14 168)"></span><span style="color:oklch(.80 .14 168)">paperclip maximiser</span><span style="display:inline-block;width:8px;height:14px;background:#7ef0b0;animation:cur 1.05s step-end infinite"></span></div></div>
+<div style="width:110px;flex:none"><div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:6px">HUE</div><div style="border:1px solid rgba(126,240,176,.16);padding:9px 11px;font-size:12px;color:rgba(126,240,176,.5)">168° auto</div></div>
+<div style="width:170px;flex:none"><div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:6px">LINK TO DONATION</div><div style="border:1px solid rgba(126,240,176,.3);background:rgba(10,12,11,.6);padding:9px 11px;font-size:12px;color:rgba(223,251,236,.5)">#612 ▾</div></div>
+<div style="width:130px;flex:none"><div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:6px">GAME</div><div style="border:1px solid rgba(126,240,176,.16);padding:9px 11px;font-size:12px;color:rgba(126,240,176,.5)">from donation</div></div>
+<span style="background:#7ef0b0;color:#0a0c0b;font-weight:700;font-size:11px;letter-spacing:.06em;padding:11px 18px;flex:none">ADD</span>
+<span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);font-size:11px;padding:10px 14px;flex:none">CANCEL</span>
+</div>
+<div style="margin-top:10px;font-size:10.5px;color:rgba(126,240,176,.4);line-height:1.7">Unlinked names are allowed but marked as such in the list. Adding writes to the audit log with your session id.</div>
+</div>
+<div style="border:1px solid rgba(126,240,176,.14);font-size:11.5px">
+<div style="display:flex;gap:12px;padding:9px 14px;border-bottom:1px solid rgba(126,240,176,.14);font-size:9.5px;letter-spacing:.1em;color:rgba(126,240,176,.4)"><span style="width:22px"></span><span style="width:180px">NAME</span><span style="width:50px">HUE</span><span style="width:118px">GAME GIVEN</span><span style="width:86px">DONATED</span><span style="flex:1">FLAG</span><span style="width:180px;text-align:right">ACTION</span></div>
+<sc-for list="{{ rows }}" as="r" hint-placeholder-count="7">
+<div style="display:flex;gap:12px;padding:10px 14px;border-bottom:1px solid rgba(126,240,176,.07);align-items:center">
+<span style="width:22px;display:flex"><span style="width:9px;height:9px;display:block;background:{{ r.color }}"></span></span>
+<span style="width:180px;color:{{ r.color }}">{{ r.name }}</span>
+<span style="width:50px;color:rgba(126,240,176,.4);font-size:10.5px">{{ r.hue }}°</span>
+<span style="width:118px;color:rgba(223,251,236,.7)">{{ r.game }}</span>
+<span style="width:86px;color:rgba(126,240,176,.5);font-size:10.5px">{{ r.date }}</span>
+<span style="flex:1;font-size:10.5px;color:{{ r.flagColor }}">{{ r.flag }}</span>
+<span style="width:180px;display:flex;gap:6px;justify-content:flex-end;font-size:10.5px">
+<span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px">RENAME</span>
+<span style="border:1px solid rgba(126,240,176,.25);color:rgba(126,240,176,.7);padding:5px 9px">{{ r.toggle }}</span>
+<span style="border:1px solid rgba(255,155,155,.35);color:#ff9b9b;padding:5px 9px">REMOVE</span>
+</span>
+</div>
+</sc-for>
+<div style="display:flex;gap:12px;padding:10px 14px;align-items:center"><span style="flex:1;color:rgba(126,240,176,.4)">17 more shown names</span><span style="color:#7ef0b0">load all</span></div>
+</div>
+<div style="display:flex;gap:16px;margin-top:16px">
+<div style="flex:1;border:1px solid rgba(126,240,176,.25);background:rgba(126,240,176,.03);padding:15px 17px">
+<div style="font-size:9.5px;letter-spacing:.12em;color:rgba(126,240,176,.4);margin-bottom:10px">PREVIEW · PUBLIC CREDITS PAGE</div>
+<div style="display:flex;flex-wrap:wrap;gap:7px">
+<sc-for list="{{ chips }}" as="c" hint-placeholder-count="10">
+<div style="display:flex;align-items:center;gap:7px;border:1px solid rgba(126,240,176,.18);background:rgba(126,240,176,.03);padding:6px 11px">
+<span style="width:7px;height:7px;display:block;background:{{ c.color }}"></span>
+<span style="font-size:11.5px;color:{{ c.color }}">{{ c.name }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="width:300px;flex:none;border:1px solid rgba(255,155,155,.3);background:rgba(255,155,155,.05);padding:15px 17px">
+<div style="font-size:9.5px;letter-spacing:.12em;color:#ff9b9b;margin-bottom:10px">REMOVE</div>
+<div style="font-size:11.5px;line-height:1.85;color:rgba(223,251,236,.75)">Deletes the stored name and drops the donation to anonymous. Used for removal requests and for names that should not be published. The redemption record stays.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<p class="dv-next">Try next: "add an audit log page" · "show the admin on mobile" · "add per-game extractor detail"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">class Component extends DCLogic {
+  hue(name) {
+    let h = 2166136261;
+    for (let i = 0; i < name.length; i++) { h ^= name.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return Math.abs(h) % 360;
+  }
+  tint(name) { return `oklch(0.80 0.14 ${this.hue(name)})`; }
+  renderVals() {
+    const data = [
+      ["vaultkeeper_77", "Stellar Drift", "2h ago", "", ""],
+      ["Mara Vance", "Harrowmere", "2026-08-10", "", ""],
+      ["tinfoil_dan", "Tin Can Diver", "2026-08-08", "key was invalid — name held back", "#ffcf6b"],
+      ["loop_gardener", "Grease Monkey 2", "2026-07-14", "", ""],
+      ["Ø-nine", "Ninefold Abbey", "2026-07-02", "", ""],
+      ["hexadecimator", "not given", "2026-06-28", "removal requested 2026-08-11", "#ffcf6b"],
+      ["softlock", "Cobalt Wharf", "2026-06-19", "", ""]
+    ];
+    const chipNames = ["vaultkeeper_77","Mara Vance","loop_gardener","Ø-nine","softlock","Priya R.","nullpointer","Grit","yuki_sh","carbon.rod","Wren","obsidian_owl","T. Okonkwo","Kestrel","brine","Ivo"];
+    return {
+      rows: data.map(([name, game, date, flag, flagColor]) => ({
+        name, game, date,
+        hue: String(this.hue(name)).padStart(3, "0"),
+        color: this.tint(name),
+        flag: flag || "—",
+        flagColor: flagColor || "rgba(126,240,176,.35)",
+        toggle: flag ? "SHOW" : "HIDE"
+      })),
+      chips: chipNames.map((name) => ({ name, color: this.tint(name) }))
+    };
+  }
+}</script>
+</body>
+</html>

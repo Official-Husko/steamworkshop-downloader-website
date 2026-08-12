@@ -1,0 +1,48 @@
+.admin-status-pill {
+  display: inline-block;
+  font-size: 10px;
+  padding: 3px 8px;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  color: rgba(var(--fg-rgb), 0.8);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.admin-status-pill.is-amber {
+  border-color: rgba(var(--warn-rgb), 0.4);
+  background: rgba(var(--warn-rgb), 0.08);
+  color: var(--warn);
+}
+.admin-status-pill.is-ok {
+  border-color: rgba(var(--accent-rgb), 0.4);
+  color: var(--accent);
+}
+.admin-status-pill.is-err {
+  border-color: rgba(var(--err-rgb), 0.4);
+  background: rgba(var(--err-rgb), 0.08);
+  color: var(--err);
+}
+.admin-status-pill.is-dim {
+  border-color: rgba(var(--accent-rgb), 0.12);
+  color: rgba(var(--accent-rgb), 0.35);
+}
+
+.admin-table tr.is-editing td {
+  background: rgba(var(--accent-rgb), 0.04);
+  vertical-align: top;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.admin-note-edit {
+  width: 100%;
+  min-height: 44px;
+  background: rgba(var(--accent-rgb), 0.04);
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+  color: var(--fg-strong);
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 6px 8px;
+  resize: vertical;
+}
+.admin-table tr.is-row-closed td {
+  opacity: 0.4;
+}

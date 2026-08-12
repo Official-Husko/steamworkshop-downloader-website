@@ -1,0 +1,211 @@
+.admin-auth {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(120% 90% at 50% 0%, #0f1512 0%, #080a09 70%);
+  padding: 24px;
+}
+.admin-auth.is-locked {
+  background: radial-gradient(120% 90% at 50% 0%, #150f0f 0%, #080a09 70%);
+}
+
+.admin-auth-card {
+  width: 100%;
+  max-width: 440px;
+  border: 1px solid var(--card-border);
+  background: #0a0c0b;
+  padding: 30px 32px;
+  animation: pop-in 0.25s ease both;
+}
+
+.admin-auth-glyph {
+  margin: 0 0 22px;
+  font-size: 8.6px;
+  line-height: 1.15;
+  color: rgba(var(--accent-rgb), 0.85);
+  text-shadow: 0 0 12px rgba(var(--accent-rgb), 0.35);
+  font-family: var(--mono);
+}
+.admin-auth-glyph.is-locked {
+  color: rgba(var(--err-rgb), 0.8);
+  text-shadow: none;
+}
+
+.admin-auth-subhead {
+  letter-spacing: 0.14em;
+  font-size: 12px;
+  color: rgba(var(--accent-rgb), 0.45);
+  margin-bottom: 26px;
+}
+.admin-auth-subhead.is-locked {
+  color: rgba(var(--err-rgb), 0.7);
+}
+
+.admin-auth-caption {
+  font-size: 11px;
+  color: rgba(var(--accent-rgb), 0.45);
+  margin-bottom: 9px;
+}
+
+.admin-auth-input-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(var(--accent-rgb), 0.4);
+  background: rgba(var(--accent-rgb), 0.05);
+  box-shadow: inset 0 0 30px -10px rgba(var(--accent-rgb), 0.28);
+  padding: 13px 16px;
+}
+.admin-auth-prompt {
+  color: var(--accent);
+  font-weight: 700;
+  flex: none;
+}
+.admin-auth-input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: var(--mono);
+  font-size: 17px;
+  letter-spacing: 0.5em;
+  color: var(--fg-strong);
+  caret-color: var(--accent);
+}
+.admin-auth-counter {
+  flex: none;
+  font-size: 10px;
+  color: rgba(var(--accent-rgb), 0.4);
+}
+
+.admin-auth-submit {
+  width: 100%;
+  margin-top: 16px;
+  padding: 14px;
+  font-size: 13px;
+}
+
+.admin-auth-footer {
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(var(--accent-rgb), 0.12);
+  font-size: 10.5px;
+  color: rgba(var(--accent-rgb), 0.35);
+  line-height: 1.8;
+}
+
+/* ---------- locked state ---------- */
+
+.admin-auth-lockbox {
+  border: 1px solid rgba(var(--err-rgb), 0.45);
+  background: rgba(var(--err-rgb), 0.07);
+  padding: 16px;
+}
+.admin-auth-lockbox-title {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--err);
+  margin-bottom: 8px;
+}
+.admin-auth-lockbox-body {
+  margin: 0;
+  font-size: 11.5px;
+  line-height: 1.75;
+  color: rgba(var(--fg-rgb), 0.8);
+}
+.admin-auth-countdown-row {
+  margin-top: 14px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.admin-auth-countdown {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--err);
+}
+.admin-auth-countdown-label {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: rgba(var(--err-rgb), 0.7);
+}
+
+.admin-auth-recorded {
+  margin-top: 16px;
+  border: 1px solid rgba(var(--accent-rgb), 0.16);
+  padding: 14px 15px;
+  font-size: 11px;
+  line-height: 1.85;
+  color: rgba(var(--accent-rgb), 0.5);
+}
+.admin-auth-recorded-title {
+  letter-spacing: 0.12em;
+  color: rgba(var(--accent-rgb), 0.4);
+  margin-bottom: 7px;
+}
+.admin-auth-recorded-row {
+  display: flex;
+  justify-content: space-between;
+}
+.admin-auth-recorded-row span:last-child {
+  color: rgba(var(--fg-rgb), 0.75);
+}
+
+/* ---------- accepted transcript ---------- */
+
+.admin-auth-transcript {
+  padding-bottom: 26px;
+}
+.admin-auth-cmd {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: rgba(var(--accent-rgb), 0.4);
+  margin-bottom: 16px;
+}
+.log-cursor {
+  margin-left: 2px;
+  vertical-align: -2px;
+  height: 0.9em;
+}
+
+.admin-auth-attention {
+  margin-top: 12px;
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+  background: rgba(var(--accent-rgb), 0.04);
+  padding: 14px 16px;
+  font-size: 11.5px;
+  line-height: 1.9;
+}
+.admin-auth-attention-row {
+  display: flex;
+  justify-content: space-between;
+}
+.admin-auth-attention-row .is-amber {
+  color: var(--warn);
+  font-weight: 700;
+}
+.admin-auth-attention-row .is-err {
+  color: var(--err);
+  font-weight: 700;
+}
+
+.admin-auth-opening {
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(var(--accent-rgb), 0.12);
+  font-size: 11px;
+  color: rgba(var(--accent-rgb), 0.5);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.admin-auth-spinner {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(var(--accent-rgb), 0.3);
+  border-top-color: var(--accent);
+  animation: spin 0.8s linear infinite;
+}

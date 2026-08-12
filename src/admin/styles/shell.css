@@ -1,0 +1,320 @@
+/* Admin design system: same phosphor tokens as the public site
+   (--accent-rgb/--warn-rgb/--err-rgb already match the mockup's amber
+   #ffcf6b / red #ff9b9b exactly), but denser controls, an inverted header
+   bar, and destructive/warning actions in amber or red instead of green. */
+
+.admin-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+
+/* ---------- header ---------- */
+
+.admin-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  background: rgba(var(--accent-rgb), 0.1);
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.3);
+  font-size: 11.5px;
+  letter-spacing: 0.05em;
+  flex: none;
+}
+.admin-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.admin-brand {
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.admin-badge {
+  background: var(--accent);
+  color: #0a0c0b;
+  font-weight: 700;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  padding: 3px 8px;
+}
+.admin-crumb {
+  color: rgba(var(--accent-rgb), 0.5);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.admin-header-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: rgba(var(--accent-rgb), 0.6);
+  flex: none;
+}
+.admin-header-pending {
+  color: var(--warn);
+}
+.admin-header-live {
+  color: var(--accent);
+}
+.admin-lock-btn {
+  border: 1px solid rgba(var(--accent-rgb), 0.35);
+  padding: 5px 11px;
+  color: var(--accent);
+  background: transparent;
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+}
+.admin-lock-btn:hover {
+  background: rgba(var(--accent-rgb), 0.08);
+}
+
+/* ---------- body: rail + main ---------- */
+
+.admin-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.admin-rail {
+  width: 178px;
+  flex: none;
+  border-right: 1px solid rgba(var(--accent-rgb), 0.14);
+  padding: 18px 0;
+  font-size: 11.5px;
+  overflow-y: auto;
+}
+.admin-rail-group {
+  padding: 14px 18px 8px;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  color: rgba(var(--accent-rgb), 0.35);
+}
+.admin-rail-group:first-child {
+  padding-top: 0;
+}
+.admin-rail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-left: 2px solid transparent;
+  color: rgba(var(--fg-rgb), 0.7);
+  text-decoration: none;
+  cursor: pointer;
+}
+.admin-rail-item:hover {
+  color: rgba(var(--fg-rgb), 0.9);
+}
+.admin-rail-item.is-active {
+  background: rgba(var(--accent-rgb), 0.1);
+  border-left-color: var(--accent);
+  color: var(--fg-strong);
+}
+.admin-rail-badge {
+  font-size: 10px;
+  color: var(--warn);
+  flex: none;
+}
+.admin-rail-badge.is-live {
+  color: rgba(var(--accent-rgb), 0.4);
+}
+
+.admin-main {
+  flex: 1;
+  min-width: 0;
+  padding: 20px 24px 40px;
+  overflow-x: auto;
+}
+.admin-main h2 {
+  font-size: 21px;
+  margin: 0 0 16px;
+}
+
+@media (max-width: 860px) {
+  .admin-body {
+    flex-direction: column;
+  }
+  .admin-rail {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid rgba(var(--accent-rgb), 0.14);
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 12px;
+    gap: 4px 14px;
+  }
+  .admin-rail-group {
+    display: none;
+  }
+}
+
+/* ---------- shared atoms ---------- */
+
+.admin-btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  font-weight: 600;
+  border: 1px solid transparent;
+  padding: 6px 13px;
+  cursor: pointer;
+  background: transparent;
+  white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+}
+.admin-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.admin-btn-primary {
+  background: var(--accent);
+  color: #0a0c0b;
+  font-weight: 700;
+  border-color: var(--accent);
+}
+.admin-btn-primary:hover:not(:disabled) {
+  box-shadow: 0 0 0 1px rgba(var(--accent-rgb), 0.5);
+}
+.admin-btn-outline {
+  border-color: rgba(var(--accent-rgb), 0.3);
+  color: rgba(var(--fg-rgb), 0.8);
+}
+.admin-btn-outline:hover:not(:disabled) {
+  border-color: rgba(var(--accent-rgb), 0.6);
+  background: rgba(var(--accent-rgb), 0.06);
+}
+.admin-btn-dim {
+  border-color: rgba(var(--accent-rgb), 0.14);
+  color: rgba(var(--accent-rgb), 0.5);
+}
+.admin-btn-dim:hover:not(:disabled) {
+  color: rgba(var(--fg-rgb), 0.8);
+  border-color: rgba(var(--accent-rgb), 0.3);
+}
+.admin-btn-amber {
+  border-color: rgba(var(--warn-rgb), 0.45);
+  color: var(--warn);
+}
+.admin-btn-amber:hover:not(:disabled) {
+  background: rgba(var(--warn-rgb), 0.08);
+}
+.admin-btn-amber-fill {
+  background: var(--warn);
+  color: #241a06;
+  font-weight: 700;
+  border-color: var(--warn);
+}
+.admin-btn-red {
+  border-color: rgba(var(--err-rgb), 0.45);
+  color: var(--err);
+}
+.admin-btn-red:hover:not(:disabled) {
+  background: rgba(var(--err-rgb), 0.08);
+}
+
+.admin-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  padding: 4px 10px;
+  border: 1px solid rgba(var(--accent-rgb), 0.14);
+  color: rgba(var(--accent-rgb), 0.45);
+  cursor: pointer;
+  background: transparent;
+  font-family: var(--mono);
+  white-space: nowrap;
+}
+.admin-pill.is-active {
+  border-color: rgba(var(--accent-rgb), 0.4);
+  color: var(--accent);
+}
+.admin-pill.is-amber {
+  border-color: rgba(var(--warn-rgb), 0.4);
+  color: var(--warn);
+}
+.admin-pill.is-red {
+  border-color: rgba(var(--err-rgb), 0.4);
+  color: var(--err);
+}
+
+.admin-panel {
+  border: 1px solid rgba(var(--accent-rgb), 0.16);
+  padding: 15px 17px;
+}
+.admin-panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: rgba(var(--accent-rgb), 0.4);
+  margin-bottom: 12px;
+}
+.admin-panel-action {
+  color: var(--accent);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+}
+
+.admin-note {
+  font-size: 10.5px;
+  color: rgba(var(--accent-rgb), 0.35);
+  line-height: 1.7;
+  margin-top: 9px;
+}
+
+/* severity markers: amber triangle = warning, red square = critical, dim
+   dot = informational — reused across Overview/Logs/anywhere else. */
+.sev-icon {
+  flex: none;
+}
+.sev-icon.is-warn {
+  color: var(--warn);
+}
+.sev-icon.is-err {
+  color: var(--err);
+}
+.sev-icon.is-info {
+  color: rgba(var(--accent-rgb), 0.5);
+}
+
+/* terminal-style timestamped log line, shared by the login transcript and
+   the live logs viewer. */
+.admin-log-line {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  line-height: 2;
+  white-space: nowrap;
+}
+.admin-log-ts {
+  color: rgba(var(--accent-rgb), 0.4);
+  flex: none;
+}
+.admin-log-line.is-accent .admin-log-ts,
+.admin-log-line.is-accent {
+  color: var(--accent);
+}
+
+.mono-masked {
+  letter-spacing: 0.04em;
+}
+
+code {
+  font-family: var(--mono);
+}

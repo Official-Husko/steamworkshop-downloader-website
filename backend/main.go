@@ -4,6 +4,12 @@
 // prove the container/Redis wiring end to end. Workshop resolution and
 // download proxying will be implemented on top of go-steamcmd
 // (github.com/frantjc/go-steamcmd).
+//
+// A second, admin-only HTTP server listens on ADMIN_PORT alongside the
+// public one, sharing this process and Redis client. It carries no auth
+// of any kind yet — it is a scaffold, kept safe only by never being
+// published outside the docker-compose network. Do not add real admin
+// functionality or handle sensitive data on it until that's addressed.
 package main
 
 import (
@@ -25,6 +31,7 @@ var version = "dev"
 
 func main() {
 	port := getenv("PORT", "8080")
+	adminPort := getenv("ADMIN_PORT", "8090")
 	redisAddr := getenv("REDIS_ADDR", "localhost:6379")
 
 	rdb := redis.NewClient(&redis.Options{
@@ -38,19 +45,23 @@ func main() {
 	mux.HandleFunc("GET /healthz", handleHealthz(rdb))
 	mux.HandleFunc("GET /api/v1/stats", handleStats(rdb))
 	mux.HandleFunc("GET /api/v1/items/{id}", handleResolveItem)
+	srv := newServer(":"+port, logRequests(mux))
 
-	srv := &http.Server{
-		Addr:         ":" + port,
-		Handler:      logRequests(mux),
-		ReadTimeout:  10 * time.Second,
-		WriteTimeout: 30 * time.Second,
-		IdleTimeout:  60 * time.Second,
-	}
+	adminMux := http.NewServeMux()
+	adminMux.HandleFunc("GET /admin/healthz", handleHealthz(rdb))
+	adminSrv := newServer(":"+adminPort, logRequests(adminMux))
 
 	go func() {
 		log.Printf("listening on :%s (redis at %s)", port, redisAddr)
 		if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			log.Fatalf("server error: %v", err)
+		}
+	}()
+
+	go func() {
+		log.Printf("admin listening on :%s (internal only, no auth)", adminPort)
+		if err := adminSrv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+			log.Fatalf("admin server error: %v", err)
 		}
 	}()
 
@@ -61,8 +72,20 @@ func main() {
 	log.Print("shutting down")
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	if err := srv.Shutdown(ctx); err != nil {
-		log.Fatalf("graceful shutdown failed: %v", err)
+	errPublic := srv.Shutdown(ctx)
+	errAdmin := adminSrv.Shutdown(ctx)
+	if errPublic != nil || errAdmin != nil {
+		log.Fatalf("graceful shutdown failed: public=%v admin=%v", errPublic, errAdmin)
+	}
+}
+
+func newServer(addr string, handler http.Handler) *http.Server {
+	return &http.Server{
+		Addr:         addr,
+		Handler:      handler,
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 30 * time.Second,
+		IdleTimeout:  60 * time.Second,
 	}
 }
 

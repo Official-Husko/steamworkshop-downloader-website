@@ -1,0 +1,98 @@
+.service-state {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  animation: fade-up 0.3s ease both;
+}
+
+.service-state-inner {
+  border: 1px solid var(--card-border);
+  padding: 34px 36px;
+  max-width: 460px;
+  width: 100%;
+}
+
+.service-state-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: rgba(var(--accent-rgb), 0.5);
+  margin-bottom: 10px;
+}
+.service-state-eyebrow.is-warn {
+  color: var(--warn);
+}
+
+.service-state-heading {
+  font-size: 26px;
+  margin-bottom: 14px;
+}
+
+.service-state-body {
+  font-size: 13px;
+  line-height: 1.8;
+  color: rgba(var(--fg-rgb), 0.78);
+  margin-bottom: 22px;
+}
+
+.service-countdown-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+  background: rgba(var(--accent-rgb), 0.04);
+  padding: 16px 20px;
+  margin-bottom: 22px;
+}
+.service-countdown-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.service-countdown-caption {
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  color: rgba(var(--accent-rgb), 0.5);
+  margin-top: 4px;
+}
+.service-countdown-note {
+  font-size: 11px;
+  color: rgba(var(--accent-rgb), 0.4);
+  line-height: 1.7;
+  text-align: right;
+}
+
+.service-meta-box {
+  border: 1px solid rgba(var(--warn-rgb), 0.3);
+  background: rgba(var(--warn-rgb), 0.05);
+  padding: 14px 18px;
+  margin-bottom: 22px;
+  font-size: 12px;
+}
+.service-meta-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  color: rgba(var(--fg-rgb), 0.8);
+}
+.service-meta-row .val.is-warn {
+  color: var(--warn);
+}
+.service-meta-row .val.is-ok {
+  color: var(--accent);
+}
+
+.service-state-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.service-state-footer {
+  font-size: 10.5px;
+  color: rgba(var(--accent-rgb), 0.35);
+  line-height: 1.7;
+  padding-top: 18px;
+  border-top: 1px solid rgba(var(--accent-rgb), 0.12);
+}

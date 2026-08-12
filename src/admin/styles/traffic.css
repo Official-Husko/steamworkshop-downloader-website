@@ -1,0 +1,147 @@
+.traffic-chart-legend {
+  display: flex;
+  gap: 16px;
+}
+.traffic-chart-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.traffic-stacked-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 120px;
+}
+.traffic-stacked-bar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1px;
+  height: 100%;
+}
+.traffic-stacked-seg {
+  min-height: 1px;
+}
+
+.traffic-breakdown-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.traffic-breakdown-row > .admin-panel {
+  flex: 1;
+}
+.traffic-bar-item {
+  margin-bottom: 8px;
+}
+.traffic-bar-item:last-child {
+  margin-bottom: 0;
+}
+.traffic-bar-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3px;
+  font-size: 11.5px;
+}
+.traffic-bar-label {
+  color: rgba(var(--fg-rgb), 0.85);
+}
+.traffic-bar-value {
+  color: rgba(var(--accent-rgb), 0.5);
+}
+.traffic-bar-value.is-warn {
+  color: var(--warn);
+}
+.traffic-bar-track {
+  height: 3px;
+  background: rgba(var(--accent-rgb), 0.12);
+}
+.traffic-bar-fill {
+  height: 100%;
+}
+.traffic-bar-fill.is-ok {
+  background: var(--accent);
+}
+.traffic-bar-fill.is-dim {
+  background: rgba(var(--accent-rgb), 0.7);
+}
+.traffic-bar-fill.is-faint {
+  background: rgba(var(--accent-rgb), 0.55);
+}
+.traffic-bar-fill.is-warn {
+  background: var(--warn);
+}
+
+.traffic-addr-table {
+  border: 1px solid rgba(var(--accent-rgb), 0.14);
+  font-size: 11.5px;
+}
+.traffic-addr-head {
+  display: flex;
+  gap: 12px;
+  padding: 9px 14px;
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.14);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  color: rgba(var(--accent-rgb), 0.4);
+}
+.traffic-addr-row {
+  display: flex;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.07);
+  align-items: center;
+}
+.traffic-addr-row:last-child {
+  border-bottom: none;
+}
+.traffic-addr-row.is-err {
+  background: rgba(var(--err-rgb), 0.06);
+}
+.traffic-addr-row .col-ip {
+  width: 118px;
+  color: rgba(var(--fg-rgb), 0.8);
+}
+.traffic-addr-row.is-err .col-ip {
+  color: var(--err);
+}
+.traffic-addr-row .col-geo {
+  width: 40px;
+  color: rgba(var(--accent-rgb), 0.5);
+}
+.traffic-addr-row .col-agent {
+  width: 190px;
+  color: rgba(var(--fg-rgb), 0.7);
+}
+.traffic-addr-row .col-agent.is-amber {
+  color: var(--warn);
+}
+.traffic-addr-row .col-reqs {
+  width: 70px;
+  text-align: right;
+}
+.traffic-addr-row.is-err .col-reqs {
+  color: var(--err);
+}
+.traffic-addr-row .col-egress {
+  width: 80px;
+  text-align: right;
+  color: rgba(var(--accent-rgb), 0.6);
+}
+.traffic-addr-row .col-note {
+  flex: 1;
+  font-size: 10.5px;
+  color: rgba(var(--accent-rgb), 0.4);
+}
+.traffic-addr-row.is-err .col-note {
+  color: var(--err);
+}
+.traffic-addr-row .col-actions {
+  width: 170px;
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
