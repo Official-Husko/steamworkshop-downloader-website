@@ -30,6 +30,13 @@ services:
       PORT: 8080
       ADMIN_PORT: 8090
       REDIS_ADDR: redis:6379
+      CACHE_DIR: /data
+      # Only the daily game-catalog refresh needs this (IStoreService is
+      # keyed) -- item/collection resolution itself is key-free and keeps
+      # working without it, just with appids instead of game names.
+      STEAM_API_KEY: ${STEAM_API_KEY:-}
+    volumes:
+      - backend-cache:/data
     depends_on:
       redis:
         condition: service_healthy
@@ -56,3 +63,4 @@ services:
 
 volumes:
   redis-data:
+  backend-cache:

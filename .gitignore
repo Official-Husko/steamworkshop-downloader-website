@@ -18,6 +18,9 @@ dist-images
 backend/steamworkshop-downloader-backend
 backend/server
 
+# Local resolve/catalog cache (CACHE_DIR default for bare `go run .`)
+backend/data
+
 # local env overrides
 .env
 

@@ -7,6 +7,7 @@ import { useRecentLookups } from '../hooks/useRecentLookups'
 import { useSEO } from '../hooks/useSEO'
 import { useQuotaGate } from '../hooks/useQuotaGate'
 import { useDownloadQueue } from '../hooks/useDownloadQueue'
+import { renderBBCode, bbcodeToPlainText } from '../lib/bbcode'
 import { DownloadModal } from './DownloadModal'
 import { TypewriterText } from './TypewriterText'
 import '../styles/item-detail.css'
@@ -16,7 +17,7 @@ type Tab = 'description' | 'changelog' | 'dependencies'
 export function ItemDetailView({ item }: { item: WorkshopItem }) {
   useSEO({
     title: item.title,
-    description: `Download "${item.title}" (${formatBytes(item.sizeBytes)}) from Steam Workshop via MODRELAY. ${item.descriptionIntro}`.slice(
+    description: `Download "${item.title}" (${formatBytes(item.sizeBytes)}) from Steam Workshop via MODRELAY. ${bbcodeToPlainText(item.descriptionIntro)}`.slice(
       0,
       200,
     ),
@@ -64,7 +65,16 @@ export function ItemDetailView({ item }: { item: WorkshopItem }) {
 
       <div class="page item-body">
         <aside class="item-side">
-          <div class="item-preview">{showApiNames ? 'm_hPreviewFile' : 'preview image'} · 636×358</div>
+          <div class="item-preview">
+            {item.previewUrl ? (
+              <>
+                <img src={item.previewUrl} alt={item.title} class="item-preview-img" />
+                {showApiNames && <span class="item-preview-label">m_hPreviewFile</span>}
+              </>
+            ) : (
+              <>{showApiNames ? 'm_hPreviewFile' : 'preview image'} · 636×358</>
+            )}
+          </div>
 
           <div class="item-fields-head">
             <span>DETAILS</span>
@@ -249,23 +259,20 @@ function Field({ label, value, accent }: { label: string; value: string; accent?
 
 function DescriptionTab({ item }: { item: WorkshopItem }) {
   const [expanded, setExpanded] = useState(false)
+  const hasBullets = item.descriptionBullets.length > 0
   return (
     <>
       <div class={expanded ? 'desc-clip is-expanded' : 'desc-clip'}>
-        <div class="desc-heading">[h1] {item.descriptionHeading} [/h1]</div>
-        <p>{item.descriptionIntro}</p>
-        <div class="accent-inline" style={{ marginTop: '14px', display: 'block' }}>
-          [list]
-        </div>
-        <ul class="desc-list">
-          {item.descriptionBullets.map((b) => (
-            <li key={b}>{b}</li>
-          ))}
-        </ul>
-        <div class="accent-inline" style={{ display: 'block' }}>
-          [/list]
-        </div>
-        <span class="desc-outro">{item.descriptionOutro}</span>
+        {item.descriptionHeading && <div class="desc-heading">{renderBBCode(item.descriptionHeading)}</div>}
+        <div class="desc-body">{renderBBCode(item.descriptionIntro)}</div>
+        {hasBullets && (
+          <ul class="desc-list">
+            {item.descriptionBullets.map((b) => (
+              <li key={b}>{b}</li>
+            ))}
+          </ul>
+        )}
+        {item.descriptionOutro && <div class="desc-outro">{renderBBCode(item.descriptionOutro)}</div>}
         <div class="desc-fade" aria-hidden="true" />
       </div>
       <button type="button" class="desc-expand-btn" onClick={() => setExpanded((v) => !v)}>

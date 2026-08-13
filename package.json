@@ -9,7 +9,10 @@
     "preview": "vite preview",
     "dev:admin": "vite --config vite.admin.config.ts",
     "build:admin": "tsc -b && vite build --config vite.admin.config.ts",
-    "dev:all": "concurrently -n public,admin -c blue,green \"npm run dev\" \"npm run dev:admin\""
+    "dev:backend": "cd backend && (set -a; [ -f ../.env ] && . ../.env; set +a; go run .)",
+    "dev:clean": "bash scripts/free-dev-ports.sh",
+    "predev:all": "npm run dev:clean",
+    "dev:all": "concurrently -n public,admin,backend -c blue,green,yellow \"npm run dev\" \"npm run dev:admin\" \"npm run dev:backend\""
   },
   "dependencies": {
     "preact": "^10.29.7"

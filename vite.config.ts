@@ -6,4 +6,12 @@ import { appDefines } from './vite.shared.ts'
 export default defineConfig({
   plugins: [preact()],
   define: appDefines,
+  server: {
+    // Lets `npm run dev` talk to a locally-running backend (`go run .`,
+    // default port 8080) without needing the full docker compose/nginx
+    // stack just to iterate on the frontend.
+    proxy: {
+      '/api': 'http://localhost:8080',
+    },
+  },
 })

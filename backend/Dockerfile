@@ -7,14 +7,15 @@ WORKDIR /src
 COPY go.mod go.sum ./
 RUN go mod download
 
-COPY main.go ./
+COPY *.go ./
 
 ARG VERSION=dev
 RUN CGO_ENABLED=0 go build -trimpath -ldflags "-s -w -X main.version=${VERSION}" -o /out/server .
 
 FROM alpine:3.20
 RUN apk add --no-cache ca-certificates wget && \
-    adduser -D -H -u 10001 app
+    adduser -D -H -u 10001 app && \
+    mkdir -p /data && chown app:app /data
 COPY --from=build /out/server /usr/local/bin/server
 
 USER app

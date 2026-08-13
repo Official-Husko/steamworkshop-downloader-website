@@ -1,9 +1,10 @@
 // Command server is the API backend for the Steam Workshop downloader.
 //
-// This is a minimal scaffold: health checking and a Redis-backed counter
-// prove the container/Redis wiring end to end. Workshop resolution and
-// download proxying will be implemented on top of go-steamcmd
-// (github.com/frantjc/go-steamcmd).
+// Health checking and a Redis-backed counter prove the container/Redis
+// wiring end to end. Workshop metadata resolution (steamapi.go,
+// resolve.go, cache.go) talks to Steam's public Web API directly; real
+// file downloads via go-steamcmd (github.com/frantjc/go-steamcmd) are a
+// later phase and not implemented yet.
 //
 // A second, admin-only HTTP server listens on ADMIN_PORT alongside the
 // public one, sharing this process and Redis client. It carries no auth
@@ -33,6 +34,8 @@ func main() {
 	port := getenv("PORT", "8080")
 	adminPort := getenv("ADMIN_PORT", "8090")
 	redisAddr := getenv("REDIS_ADDR", "localhost:6379")
+	cacheDir := getenv("CACHE_DIR", "./data")
+	steamAPIKey := os.Getenv("STEAM_API_KEY") // no fallback -- catalog refresh just logs and stays empty without it
 
 	rdb := redis.NewClient(&redis.Options{
 		Addr:        redisAddr,
@@ -41,10 +44,23 @@ func main() {
 	})
 	defer rdb.Close()
 
+	cacheStore, err := newStore(cacheDir)
+	if err != nil {
+		log.Fatalf("cache store init failed: %v", err)
+	}
+	steamClient := NewSteamClient(steamAPIKey)
+	itemResolver := newResolver(steamClient, cacheStore)
+	ipLimiter := newIPRateLimiter()
+
+	backgroundCtx, cancelBackground := context.WithCancel(context.Background())
+	defer cancelBackground()
+	startCacheTickers(backgroundCtx, cacheStore, steamClient)
+	ipLimiter.startJanitor(backgroundCtx)
+
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /healthz", handleHealthz(rdb))
 	mux.HandleFunc("GET /api/v1/stats", handleStats(rdb))
-	mux.HandleFunc("GET /api/v1/items/{id}", handleResolveItem)
+	mux.Handle("GET /api/v1/items/{id}", rateLimitMiddleware(ipLimiter, handleResolveItem(itemResolver)))
 	srv := newServer(":"+port, logRequests(mux))
 
 	adminMux := http.NewServeMux()
@@ -70,12 +86,20 @@ func main() {
 	<-stop
 
 	log.Print("shutting down")
+	cancelBackground()
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	errPublic := srv.Shutdown(ctx)
 	errAdmin := adminSrv.Shutdown(ctx)
 	if errPublic != nil || errAdmin != nil {
 		log.Fatalf("graceful shutdown failed: public=%v admin=%v", errPublic, errAdmin)
+	}
+
+	// Best-effort: a lost cache write only costs extra Steam calls after
+	// restart, never real data loss, so this logs rather than treats
+	// failure as fatal (unlike the HTTP shutdown errors above).
+	if err := cacheStore.flush(); err != nil {
+		log.Printf("cache flush on shutdown failed: %v", err)
 	}
 }
 
@@ -130,16 +154,6 @@ func handleStats(rdb *redis.Client) http.HandlerFunc {
 			"requests_total": count,
 		})
 	}
-}
-
-// handleResolveItem is a placeholder for Workshop item resolution via
-// go-steamcmd. Not implemented yet.
-func handleResolveItem(w http.ResponseWriter, r *http.Request) {
-	writeJSON(w, http.StatusNotImplemented, map[string]string{
-		"error":   "not_implemented",
-		"message": "workshop resolution is not wired up yet",
-		"id":      r.PathValue("id"),
-	})
 }
 
 func writeJSON(w http.ResponseWriter, code int, body any) {

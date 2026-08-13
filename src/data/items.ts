@@ -5,6 +5,7 @@ export interface WorkshopItem {
   game: string
   appId: string
   fileType: string
+  previewUrl?: string
   sizeBytes: number
   createdAt: string
   updatedAt: string
@@ -26,12 +27,6 @@ export interface WorkshopItem {
   changelogCount: number
   resolveMs: number
   status: 'ok'
-}
-
-export interface RemovedItem {
-  id: string
-  title: string
-  status: 'removed' | 'private'
 }
 
 export interface CollectionChild {
@@ -210,60 +205,12 @@ export const items: Record<string, WorkshopItem> = {
   },
 }
 
-export const removedItems: Record<string, RemovedItem> = {
-  '2988112034': { id: '2988112034', title: 'Ancient Ruins Expansion', status: 'removed' },
-  '2761009918': { id: '2761009918', title: 'Legacy Camera Tweaks', status: 'private' },
-}
-
-const fillerChildren: CollectionChild[] = [
-  { id: '3200011122', title: 'Signal Priority Overlay', sizeBytes: Math.round(6.4 * MB), status: 'ok' },
-  { id: '3200011123', title: 'Junction Debug Icons', sizeBytes: Math.round(1.2 * MB), status: 'ok' },
-  { id: '3200011124', title: 'Freight Contract Balance Pass', sizeBytes: Math.round(14.7 * MB), status: 'ok' },
-  { id: '3200011125', title: 'Station Throughput HUD', sizeBytes: Math.round(2.8 * MB), status: 'ok' },
-  { id: '3200011126', title: 'Vanilla-Safe Track Snap Fix', sizeBytes: Math.round(0.9 * MB), status: 'ok' },
-  { id: '3200011127', title: 'Extra Camera Angles', sizeBytes: Math.round(4.3 * MB), status: 'ok' },
-  { id: '3200011128', title: 'Load Order Helper', sizeBytes: Math.round(0.4 * MB), status: 'ok' },
-  { id: '3200011129', title: 'Colorblind Signal Palette', sizeBytes: Math.round(1.6 * MB), status: 'ok' },
-  { id: '3200011130', title: 'Compact Minimap', sizeBytes: Math.round(5.9 * MB), status: 'ok' },
-  { id: '3200011131', title: 'Autosave Reminder Chime', sizeBytes: Math.round(0.2 * MB), status: 'ok' },
-]
-
-export const collections: Record<string, WorkshopCollection> = {
-  '3011884502': {
-    id: '3011884502',
-    title: 'Essential QoL Collection',
-    owner: 'loop_gardener',
-    game: 'Stellar Drift',
-    updatedAt: '2026-07-29',
-    numChildren: 17,
-    status: 'ok',
-    children: [
-      { id: '2874113045', title: 'Overhauled Rail Network', sizeBytes: Math.round(184.2 * MB), status: 'ok' },
-      { id: '1902334761', title: 'Nightfall Weather Pack', sizeBytes: Math.round(42.8 * MB), status: 'ok' },
-      { id: '2233901847', title: 'Faster Build Menu', sizeBytes: Math.round(3.1 * MB), status: 'ok', dependsOn: '1902334761' },
-      { id: '2988112034', title: 'Ancient Ruins Expansion', status: 'removed' },
-      { id: '2761009918', title: 'Legacy Camera Tweaks', status: 'private' },
-      { id: '3104778210', title: 'Cargo Contracts UI', sizeBytes: Math.round(11.9 * MB), status: 'ok' },
-      { id: '2455610093', title: 'Terrain Blend Fixes', sizeBytes: Math.round(88.0 * MB), status: 'ok' },
-      ...fillerChildren,
-    ],
-  },
-}
-
 export type Resolved =
   | { kind: 'item'; item: WorkshopItem }
   | { kind: 'collection'; collection: WorkshopCollection }
   | { kind: 'removed'; id: string; title?: string }
   | { kind: 'private'; id: string; title?: string }
   | { kind: 'not-found'; id: string }
-
-export function resolveId(id: string): Resolved {
-  if (items[id]) return { kind: 'item', item: items[id] }
-  if (collections[id]) return { kind: 'collection', collection: collections[id] }
-  const removed = removedItems[id]
-  if (removed) return { kind: removed.status, id, title: removed.title }
-  return { kind: 'not-found', id }
-}
 
 export const donorNames = [
   'vaultkeeper_77',
